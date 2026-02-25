@@ -16,6 +16,13 @@ const MODELS_DIR = path.join(process.cwd(), 'public', 'assets', 'models');
 const IMAGES_DIR = path.join(process.cwd(), 'public', 'assets', 'images');
 const OUTPUT_JSON_PATH = path.join(process.cwd(), 'public', 'products.json');
 
+// CI DETECTION: If models directory doesn't exist AND products.json already exists,
+// skip rebinding to preserve the committed product catalogue during cloud builds.
+if (!fs.existsSync(MODELS_DIR) && fs.existsSync(OUTPUT_JSON_PATH)) {
+    console.log("☁️ CI/Cloud build detected (no local models). Skipping rebinding — using committed products.json.");
+    process.exit(0);
+}
+
 // MAIN
 async function main() {
     console.log("🧵 Stitch MCP Discovery-First Binding Started (JS Version)...");
