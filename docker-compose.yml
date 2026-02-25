@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  ls-lifestyle-web:
+    container_name: ls-lifestyle-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000

@@ -1,0 +1,28 @@
+{
+  "hosting": {
+    "site": "ls-furniture-d53dd",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "Dockerfile",
+      "docker-compose.yml",
+      "scripts/**",
+      "public/assets/models/**",
+      ".next/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "ssrlsfurnitured53dd",
+          "region": "us-central1"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}

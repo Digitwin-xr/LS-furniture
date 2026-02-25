@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Debug logs
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large 3D model assets (served from Firebase Storage)
+public/assets/models/*.glb
+
+# Temporary files
+models_deploy_temp_large/
+
+# IDE
+.idea/
+.vscode/
+
+# Firebase
+.firebase/

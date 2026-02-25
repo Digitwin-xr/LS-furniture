@@ -1,0 +1,419 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   LS LIFESTYLE FURNITURE — VIBRANT DESIGN TOKEN SYSTEM
+   ═══════════════════════════════════════════════════════════════
+   GREEN  → Brighter, energetic primary
+   RED    → Bold accents, sale energy, NOW price
+   YELLOW → Vibrant summer pop throughout
+   NEUTRAL DARK → Warm charcoal (no pure black)
+   ═══════════════════════════════════════════════════════════════ */
+
+@theme {
+  --color-brand-green: #7DBB42;
+  /* Brighter Light Green */
+  --color-brand-green-deep: #4A8515;
+  /* Energetic Deep Green */
+  --color-brand-green-light: #F2F8EB;
+  --color-brand-red: #E31E24;
+  --color-brand-red-deep: #B01A28;
+  /* Keep deep red or match it? Let's leave deep as is or update slightly if needed, I will just leave it. */
+  --color-brand-yellow: #FFE926;
+  --color-brand-yellow-warm: #FFD700;
+
+  /* ── Neutral System (NO BLACK) ── */
+  --color-brand-charcoal: #3D4451;
+  --color-brand-gray-neutral: #6B7280;
+  --color-brand-sand: #FAFAF6;
+
+  /* ── Semantic Aliases ── */
+  --color-ls-red: #E31E24;
+  --color-ls-yellow: #FFE926;
+  --color-ls-green: #8CC63F;
+
+  /* ── Animation Tokens ── */
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-badge-float: badge-float 3s ease-in-out infinite;
+  --animate-summer-glow: summer-glow 4s ease-in-out infinite;
+}
+
+/* ── Cinematic Easing ── */
+/* ── Cinematic Easing & Brand Variables ── */
+:root {
+  --ease-cinematic: cubic-bezier(0.23, 1, 0.32, 1);
+  --spacing-unit: 8px;
+
+  /* Brand Variable Defaults (LS Lifestyle) */
+  --brand-primary: #1D2A2A;
+  --brand-secondary: #A6C065;
+  --brand-accent: #E51E25;
+  --brand-background: #FAFAFA;
+  --brand-text: #343F48;
+  --brand-charcoal: #343F48;
+  --brand-sand: #EAE2D5;
+  --brand-yellow: #FED700;
+}
+
+/* ═══════════════════════════════════════
+   GRADIENT SYSTEM
+   ═══════════════════════════════════════ */
+
+@utility summer-gradient {
+  background: linear-gradient(135deg, #FAFAF6 0%, #EAF5E0 50%, #FFFDE6 100%);
+}
+
+@utility summer-glow-bg {
+  position: relative;
+}
+
+.summer-glow-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(255, 233, 38, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 30%, rgba(125, 187, 66, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(227, 30, 36, 0.04) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════════
+   DECORATIVE UTILITIES
+   ═══════════════════════════════════════ */
+
+@utility starburst {
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+@utility spotlight-glow {
+  position: relative;
+}
+
+.spotlight-glow::before {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 40px;
+  background: radial-gradient(ellipse at center, rgba(125, 187, 66, 0.2) 0%, rgba(125, 187, 66, 0) 70%);
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════════
+   PAPER PEEL EFFECT
+   ═══════════════════════════════════════ */
+
+@utility paper-peel {
+  position: relative;
+  background: white;
+  box-shadow: 0 20px 40px rgba(55, 65, 81, 0.05);
+  border: 1px solid rgba(55, 65, 81, 0.02);
+}
+
+.paper-peel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 32px 32px 0;
+  border-color: transparent transparent #fefefe transparent;
+  box-shadow: -5px 5px 15px rgba(55, 65, 81, 0.08);
+  transition: all 0.5s var(--ease-cinematic);
+}
+
+.paper-peel:hover::after {
+  border-width: 0 48px 48px 0;
+  border-color: transparent transparent #FFE926 transparent;
+}
+
+/* ═══════════════════════════════════════
+   KEYFRAMES
+   ═══════════════════════════════════════ */
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  50% {
+    transform: translateY(-20px) rotate(1deg);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes badge-float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes summer-glow {
+
+  0%,
+  100% {
+    opacity: 0.5;
+    filter: blur(40px);
+  }
+
+  50% {
+    opacity: 0.85;
+    filter: blur(60px);
+  }
+}
+
+@keyframes btn-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(227, 30, 36, 0.35);
+  }
+
+  70% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 20px rgba(227, 30, 36, 0);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(227, 30, 36, 0);
+  }
+}
+
+@keyframes fire-glow {
+
+  0%,
+  100% {
+    text-shadow: 0 0 8px rgba(227, 30, 36, 0.3);
+  }
+
+  50% {
+    text-shadow: 0 0 20px rgba(227, 30, 36, 0.6);
+  }
+}
+
+@keyframes pulse-subtle {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(125, 187, 66, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 0 10px rgba(125, 187, 66, 0);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ═══════════════════════════════════════
+   SELECTION SWATCH
+   ═══════════════════════════════════════ */
+
+@utility swatch-selected {
+  outline: 4px solid var(--color-brand-yellow);
+  outline-offset: 4px;
+  transform: scale(1.1);
+  box-shadow: 0 10px 30px rgba(255, 233, 38, 0.4);
+}
+
+/* ═══════════════════════════════════════
+   BASE BODY
+   ═══════════════════════════════════════ */
+
+body {
+  background: #FAFAFA;
+  color: #3D4451;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════
+   CARD SYSTEM
+   ═══════════════════════════════════════ */
+
+@utility card-elevated {
+  background: white;
+  border-radius: 24px;
+  border: 1px solid rgba(55, 65, 81, 0.03);
+  box-shadow: 0 25px 50px -12px rgba(55, 65, 81, 0.05);
+  transition: all 0.5s var(--ease-cinematic);
+}
+
+.card-elevated:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 40px 80px -15px rgba(55, 65, 81, 0.1);
+}
+
+/* ═══════════════════════════════════════
+   BUTTON SYSTEM
+   Primary:   Green bg, white text, pill
+   Secondary: White bg, green border, pill
+   Accent:    Red bg, white text, pill (for sale CTAs)
+   Yellow:    Yellow bg, dark text, pill (for AR CTAs)
+   ═══════════════════════════════════════ */
+
+.btn-primary {
+  background-color: #8CC63F;
+  /* Updated to Light Green */
+  color: white;
+  border-radius: 9999px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s var(--ease-cinematic);
+  box-shadow: 0 10px 30px -8px rgba(140, 198, 63, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #a2d261;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -8px rgba(140, 198, 63, 0.4);
+}
+
+.btn-secondary {
+  background-color: white;
+  color: #5D8E28;
+  border: 2px solid #8CC63F;
+  border-radius: 9999px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s var(--ease-cinematic);
+}
+
+.btn-secondary:hover {
+  background-color: #F2F8EB;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -8px rgba(140, 198, 63, 0.2);
+}
+
+.btn-accent {
+  background-color: #E31E24;
+  color: white;
+  border-radius: 9999px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s var(--ease-cinematic);
+  box-shadow: 0 10px 30px -8px rgba(227, 30, 36, 0.35);
+}
+
+.btn-accent:hover {
+  background-color: #B01A28;
+  /* Slightly darker shade */
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -8px rgba(227, 30, 36, 0.5);
+}
+
+.btn-yellow {
+  background-color: #FFE926;
+  color: #3D4451;
+  border-radius: 9999px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s var(--ease-cinematic);
+  box-shadow: 0 10px 30px -8px rgba(255, 233, 38, 0.4);
+}
+
+.btn-yellow:hover {
+  background-color: #FFD700;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -8px rgba(255, 215, 0, 0.5);
+}
+
+.btn-pulsate {
+  animation: btn-pulse 3s infinite var(--ease-cinematic);
+  box-shadow: 0 15px 40px -10px rgba(227, 30, 36, 0.3);
+}
+
+/* ═══════════════════════════════════════
+   PREMIUM SHADOW
+   ═══════════════════════════════════════ */
+
+@utility shadow-premium {
+  box-shadow: 20px 20px 60px #eaeaeb, -20px -20px 60px #ffffff;
+}
+
+/* ═══════════════════════════════════════
+   TEXT UTILITIES
+   ═══════════════════════════════════════ */
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@utility font-impact {
+  font-family: Impact, "Arial Black", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* ═══════════════════════════════════════
+   SUMMER BADGE GLOW EFFECT
+   ═══════════════════════════════════════ */
+
+.summer-badge-glow {
+  position: relative;
+}
+
+.summer-badge-glow::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  background: radial-gradient(ellipse, rgba(255, 233, 38, 0.35) 0%, transparent 70%);
+  border-radius: 9999px;
+  animation: summer-glow 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ═══════════════════════════════════════
+   SALE RIBBON
+   ═══════════════════════════════════════ */
+
+.sale-ribbon {
+  background: linear-gradient(135deg, #E31E24, #B01A28);
+  color: #FFE926;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  box-shadow: 0 8px 24px rgba(227, 30, 36, 0.4);
+}
