@@ -54,11 +54,7 @@ export default function ModelViewer({
     const [showTooltip, setShowTooltip] = useState(true);
     const [isPulsing, setIsPulsing] = useState(true);
 
-    // Enforce safe absolute model loading pattern.
-    // Fetching from Firebase Storage to handle large file sizes.
-    const baseUrl = "https://firebasestorage.googleapis.com/v0/b/ls-furniture-d53dd.firebasestorage.app/o/assets%2Fmodels%2F";
-    const fileName = src.split('/').pop() || src;
-    const safeSrc = `${baseUrl}${encodeURIComponent(fileName)}?alt=media`;
+    const safeSrc = src;
 
     useEffect(() => {
     }, [src]);

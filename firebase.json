@@ -9,7 +9,6 @@
       "Dockerfile",
       "docker-compose.yml",
       "scripts/**",
-      "public/assets/models/**",
       ".next/**"
     ],
     "rewrites": [

@@ -70,11 +70,7 @@ export default function Hover3DPreview({ modelPath, alt }: Hover3DPreviewProps) 
                 dirLight.position.set(2, 5, 2);
                 scene.add(dirLight);
 
-                // Enforce safe absolute model loading pattern.
-                // Fetching from Firebase Storage to handle large file sizes.
-                const baseUrl = "https://firebasestorage.googleapis.com/v0/b/ls-furniture-d53dd.firebasestorage.app/o/assets%2Fmodels%2F";
-                const fileName = modelPath.split('/').pop() || modelPath;
-                const safeSrc = `${baseUrl}${encodeURIComponent(fileName)}?alt=media`;
+                const safeSrc = modelPath;
 
                 // Loading
                 const loader = new GLTFLoader();
