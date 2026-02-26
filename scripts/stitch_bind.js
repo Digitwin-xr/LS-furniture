@@ -84,6 +84,13 @@ async function main() {
 
     // Step A: Primary Pairing (Models ↔ CSV)
     modelFiles.forEach(modelFile => {
+        const sanitized = sanitizeFilename(modelFile);
+        if (modelFile !== sanitized) {
+            fs.renameSync(path.join(MODELS_DIR, modelFile), path.join(MODELS_DIR, sanitized));
+            console.log(`🏷️ Sanitized: ${modelFile} -> ${sanitized}`);
+            modelFile = sanitized; // Update reference for rest of loop
+        }
+
         const bestCSVMatchIndex = findBestCSVMatch(modelFile, rawProducts);
 
         if (bestCSVMatchIndex !== -1 && !pairedCSVRows.has(bestCSVMatchIndex)) {
@@ -107,10 +114,14 @@ async function main() {
     console.log(`🔗 Paired ${pairedModels.size} models with CSV entries.`);
 
     // Step B: Inferred Products (Models with no CSV entry)
-    const unpairedModels = modelFiles.filter(m => !pairedModels.has(m));
-    unpairedModels.forEach(modelFile => {
+    const currentModelFiles = fs.readdirSync(MODELS_DIR).filter(f => f.toLowerCase().endsWith('.glb'));
+    const pairedModelsNormalized = new Set(Array.from(pairedModels).map(m => m.toLowerCase()));
+    
+    currentModelFiles.forEach(modelFile => {
+        if (pairedModelsNormalized.has(modelFile.toLowerCase())) return;
+
         const inferredName = inferNameFromFilename(modelFile);
-        const inferredSKU = modelFile.split(' ')[0].replace('.glb', '');
+        const inferredSKU = modelFile.split('_')[0].replace('.glb', '').toUpperCase();
         const matchedImage = findBestImageMatch(inferredSKU, inferredName, imageFiles);
 
         finalProducts.push({
@@ -127,8 +138,8 @@ async function main() {
         });
     });
 
-    if (unpairedModels.length > 0) {
-        console.log(`✨ Generated ${unpairedModels.length} inferred product entries from orphan models.`);
+    if (finalProducts.length > (pairedCSVRows.size + rawProducts.length - pairedCSVRows.size)) {
+         console.log(`✨ Generated inferred product entries from orphan models.`);
     }
 
     // Step C: Unpaired CSV entries
@@ -154,7 +165,16 @@ async function main() {
     const totalWithModels = finalProducts.filter(p => p.hasModel).length;
     console.log(`\n📊 FINAL REPORT:`);
     console.log(`✅ Total Products: ${finalProducts.length}`);
-    console.log(`📦 Products with Models: ${totalWithModels} / ${modelFiles.length} GLBs`);
+    console.log(`📦 Products with Models: ${totalWithModels} / ${currentModelFiles.length} GLBs`);
+}
+
+function sanitizeFilename(f) {
+    const ext = path.extname(f);
+    const base = path.basename(f, ext);
+    return base.toLowerCase()
+        .replace(/[^a-z0-9]/g, '_')
+        .replace(/_{2,}/g, '_')
+        .replace(/_$/, '') + ext.toLowerCase();
 }
 
 // HELPERS
