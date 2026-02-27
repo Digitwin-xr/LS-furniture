@@ -16,6 +16,11 @@ const MODELS_DIR = path.join(process.cwd(), 'public', 'assets', 'models');
 const IMAGES_DIR = path.join(process.cwd(), 'public', 'assets', 'images');
 const OUTPUT_JSON_PATH = path.join(process.cwd(), 'public', 'products.json');
 
+// CONFIG - CLOUD & FILTERING
+const MAX_MODEL_SIZE_MB = 10;
+// Set this to your Vercel Blob base URL once available (e.g. 'https://xxx.public.blob.vercel-storage.com')
+const BLOB_BASE_URL = 'https://o45t2gs3y3cfhz4u.public.blob.vercel-storage.com';
+
 // CI DETECTION: If models directory doesn't exist AND products.json already exists,
 // skip rebinding to preserve the committed product catalogue during cloud builds.
 if (!fs.existsSync(MODELS_DIR) && fs.existsSync(OUTPUT_JSON_PATH)) {
@@ -95,12 +100,34 @@ async function main() {
 
         if (bestCSVMatchIndex !== -1 && !pairedCSVRows.has(bestCSVMatchIndex)) {
             const product = rawProducts[bestCSVMatchIndex];
+
+            // Size Check
+            const stats = fs.statSync(path.join(MODELS_DIR, modelFile));
+            const sizeMB = stats.size / (1024 * 1024);
+            if (sizeMB > MAX_MODEL_SIZE_MB) {
+                console.log(`⚠️ Skipping large model (${sizeMB.toFixed(1)}MB): ${modelFile}`);
+                finalProducts.push({
+                    ...product,
+                    SKU: getUniqueSKU(product.SKU),
+                    modelPath: null,
+                    imagePath: null,
+                    hasModel: false,
+                    hasImage: false
+                });
+                pairedCSVRows.add(bestCSVMatchIndex);
+                return;
+            }
+
             const matchedImage = findBestImageMatch(product.SKU, product["Product Name"], imageFiles);
+
+            const modelUrl = BLOB_BASE_URL
+                ? `${BLOB_BASE_URL}/${modelFile}`
+                : `/assets/models/${modelFile}`;
 
             finalProducts.push({
                 ...product,
                 SKU: getUniqueSKU(product.SKU),
-                modelPath: `/assets/models/${modelFile}`,
+                modelPath: modelUrl,
                 imagePath: matchedImage ? `/assets/images/${matchedImage}` : null,
                 hasModel: true,
                 hasImage: !!matchedImage
@@ -116,13 +143,38 @@ async function main() {
     // Step B: Inferred Products (Models with no CSV entry)
     const currentModelFiles = fs.readdirSync(MODELS_DIR).filter(f => f.toLowerCase().endsWith('.glb'));
     const pairedModelsNormalized = new Set(Array.from(pairedModels).map(m => m.toLowerCase()));
-    
+
     currentModelFiles.forEach(modelFile => {
         if (pairedModelsNormalized.has(modelFile.toLowerCase())) return;
 
         const inferredName = inferNameFromFilename(modelFile);
         const inferredSKU = modelFile.split('_')[0].replace('.glb', '').toUpperCase();
+
+        // Size Check for inferred
+        const stats = fs.statSync(path.join(MODELS_DIR, modelFile));
+        const sizeMB = stats.size / (1024 * 1024);
+        if (sizeMB > MAX_MODEL_SIZE_MB) {
+            console.log(`⚠️ Skipping large inferred model (${sizeMB.toFixed(1)}MB): ${modelFile}`);
+            finalProducts.push({
+                Category: inferCategoryFromFilename(modelFile),
+                SKU: getUniqueSKU(inferredSKU),
+                "Product Name": inferredName,
+                WAS: null,
+                NOW: "Ask for Price",
+                SAVE: null,
+                modelPath: null,
+                imagePath: null,
+                hasModel: false,
+                hasImage: false
+            });
+            return;
+        }
+
         const matchedImage = findBestImageMatch(inferredSKU, inferredName, imageFiles);
+
+        const modelUrl = BLOB_BASE_URL
+            ? `${BLOB_BASE_URL}/${modelFile}`
+            : `/assets/models/${modelFile}`;
 
         finalProducts.push({
             Category: inferCategoryFromFilename(modelFile),
@@ -131,7 +183,7 @@ async function main() {
             WAS: null,
             NOW: "Ask for Price",
             SAVE: null,
-            modelPath: `/assets/models/${modelFile}`,
+            modelPath: modelUrl,
             imagePath: matchedImage ? `/assets/images/${matchedImage}` : null,
             hasModel: true,
             hasImage: !!matchedImage
@@ -139,7 +191,7 @@ async function main() {
     });
 
     if (finalProducts.length > (pairedCSVRows.size + rawProducts.length - pairedCSVRows.size)) {
-         console.log(`✨ Generated inferred product entries from orphan models.`);
+        console.log(`✨ Generated inferred product entries from orphan models.`);
     }
 
     // Step C: Unpaired CSV entries
