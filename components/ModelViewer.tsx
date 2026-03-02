@@ -2,13 +2,13 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import Script from 'next/script';
 import { cn } from '@/lib/utils';
 import { useClient } from '@/engine/context/ClientContext';
 
-
-
-// Global declaration moved to types/model-viewer.d.ts
+// Import model-viewer for side-effects (registers custom element)
+if (typeof window !== 'undefined') {
+    import('@google/model-viewer');
+}
 
 interface ModelViewerProps {
     src: string;
@@ -17,10 +17,10 @@ interface ModelViewerProps {
     autoRotate?: boolean;
     className?: string;
     cameraControls?: boolean;
-    variant?: string; // New: variant for material switching
-    autoActivateAR?: boolean; // New: auto-launch AR
+    variant?: string;
+    autoActivateAR?: boolean;
     reveal?: 'auto' | 'manual' | 'interaction';
-    priorityLoad?: boolean; // New: allow eager loading for Hero
+    priorityLoad?: boolean;
 }
 
 const FINISH_COLORS: Record<string, [number, number, number, number]> = {
@@ -49,52 +49,58 @@ export default function ModelViewer({
     const config = useClient();
     const modelRef = useRef<any>(null);
 
-    // Spatial UX States
     const [isRotating, setIsRotating] = useState(autoRotate);
     const [showTooltip, setShowTooltip] = useState(true);
     const [isPulsing, setIsPulsing] = useState(true);
 
-    const safeSrc = src;
-
-    useEffect(() => {
-    }, [src]);
-
+    // Lifecycle: Handle Loading & AR
     useEffect(() => {
         const modelViewer = modelRef.current;
-        if (modelViewer) {
-            const onLoad = () => {
-                console.log('✅ Model loaded successfully:', src);
+        if (!modelViewer) return;
 
-                if (autoActivateAR) {
-                    setTimeout(() => {
-                        modelViewer.activateAR();
-                    }, 500);
-                }
-            };
+        const onLoad = () => {
+            console.log('✅ Model loaded successfully:', src);
+            if (autoActivateAR) {
+                setTimeout(() => modelViewer.activateAR(), 500);
+            }
+        };
 
-            const onError = (error: any) => {
-                console.warn('⚠️ Error loading model:', src, error?.message || '');
-            };
+        const onError = (error: any) => {
+            console.warn('⚠️ Error loading model:', src, error?.detail || '');
+        };
 
-            modelViewer.addEventListener('load', onLoad);
-            modelViewer.addEventListener('error', onError);
+        modelViewer.addEventListener('load', onLoad);
+        modelViewer.addEventListener('error', onError);
 
-            return () => {
-                modelViewer.removeEventListener('load', onLoad);
-                modelViewer.removeEventListener('error', onError);
-            };
-        }
+        return () => {
+            modelViewer.removeEventListener('load', onLoad);
+            modelViewer.removeEventListener('error', onError);
+        };
     }, [src, autoActivateAR]);
 
-    // Expose reveal function to parent via ref if needed, or handle prop change
+    // Material switching logic (unchanged)
     useEffect(() => {
-        const modelViewer = modelRef.current;
-        if (modelViewer && reveal === 'auto' && src) {
-            // Usually just setting the attribute is enough
-        }
-    }, [reveal, src]);
+        const mv = modelRef.current;
+        if (!mv || !mv.model || !FINISH_COLORS[variant]) return;
 
-    // Handle 3-second auto-rotate timeout & 5-second tooltip/pulse fade
+        const applyVariant = async () => {
+            const materials = mv.model.materials;
+            const color = FINISH_COLORS[variant];
+            materials.forEach((material: any) => {
+                if (material.pbrMetallicRoughness) {
+                    material.pbrMetallicRoughness.setBaseColorFactor(color);
+                }
+            });
+        };
+
+        if (mv.loaded) {
+            applyVariant();
+        } else {
+            mv.addEventListener('load', applyVariant, { once: true });
+        }
+    }, [variant]);
+
+    // Interaction UX
     useEffect(() => {
         const rotateTimer = setTimeout(() => setIsRotating(false), 3000);
         const pulseTimer = setTimeout(() => setIsPulsing(false), 4000);
@@ -115,38 +121,32 @@ export default function ModelViewer({
 
     return (
         <div className={cn("relative w-full h-full bg-brand-sand/10 rounded-3xl overflow-hidden transition-all duration-300", isPulsing ? "animate-pulse-subtle" : "", className)}>
-            <Script
-                type="module"
-                src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"
-                strategy="lazyOnload"
-            />
-            {/* Stylish "Holder" effects */}
             <div className="absolute inset-0 bg-radial-[at_50%_50%,rgba(0,0,0,0.05)_0%,transparent_70%]" />
 
-
-            {/* Interaction Tooltip */}
             <div className={cn(
                 "absolute top-4 left-1/2 -translate-x-1/2 bg-[#343F48]/90 text-white px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-widest z-20 pointer-events-none transition-opacity duration-700 shadow-xl border border-white/10 flex items-center gap-2",
                 showTooltip ? "opacity-100" : "opacity-0 invisible"
             )}>
-                <div className="w-2 h-2 bg-[#FFE600] rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-[#FFE600] rounded-full animate-pulse" />
                 Drag to explore in 360°
             </div>
 
             {/* @ts-ignore */}
             <model-viewer
                 ref={modelRef}
-                src={safeSrc}
+                src={src}
                 alt={alt}
-                auto-rotate
+                auto-rotate={isRotating ? "" : undefined}
                 camera-controls
                 camera-target="auto auto auto"
                 bounds="tight"
                 draco-decoder-path="/draco/"
                 shadow-intensity="1"
+                exposure="1"
+                loading={priorityLoad ? "eager" : "lazy"}
+                reveal={reveal}
                 className="w-full h-full"
                 style={{ width: '100%', height: '100%', display: 'block', backgroundColor: 'transparent' }}
-                onContextMenu={(e: any) => e.preventDefault()}
                 onCameraChange={handleInteraction}
                 onInteraction={handleInteraction}
             >
