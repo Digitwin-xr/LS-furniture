@@ -9,6 +9,9 @@ export interface Product {
     imagePath?: string | null;
     hasModel?: boolean;
     hasImage?: boolean;
+    description?: string;
+    fileSizeMB?: number | null;
+    glbFile?: string | null;
 }
 
 export type Category =
@@ -22,4 +25,6 @@ export type Category =
     | "TV Units"
     | "Dining"
     | "Storage"
+    | "Tables"
+    | "Miscellaneous"
     | "Featured";

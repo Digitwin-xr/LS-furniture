@@ -12,15 +12,17 @@ interface SmartGridProps {
 
 const CATEGORIES: Category[] = [
     "All",
-    "Electronics",
     "Sofas",
     "Chairs",
-    "Wardrobes",
-    "Storage",
     "Beds",
+    "Dining",
+    "Tables",
     "Kitchen",
     "TV Units",
-    "Dining"
+    "Electronics",
+    "Storage",
+    "Wardrobes",
+    "Miscellaneous"
 ];
 
 export default function SmartGrid({ products, initialCategory = "All" }: SmartGridProps) {

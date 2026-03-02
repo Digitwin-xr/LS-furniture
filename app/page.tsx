@@ -109,9 +109,13 @@ export default async function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { name: 'Sofas', sub: 'Comfort Meets Modern Living' },
-            { name: 'Electronics', sub: 'Smart Technology for Everyday Homes' },
             { name: 'Beds', sub: 'Sleep Better. Live Better.' },
-            { name: 'Kitchen', sub: 'Upgrade the Heart of Your Home' }
+            { name: 'Dining', sub: 'Family Moments, Elevated.' },
+            { name: 'Tables', sub: 'Versatile Surfaces for Every Room' },
+            { name: 'Chairs', sub: 'Ergonomic Style for Every Space' },
+            { name: 'Kitchen', sub: 'Upgrade the Heart of Your Home' },
+            { name: 'TV Units', sub: 'Sleek Media Storage Solutions' },
+            { name: 'Electronics', sub: 'Smart Technology for Everyday Homes' },
           ].map((cat, idx) => (
             <CategoryCard key={cat.name} name={cat.name} subtext={cat.sub} delay={idx * 100} />
           ))}
