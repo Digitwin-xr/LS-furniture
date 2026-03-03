@@ -23,6 +23,7 @@ const CSV_PATH = path.join(ROOT, 'public', 'products.csv');
 const MODELS_DIR = path.join(ROOT, 'public', 'assets', 'models');
 const OUT_JSON = path.join(ROOT, 'public', 'products.json');
 const OUT_CATALOGUE = path.join(ROOT, 'public', 'catalogue.json');
+const MAPPING_PATH = path.join(ROOT, 'scripts', 'model_mapping.json');
 
 const BLOB_BASE = 'https://o45t2gs3y3cfhz4u.public.blob.vercel-storage.com';
 
@@ -227,39 +228,57 @@ async function main() {
     }
 
     const allGlbs = fs.readdirSync(MODELS_DIR).filter(f => f.toLowerCase().endsWith('.glb'));
+
+    // 2.5 Load Manual Mapping
+    let modelMapping = {};
+    if (fs.existsSync(MAPPING_PATH)) {
+        modelMapping = JSON.parse(fs.readFileSync(MAPPING_PATH, 'utf8'));
+        console.log(`📂 Loaded mapping for ${Object.keys(modelMapping).length} models`);
+    }
+
     const namedGlbs = allGlbs.filter(f => !f.toLowerCase().startsWith('object_0'));
-    const skipped = allGlbs.length - namedGlbs.length;
+    const unRenamedGlbs = allGlbs.filter(f => f.toLowerCase().startsWith('object_0'));
 
     console.log(`\n📦 Found ${allGlbs.length} total GLB files`);
-    console.log(`   ✅ ${namedGlbs.length} named models (will be processed)`);
-    console.log(`   ⏭️  ${skipped} unnamed object_0 files (skipped)`);
+    console.log(`   ✅ ${namedGlbs.length} named models`);
+    console.log(`   🔶 ${unRenamedGlbs.length} un-renamed object_0 files`);
 
     // 3. Match models to CSV products
     const finalProducts = [];
     const pairedCSVRows = new Set();
-    const pairedModels = [];
     const matchLog = [];
     const usedSKUs = new Map();
 
     function uniqueSKU(base) {
-        if (!usedSKUs.has(base)) { usedSKUs.set(base, 0); return base; }
-        const n = usedSKUs.get(base) + 1;
-        usedSKUs.set(base, n);
-        return `${base}_${n}`;
+        if (!base) return 'MISC';
+        const s = String(base).trim().toUpperCase();
+        if (!usedSKUs.has(s)) { usedSKUs.set(s, 0); return s; }
+        const n = usedSKUs.get(s) + 1;
+        usedSKUs.set(s, n);
+        return `${s}_${n}`;
     }
 
-    // Step A — Match each named model to a CSV product
-    for (const glbFile of namedGlbs) {
+    // Step A — Process ALL GLBs
+    for (const glbFile of allGlbs) {
         const sanitisedKey = toSanitisedKey(glbFile);
-        const matchIdx = findBestMatch(glbFile, csvProducts);
-
         const stats = fs.statSync(path.join(MODELS_DIR, glbFile));
         const sizeMB = stats.size / (1024 * 1024);
 
+        let matchIdx = -1;
+        let mappingInfo = modelMapping[glbFile];
+
+        if (mappingInfo) {
+            // Priority 1: Use the SKU from the manual mapping tool
+            matchIdx = csvProducts.findIndex(p => String(p.SKU).trim().toUpperCase() === String(mappingInfo.sku).trim().toUpperCase());
+        }
+
+        if (matchIdx === -1) {
+            // Priority 2: Standard matching logic
+            matchIdx = findBestMatch(glbFile, csvProducts);
+        }
+
         if (matchIdx !== -1 && !pairedCSVRows.has(matchIdx)) {
             const product = csvProducts[matchIdx];
-            const modelUrl = `/assets/models/${glbFile}`;
-
             finalProducts.push({
                 Category: product.Category,
                 SKU: uniqueSKU(product.SKU),
@@ -267,7 +286,7 @@ async function main() {
                 WAS: product['WAS Price'] || product.WAS || null,
                 NOW: product['NOW ONLY Price'] || product.NOW || 'Ask for Price',
                 SAVE: product.SAVE || null,
-                modelPath: modelUrl,
+                modelPath: `/assets/models/${glbFile}`,
                 imagePath: null,
                 hasModel: true,
                 hasImage: false,
@@ -277,16 +296,13 @@ async function main() {
             });
 
             pairedCSVRows.add(matchIdx);
-            pairedModels.push(glbFile);
             matchLog.push(`  ✅ "${glbFile}" → [${product.SKU}] ${product['Product Name']}`);
-        } else if (matchIdx === -1) {
-            // Orphan model — infer product from filename
+        } else {
+            // Orphan model — infer product from filename OR mapping
             const inferredCat = inferCategory(glbFile);
-            const inferredName = titleCase(
-                path.basename(glbFile, path.extname(glbFile)).replace(/^[A-Z0-9\-]+ /i, '')
-            );
-            const inferredSKU = path.basename(glbFile, path.extname(glbFile))
-                .split(/[\s_-]/)[0].toUpperCase();
+            const baseName = mappingInfo ? mappingInfo.productName : path.basename(glbFile, path.extname(glbFile));
+            const inferredName = titleCase(baseName.replace(/^[A-Z0-9\-]+ /i, ''));
+            const inferredSKU = mappingInfo ? mappingInfo.sku : path.basename(glbFile, path.extname(glbFile)).split(/[\s_-]/)[0].toUpperCase();
 
             finalProducts.push({
                 Category: inferredCat,
@@ -295,7 +311,7 @@ async function main() {
                 WAS: null,
                 NOW: 'Ask for Price',
                 SAVE: null,
-                modelPath: `${BLOB_BASE}/${sanitisedKey}`,
+                modelPath: `/assets/models/${glbFile}`,
                 imagePath: null,
                 hasModel: true,
                 hasImage: false,
@@ -304,8 +320,6 @@ async function main() {
                 glbFile: sanitisedKey,
             });
             matchLog.push(`  🔶 "${glbFile}" → [INFERRED] ${inferredName} (${inferredCat})`);
-        } else {
-            matchLog.push(`  ⚠️  "${glbFile}" → duplicate CSV row ${matchIdx} (skipped)`);
         }
     }
 
