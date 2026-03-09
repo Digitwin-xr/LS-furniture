@@ -19,13 +19,19 @@ const OUTPUT_JSON_PATH = path.join(process.cwd(), 'public', 'products.json');
 // CONFIG - CLOUD & FILTERING
 const MAX_MODEL_SIZE_MB = 10;
 // Set this to your Vercel Blob base URL once available (e.g. 'https://xxx.public.blob.vercel-storage.com')
-const BLOB_BASE_URL = 'https://o45t2gs3y3cfhz4u.public.blob.vercel-storage.com';
+// Left empty so model paths resolve to local /assets/models/ — files are served directly from the public folder
+const BLOB_BASE_URL = '';
 
-// CI DETECTION: If models directory doesn't exist AND products.json already exists,
-// skip rebinding to preserve the committed product catalogue during cloud builds.
-if (!fs.existsSync(MODELS_DIR) && fs.existsSync(OUTPUT_JSON_PATH)) {
-    console.log("☁️ CI/Cloud build detected (no local models). Skipping rebinding — using committed products.json.");
-    process.exit(0);
+// CI DETECTION: Skip rebinding in Vercel/CI environments to preserve committed metadata
+const isCI = process.env.VERCEL || process.env.CI || (!fs.existsSync(MODELS_DIR) && fs.existsSync(OUTPUT_JSON_PATH));
+
+if (isCI) {
+    if (fs.existsSync(OUTPUT_JSON_PATH)) {
+        console.log("☁️ CI/Vercel build detected. Skipping rebinding to preserve committed products.json.");
+        process.exit(0);
+    } else {
+        console.warn("⚠️ CI detected but products.json missing. Proceeding with caution...");
+    }
 }
 
 // MAIN
