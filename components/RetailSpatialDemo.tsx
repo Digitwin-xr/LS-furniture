@@ -52,7 +52,7 @@ export default function RetailSpatialDemo() {
                 <div className="order-1 lg:order-2 w-full max-w-md mx-auto aspect-square relative bg-white rounded-full border-8 border-gray-50 shadow-2xl overflow-hidden flex items-center justify-center">
 
                     {/* Fake Room Grid Graphic */}
-                    <div className="absolute inset-0 z-0 bg-[linear-gradient(rgba(125,187,66,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(125,187,66,0.1)_1px,transparent_1px)] bg-[size:20px_20px] [transform:perspective(500px)_rotateX(60deg)_scale(2)] origin-bottom pointer-events-none" />
+                    <div className="hidden md:block absolute inset-0 z-0 bg-[linear-gradient(rgba(125,187,66,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(125,187,66,0.1)_1px,transparent_1px)] bg-[size:20px_20px] [transform:perspective(500px)_rotateX(60deg)_scale(2)] origin-bottom pointer-events-none" />
 
                     <div className="relative z-10 w-3/4 h-3/4">
                         <DynamicModelViewer

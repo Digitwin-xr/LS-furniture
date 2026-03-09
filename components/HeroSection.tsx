@@ -99,7 +99,7 @@ export default function HeroSection({ heroProduct }: { heroProduct: Product }) {
                     className="h-[450px] md:h-[650px] w-full relative group animate-in fade-in zoom-in duration-1000"
                 >
                     {/* Atmospheric Glow */}
-                    <div className="absolute inset-x-0 bottom-[-10%] h-[30%] bg-radial-[at_50%_0%,rgba(166,192,101,0.1)_0%,transparent_70%] pointer-events-none" />
+                    <div className="hidden md:block absolute inset-x-0 bottom-[-10%] h-[30%] bg-radial-[at_50%_0%,rgba(166,192,101,0.1)_0%,transparent_70%] pointer-events-none" />
                     
                     {/* Curved Visual Container */}
                     <div className="w-full h-full relative z-10 bg-white shadow-[0_50px_100px_-20px_rgba(0,0,0,0.08)] rounded-[3rem] overflow-hidden border border-brand-sand/60">

@@ -70,7 +70,7 @@ export default function SmartGrid({ products, categories, initialCategory }: Sma
       </aside>
 
       {/* Mobile Category Row */}
-      <div className="flex md:hidden overflow-x-auto gap-2 pb-3 px-4 sticky top-[72px] z-40 bg-white/90 backdrop-blur border-b border-gray-100 w-full">
+      <div className="flex md:hidden overflow-x-auto gap-2 pb-3 px-4 sticky top-[72px] z-40 bg-white border-b border-gray-100 w-full no-scrollbar">
         {ORDERED_CATEGORIES.map((cat) => (
           <button
             key={cat}
@@ -145,7 +145,7 @@ export default function SmartGrid({ products, categories, initialCategory }: Sma
 
         {/* Footer Brand Strip */}
         <div className="w-full bg-brand-charcoal py-4 overflow-hidden mb-12 rounded-2xl">
-          <div className="flex whitespace-nowrap animate-marquee">
+          <div className="flex whitespace-nowrap md:animate-marquee">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={i} className="flex items-center gap-12 px-6">
                 <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.5em] italic">Premium Spatial Experience</span>
