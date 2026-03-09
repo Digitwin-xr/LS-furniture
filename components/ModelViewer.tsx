@@ -5,8 +5,8 @@ import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { useClient } from '@/engine/context/ClientContext';
 
-// Standard top-level import for v4 side-effects
-import '@google/model-viewer';
+// Standard top-level import removed for true lazy initialization
+// import '@google/model-viewer';
 
 interface ModelViewerProps {
     src: string;
@@ -51,8 +51,12 @@ export default function ModelViewer({
     const [loadError, setLoadError] = useState<string | null>(null);
     const [showAROverlay, setShowAROverlay] = useState(false);
 
-    // Initial Load Effect
+    // Initial Load Effect - Including Lazy Engine Loading
     useEffect(() => {
+        // Dynamically import the model-viewer engine only when this component mounts
+        // This prevents WebGL initialization on pages that don't need it (like catalogue)
+        import('@google/model-viewer').catch(console.error);
+
         const modelViewer = modelRef.current;
         if (!modelViewer) return;
 

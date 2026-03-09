@@ -56,15 +56,15 @@ export default function Home() {
                 </div>
 
                 <div className="space-y-6">
-                  <h1 className="text-5xl lg:text-[5rem] xl:text-[5.5rem] font-black tracking-tighter leading-[1.1] pr-4" style={{ fontFamily: 'Georgia, serif', textShadow: '0 2px 12px rgba(0,0,0,0.35)' }}>
-                    <span className="block mb-1" style={{ color: '#FFFFFF' }}>Beautiful <span style={{ color: '#D4AF37' }}>Living.</span></span>
-                    <span className="block" style={{ color: '#7FBF7A' }}>Smart Spring Savings.</span>
+                  <h1 className="text-5xl lg:text-[5rem] xl:text-[5.5rem] font-black tracking-tighter leading-[1.1] pr-4">
+                    <span className="block mb-1 text-gray-900">Beautiful <span className="text-brand-green">Living.</span></span>
+                    <span className="block text-brand-green">Smart Spring Savings.</span>
                   </h1>
-                  <p className="text-lg md:text-xl font-bold max-w-md leading-relaxed" style={{ color: '#F8F8F8', textShadow: '0 4px 16px rgba(0,0,0,0.8), 0 0 40px rgba(255,255,255,0.2)' }}>
-                    Discover stylish furniture and reliable appliances designed for modern homes &mdash; now available at <span style={{ color: '#D4AF37', fontWeight: 900 }}>exclusive seasonal prices.</span>
+                  <p className="text-lg md:text-xl font-bold max-w-md leading-relaxed text-gray-400">
+                    Discover stylish furniture and reliable appliances designed for modern homes &mdash; now available at <span className="text-brand-green">exclusive seasonal prices.</span>
                   </p>
-                  <p className="text-[12px] font-black uppercase tracking-[0.2em] pt-2" style={{ color: '#90EE90', textShadow: '0 3px 8px rgba(0,0,0,0.6)' }}>
-                    Shop smarter &middot; Explore in 360 &middot; Visualize in your space &middot; precision shopping without doubts
+                  <p className="text-[12px] font-black uppercase tracking-[0.2em] pt-2 text-gray-300">
+                    Shop smarter &middot; Explore in 360 &middot; Visualize in your space
                   </p>
                 </div>
                 
@@ -73,25 +73,8 @@ export default function Home() {
 
             {/* RIGHT SIDE: 3D Product Visualization - 70% */}
             <div className="flex flex-col items-center w-full lg:w-[70%]">
-              {/* Product Viewer Container - NO FLAT IMAGES */}
-              <div className="relative w-full aspect-[4/3] lg:aspect-[16/9] lg:min-h-[600px] xl:min-h-[700px] bg-[#FBFBFB] rounded-3xl border border-gray-100 shadow-2xl shadow-gray-200/50 overflow-hidden group animate-in zoom-in duration-1000">
-
-                {/* Soft Gradient Overlay for Premium Showroom Feel */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/40 via-transparent to-black/5 pointer-events-none z-10 mix-blend-overlay" />
+              <div className="relative w-full aspect-[4/3] lg:aspect-[16/9] lg:min-h-[600px] xl:min-h-[700px] bg-[#FAFAFA] rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden group">
                 
-                {/* Scale Verification Badge */}
-                <div className="absolute bottom-10 left-10 z-[60] animate-in slide-in-from-bottom duration-1000 delay-500">
-                    <div className="bg-white/90 backdrop-blur-xl border border-white/40 px-5 py-3 rounded-2xl flex items-center gap-3 shadow-[0_8px_32px_0_rgba(0,0,0,0.05)] pointer-events-none group/badge transition-all hover:scale-105">
-                        <div className="w-8 h-8 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green">
-                            <CheckCircle2 className="w-5 h-5" />
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="text-[10px] font-black text-brand-charcoal uppercase tracking-[0.2em] leading-tight">Scale Verified</span>
-                            <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest">True-to-Life Size</span>
-                        </div>
-                    </div>
-                </div>
-
                 {heroProduct?.modelPath ? (
                   <div className="w-full h-full cursor-grab active:cursor-grabbing relative z-10">
                     <DynamicModelViewer
@@ -102,11 +85,8 @@ export default function Home() {
                     />
                   </div>
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-400 font-medium relative z-10">
-                    <div className="flex flex-col items-center gap-4">
-                        <div className="w-12 h-12 border-4 border-brand-red/10 border-t-brand-red rounded-full animate-spin" />
-                        <span className="text-[10px] font-black uppercase tracking-widest">Initializing Spatial View...</span>
-                    </div>
+                  <div className="w-full h-full flex items-center justify-center text-gray-200 font-medium relative z-10">
+                    <span className="text-[10px] font-black uppercase tracking-widest">Initializing Spatial View...</span>
                   </div>
                 )}
               </div>

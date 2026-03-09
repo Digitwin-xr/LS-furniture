@@ -451,67 +451,66 @@ body {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     filter: none !important;
-    mix-blend-mode: normal !important; /* Prevent artifacts from blend modes */
+    mix-blend-mode: normal !important;
+    will-change: auto !important;
   }
 
   body, html {
-    background-color: #F6F6F6 !important; /* Lightweight static background */
+    background-color: #F6F6F6 !important;
     overflow-x: hidden !important;
     position: relative;
     transform: none !important;
     perspective: none !important;
+    transform-style: flat !important;
+    backface-visibility: visible !important;
   }
 
   /* 2. Disable heavy canvas animations */
   canvas {
     max-width: 100vw !important;
     max-height: 100vh !important;
-    pointer-events: auto; /* Ensure 3D viewer still works */
+    pointer-events: auto;
   }
 
-  /* 3. Simplify UI Overlays */
+  /* 3. Simplify UI Overlays & Shadows */
   .summer-glow-bg::before,
   .spotlight-glow::before,
   .summer-badge-glow::before,
-  .bg-radial-\[at_50\%_50\% \,rgba\(0 \,0 \,0 \,0\.03\)_0\% \,transparent_70\%\] {
+  .shadow-xl, .shadow-2xl, .shadow-premium {
     display: none !important;
+    box-shadow: none !important;
     background: none !important;
   }
 
   /* 4. Layering & Transform Fixes */
-  header, nav, aside, main, section, div, article {
-    transform: none !important; /* Reset 3D transforms that might trigger GPU layers */
+  header, nav, aside, main, section, div, article, span, h1, h2, h3, p {
+    transform: none !important;
     perspective: none !important;
     transform-style: flat !important;
-  }
-
-  /* Restore basic transforms for essential UI if needed, but keep global flat */
-  .group-hover\:-translate-y-1 {
-    transform: none !important;
   }
 
   header, nav, aside, main {
     position: relative;
     z-index: 10 !important;
-    background-color: inherit;
   }
 
-  /* 5. Disable animations that might cause flickering */
+  /* 5. Disable ALL animations for total stability in Phase 3 */
   .animate-pulse-subtle,
   .animate-summer-glow,
   .animate-marquee,
   .animate-float,
   .animate-in,
   .animate-pulse,
-  .animate-spin {
+  .animate-spin,
+  .animate-bounce,
+  .transition-all, .transition-colors, .transition-transform {
     animation: none !important;
     transition: none !important;
+    transform: none !important;
   }
 
-  /* Explicitly replace gradients with solid colors if they fail */
-  .bg-brand-sand\/30,
-  .bg-brand-sand\/10,
-  .bg-brand-green\/5 {
-    background-color: rgba(255, 255, 255, 0.05) !important;
+  /* Simple borders instead of shadows for mobile hierarchy */
+  .rounded-2xl, .rounded-xl, .rounded-3xl {
+    border: 1px solid rgba(0,0,0,0.05) !important;
   }
 }

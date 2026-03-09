@@ -126,7 +126,7 @@ export default function SmartGrid({ products, categories, initialCategory }: Sma
             {filteredProducts.map((product, idx) => (
               <div
                 key={product.SKU}
-                className="animate-in fade-in slide-in-from-bottom duration-700"
+                className="md:animate-in md:fade-in md:slide-in-from-bottom duration-700"
                 style={{ animationDelay: `${idx * 40}ms` }}
               >
                 <ProductCard product={product} />
