@@ -25,47 +25,45 @@ export default function Navbar() {
     return (
         <>
             {/* Desktop / Top Nav */}
-            <nav className="sticky top-0 z-[100] bg-white/80 backdrop-blur-md border-b border-brand-sand/50 shadow-sm">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                    <div className="flex justify-between items-center h-20">
-                        {/* Logo — Configurable brand logo/short name */}
-                        <div className="flex-shrink-0 flex items-center">
-                            <Link href="/" className="flex items-center gap-4 group">
-                                <div className="w-12 h-12 flex items-center justify-center bg-brand-red rounded-xl shadow-sm group-hover:scale-110 transition-transform rotate-45">
-                                    <span className="text-2xl font-black text-white tracking-tighter italic -rotate-45">{config.shortName.split(' ')[0]}</span>
-                                </div>
-                                <div className="flex flex-col">
-                                    <span className="text-xl font-black text-brand-charcoal tracking-[0.2em] uppercase leading-none">{config.shortName}</span>
-                                    <span className="text-[10px] font-bold text-brand-green uppercase tracking-[0.4em] leading-none mt-1">Modern Furniture & Spatial Tech</span>
-                                </div>
-                            </Link>
-                        </div>
+            <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/90 backdrop-blur-xl border-b border-brand-sand/20">
+                <div className="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
 
-                        {/* Desktop Navigation */}
-                        <div className="hidden md:flex space-x-10">
-                            <NavLink href="/" label="Home" />
-                            <NavLink href="/catalogue" label="Collection" />
-                            <NavLink href="/favorites" label="Saved" />
-                            <NavLink href="/contact" label="Contact" />
-                        </div>
+                    {/* Logo Anchor — Diamond LS Logo */}
+                    <div className="flex-shrink-0 flex items-center">
+                        <Link href="/" className="flex items-center gap-4 group">
+                            <div className="w-10 h-10 flex items-center justify-center bg-brand-red rounded-lg shadow-lg group-hover:scale-110 transition-transform rotate-45 shadow-brand-red/20 origin-center animate-in zoom-in duration-700">
+                                <span className="text-xl font-black text-white tracking-tighter italic -rotate-45">LS</span>
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-sm font-black text-brand-charcoal tracking-[0.2em] uppercase leading-none">{config.shortName}</span>
+                                <span className="text-[8px] font-black text-brand-green uppercase tracking-[0.4em] leading-none mt-1 italic">Spatial Retail Hub</span>
+                            </div>
+                        </Link>
+                    </div>
 
-                        {/* Icons */}
-                        <div className="flex items-center space-x-4">
-                            <button className="p-3 text-brand-charcoal/40 hover:text-brand-red transition-all hover:bg-brand-red/5 rounded-2xl">
-                                <Search className="w-5 h-5" />
-                            </button>
-                            <button className="p-3 text-brand-charcoal/40 hover:text-brand-red transition-all hover:bg-brand-red/5 rounded-2xl relative group">
-                                <ShoppingBag className="w-5 h-5" />
-                                <span className="absolute top-2 right-2 w-2 h-2 bg-brand-red rounded-full animate-bounce shadow-sm"></span>
-                            </button>
-                        </div>
+                    {/* Compressed Desktop Navigation */}
+                    <div className="hidden md:flex space-x-8">
+                        <NavLink href="/" label="Home" />
+                        <NavLink href="/catalogue" label="Collection" />
+                        <NavLink href="/contact" label="Contact Us" />
+                    </div>
+
+                    {/* Icons */}
+                    <div className="flex items-center space-x-3">
+                        <button className="p-2 text-brand-charcoal/40 hover:text-brand-red transition-all rounded-xl">
+                            <Search className="w-5 h-5" />
+                        </button>
+                        <button className="p-2 text-brand-charcoal/40 hover:text-brand-red transition-all rounded-xl relative group">
+                            <ShoppingBag className="w-5 h-5" />
+                            <span className="absolute top-1 right-1 w-2 h-2 bg-brand-red rounded-full shadow-sm"></span>
+                        </button>
                     </div>
                 </div>
             </nav>
 
             {/* Mobile Bottom Nav */}
-            <div className="md:hidden fixed bottom-6 left-6 right-6 bg-white/90 backdrop-blur-xl border border-brand-sand rounded-3xl z-[100] shadow-premium pb-safe px-4">
-                <div className="flex justify-around items-center h-20">
+            <div className="md:hidden fixed bottom-6 left-6 right-6 bg-white/95 backdrop-blur-2xl border border-brand-sand/50 rounded-3xl z-[100] shadow-2xl px-4 overflow-hidden">
+                <div className="flex justify-around items-center h-16">
                     <MobileNavLink href="/" icon={Home} label="Home" />
                     <MobileNavLink href="/catalogue" icon={Grid} label="Shop" />
                     <MobileNavLink href="/favorites" icon={Heart} label="Saved" />
@@ -83,12 +81,12 @@ function NavLink({ href, label }: { href: string, label: string }) {
     return (
         <Link
             href={href}
-            className={`text-[11px] font-bold uppercase tracking-[0.3em] transition-all relative py-2 ${isActive ? 'text-brand-red' : 'text-brand-charcoal/40 hover:text-brand-red'
+            className={`text-[9px] font-black uppercase tracking-[0.3em] transition-all relative py-2 italic ${isActive ? 'text-brand-red' : 'text-brand-charcoal/40 hover:text-brand-red'
                 }`}
         >
             {label}
             {isActive && (
-                <span className="absolute bottom-0 left-0 w-full h-[3px] bg-brand-yellow rounded-full animate-in zoom-in-y duration-300" />
+                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-brand-red rounded-full" />
             )}
         </Link>
     );

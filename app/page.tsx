@@ -1,218 +1,149 @@
+'use client';
+
+import { useEffect, useState, useLayoutEffect } from 'react';
 import { getProducts } from '@/lib/products';
-import Navbar from '@/components/Navbar';
-import Link from 'next/link';
-import { ArrowRight, Box, ShieldCheck, Zap, Star, TrendingUp, Flame, Camera, Scan } from 'lucide-react';
-import HeroSection from '@/components/HeroSection';
-import ProductCard from '@/components/ProductCard';
+import RetailHeader from '@/components/RetailHeader';
 import Footer from '@/components/Footer';
-import { getClientConfig } from '@/engine/config/client-config';
+import HotSummerDeals from '@/components/HotSummerDeals';
+import DynamicModelViewer from '@/components/DynamicModelViewer';
+import HeroCTAs from '@/components/HeroCTAs';
+import SpringBanner from '@/components/SpringBanner';
+import { CheckCircle2 } from 'lucide-react';
 
-export default async function Home() {
-  const products = await getProducts();
-  const config = getClientConfig();
+export default function Home() {
+  const [products, setProducts] =  useState<any[]>([]);
+  const [heroProduct, setHeroProduct] = useState<any>(null);
 
-  // Find a hero product (preferably one with a model)
-  const heroProduct = products.find(p => p["Product Name"]?.toUpperCase().includes("SOFA SINGLE 3DIV SQUARE ARM MA") && p.hasModel) || products.find(p => p.hasModel) || products[0];
+  // Robust fix for auto-scroll to footer issue
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+    const timeout = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 0);
+    return () => clearTimeout(timeout);
+  }, []);
 
-  // Featured products for carousel
-  const featuredProducts = products.filter(p => p.hasModel).slice(0, 4);
+  useEffect(() => {
+    async function loadData() {
+      const data = await getProducts();
+      setProducts(data);
+      setHeroProduct(data.find(p => p.SKU === '251024') || data[0]);
+    }
+    loadData();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] pb-0 overflow-x-hidden">
-      <Navbar />
+    <main className="min-h-screen bg-white font-sans overflow-x-hidden">
+      <RetailHeader />
 
-      {/* Hero Section */}
-      <HeroSection heroProduct={heroProduct} />
+      {/* ── SPRING HOME REFRESH BANNER ── */}
+      <SpringBanner />
 
-      {/* ═══ HOW IT WORKS (3-Step Process) ═══ */}
-      <section className="py-12 bg-white relative z-20 border-b border-brand-sand/30 shadow-sm mt-8 mx-6 rounded-[30px]">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-5xl font-black text-brand-green-deep uppercase tracking-tighter italic leading-[0.9]">
-              How It <span className="text-brand-yellow-warm mix-blend-multiply">Works.</span>
-            </h2>
-            <div className="h-1 w-16 bg-brand-yellow rounded-full mx-auto mt-4" />
-          </div>
+      <div className="max-w-7xl mx-auto px-6">
+        {/* ── CONSOLIDATED 3D HERO SECTION ── */}
+        <section className="pt-32 pb-24 md:pt-40 lg:pt-48 w-full block">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-8 items-center w-full">
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <FeatureCard
-              icon={Box}
-              title="1. Browse in 3D"
-              desc="Explore every detail in 360° before you commit."
-              accent="bg-[#3D4451]"
-            />
-            <FeatureCard
-              icon={Scan}
-              title="2. Place in Your Space"
-              desc="Use our spatial technology to see it true-to-scale in your room."
-              accent="bg-brand-red"
-            />
-            <FeatureCard
-              icon={ShieldCheck}
-              title="3. Buy with Confidence"
-              desc="Eliminate guesswork and shop with complete spatial confidence."
-              accent="bg-brand-green"
-            />
-          </div>
-        </div>
-      </section>
+            {/* LEFT SIDE: Brand Narrative - 30% */}
+            <div className="w-full lg:w-[30%] space-y-10 relative animate-in slide-in-from-left duration-1000 pl-4 lg:pl-0">
+              <div className="relative z-10">
+                <div className="inline-flex items-center gap-3 bg-brand-green/5 px-6 py-3 rounded-full border border-brand-green/10 mb-8 overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-green/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-brand-green animate-pulse" />
+                  <span className="text-[10px] md:text-[11px] font-black text-brand-green uppercase tracking-[0.2em] relative z-10 leading-tight animate-pulse">
+                    Powered by 3D and realtime Spatial Technology
+                  </span>
+                </div>
 
-
-      {/* ═══ TRENDING PRODUCTS — Red + Yellow Summer Energy ═══ */}
-      <section className="py-8 relative overflow-hidden">
-        {/* Yellow background glow */}
-        <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-brand-yellow/10 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-brand-red/5 rounded-full blur-[100px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-10 animate-in slide-in-from-bottom duration-700">
-            <div>
-              <div className="inline-flex items-center gap-2 text-brand-red font-black text-[10px] uppercase tracking-[0.5em] mb-4">
-                <Flame className="w-4 h-4 text-brand-red" />
-                Trending This Season
+                <div className="space-y-6">
+                  <h1 className="text-5xl lg:text-[5rem] xl:text-[5.5rem] font-black tracking-tighter leading-[1.1] pr-4" style={{ fontFamily: 'Georgia, serif', textShadow: '0 2px 12px rgba(0,0,0,0.35)' }}>
+                    <span className="block mb-1" style={{ color: '#FFFFFF' }}>Beautiful <span style={{ color: '#D4AF37' }}>Living.</span></span>
+                    <span className="block" style={{ color: '#7FBF7A' }}>Smart Spring Savings.</span>
+                  </h1>
+                  <p className="text-lg md:text-xl font-bold max-w-md leading-relaxed" style={{ color: '#F8F8F8', textShadow: '0 4px 16px rgba(0,0,0,0.8), 0 0 40px rgba(255,255,255,0.2)' }}>
+                    Discover stylish furniture and reliable appliances designed for modern homes &mdash; now available at <span style={{ color: '#D4AF37', fontWeight: 900 }}>exclusive seasonal prices.</span>
+                  </p>
+                  <p className="text-[12px] font-black uppercase tracking-[0.2em] pt-2" style={{ color: '#90EE90', textShadow: '0 3px 8px rgba(0,0,0,0.6)' }}>
+                    Shop smarter &middot; Explore in 360 &middot; Visualize in your space &middot; precision shopping without doubts
+                  </p>
+                </div>
+                
               </div>
-              <h2 className="text-5xl md:text-7xl font-black text-brand-green-deep uppercase tracking-tighter italic leading-[0.9]">
-                {config.marketing.hotSummerSaleLabel.split(' ').slice(0, 2).join(' ')} <span className="text-brand-red">{config.marketing.hotSummerSaleLabel.split(' ').slice(2).join(' ')}.</span>
-              </h2>
-              <div className="h-1 w-24 bg-brand-yellow rounded-full mt-4" />
             </div>
-            <Link href="/catalogue" className="flex items-center gap-4 text-brand-red font-bold uppercase tracking-[0.3em] hover:text-brand-red-deep transition-all group pb-4 border-b-2 border-brand-yellow hover:border-brand-red text-[11px]">
-              Explore Full Collection <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-            </Link>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.map((p, idx) => (
-              <div key={p.SKU} className="animate-in fade-in slide-in-from-bottom duration-700" style={{ animationDelay: `${idx * 150}ms` }}>
-                <ProductCard product={p} />
+            {/* RIGHT SIDE: 3D Product Visualization - 70% */}
+            <div className="flex flex-col items-center w-full lg:w-[70%]">
+              {/* Product Viewer Container - NO FLAT IMAGES */}
+              <div className="relative w-full aspect-[4/3] lg:aspect-[16/9] lg:min-h-[600px] xl:min-h-[700px] bg-[#FBFBFB] rounded-3xl border border-gray-100 shadow-2xl shadow-gray-200/50 overflow-hidden group animate-in zoom-in duration-1000">
+
+                {/* Soft Gradient Overlay for Premium Showroom Feel */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/40 via-transparent to-black/5 pointer-events-none z-10 mix-blend-overlay" />
+                
+                {/* Scale Verification Badge */}
+                <div className="absolute bottom-10 left-10 z-[60] animate-in slide-in-from-bottom duration-1000 delay-500">
+                    <div className="bg-white/90 backdrop-blur-xl border border-white/40 px-5 py-3 rounded-2xl flex items-center gap-3 shadow-[0_8px_32px_0_rgba(0,0,0,0.05)] pointer-events-none group/badge transition-all hover:scale-105">
+                        <div className="w-8 h-8 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green">
+                            <CheckCircle2 className="w-5 h-5" />
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-[10px] font-black text-brand-charcoal uppercase tracking-[0.2em] leading-tight">Scale Verified</span>
+                            <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest">True-to-Life Size</span>
+                        </div>
+                    </div>
+                </div>
+
+                {heroProduct?.modelPath ? (
+                  <div className="w-full h-full cursor-grab active:cursor-grabbing relative z-10">
+                    <DynamicModelViewer
+                      src={heroProduct.modelPath}
+                      alt="Hero Product Visualization"
+                      cameraControls={true}
+                      autoRotate={true}
+                    />
+                  </div>
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400 font-medium relative z-10">
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="w-12 h-12 border-4 border-brand-red/10 border-t-brand-red rounded-full animate-spin" />
+                        <span className="text-[10px] font-black uppercase tracking-widest">Initializing Spatial View...</span>
+                    </div>
+                  </div>
+                )}
               </div>
-            ))}
+
+              {/* Hero CTAs moved below the viewer */}
+              <div className="w-full mt-10 max-w-2xl px-4 lg:px-0">
+                 <HeroCTAs sku={heroProduct?.SKU || '251024'} />
+              </div>
+            </div>
+
           </div>
-        </div>
-      </section>
-
-
-      {/* ═══ SHOWROOM CATEGORIES — Red hover, yellow markers ═══ */}
-      <section className="py-12 max-w-7xl mx-auto px-6 mb-8">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-3 mb-6">
-            <div className="h-1 w-12 bg-brand-red rounded-full" />
-            <span className="text-brand-red font-black text-[10px] uppercase tracking-[0.5em]">{config.marketing.hotSummerSaleLabel}</span>
-            <div className="h-1 w-12 bg-brand-red rounded-full" />
-          </div>
-          <h2 className="text-5xl md:text-7xl font-black text-brand-green-deep uppercase tracking-tighter italic leading-[0.9] mb-6">
-            {config.shortName} <span className="text-brand-red">Furniture.</span>
-          </h2>
-          <p className="text-brand-gray-neutral font-medium tracking-wide text-sm">{config.marketing.description}</p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { name: 'Sofas', sub: 'Comfort Meets Modern Living' },
-            { name: 'Beds', sub: 'Sleep Better. Live Better.' },
-            { name: 'Dining', sub: 'Family Moments, Elevated.' },
-            { name: 'Tables', sub: 'Versatile Surfaces for Every Room' },
-            { name: 'Chairs', sub: 'Ergonomic Style for Every Space' },
-            { name: 'Kitchen', sub: 'Upgrade the Heart of Your Home' },
-            { name: 'TV Units', sub: 'Sleek Media Storage Solutions' },
-            { name: 'Electronics', sub: 'Smart Technology for Everyday Homes' },
-          ].map((cat, idx) => (
-            <CategoryCard key={cat.name} name={cat.name} subtext={cat.sub} delay={idx * 100} />
-          ))}
-        </div>
-      </section>
-
-      {/* ═══ TECHNOLOGY POSITIONING ═══ */}
-      <section className="py-12 max-w-7xl mx-auto px-6 mb-8">
-        <div className="bg-white rounded-[2.5rem] p-8 md:p-12 border border-brand-sand shadow-premium text-center md:text-left">
-          <h2 className="text-2xl md:text-4xl font-black text-brand-green-deep tracking-tighter mb-3 italic">Next-Generation Furniture Shopping</h2>
-          <p className="text-base font-bold text-brand-charcoal mb-8 uppercase tracking-widest italic">POWERED BY SPATIAL TECHNOLOGY.</p>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-brand-gray-neutral font-medium text-left max-w-3xl">
-            <li className="flex items-center gap-3"><div className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-yellow/20 flex items-center justify-center"><div className="w-1.5 h-1.5 rounded-full bg-brand-yellow"></div></div> 360° interactive viewing</li>
-            <li className="flex items-center gap-3"><div className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-red/20 flex items-center justify-center"><div className="w-1.5 h-1.5 rounded-full bg-brand-red"></div></div> True-to-scale spatial placement</li>
-            <li className="flex items-center gap-3"><div className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-green/20 flex items-center justify-center"><div className="w-1.5 h-1.5 rounded-full bg-brand-green-deep"></div></div> Eliminate spatial guesswork</li>
-            <li className="flex items-center gap-3"><div className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-yellow/20 flex items-center justify-center"><div className="w-1.5 h-1.5 rounded-full bg-brand-yellow"></div></div> Shop with absolute confidence</li>
-          </ul>
-          <p className="text-lg font-black text-brand-charcoal tracking-wide border-t border-brand-sand/50 pt-6 inline-block">No guesswork. No surprises. Just smarter shopping.</p>
-        </div>
-      </section>
-
-      {/* ═══ LIFESTYLE & AFFORDABILITY ═══ */}
-      <section className="py-12 md:py-20 max-w-7xl mx-auto px-6 mb-10">
-        <div className="bg-brand-green-deep rounded-[3rem] text-white overflow-hidden relative p-8 md:p-14 shadow-2xl border-4 border-brand-yellow/10">
-          <div className="absolute top-0 right-0 w-[50rem] h-[50rem] bg-brand-yellow/10 rounded-full blur-[100px] pointer-events-none" />
-          <div className="absolute bottom-[-10%] left-[-10%] w-[30rem] h-[30rem] bg-brand-red/10 rounded-full blur-[80px] pointer-events-none" />
-
-          <div className="relative z-10 max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-8 italic uppercase leading-[0.9] text-center">
-              Designed for Real Homes.<br />
-              <span className="text-brand-yellow">Priced for Real Families.</span>
-            </h2>
-
-            <p className="text-base text-white/80 font-medium mb-10 tracking-wide text-center">
-              At {config.name}, we combine:
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-              {config.marketing.valueProps.map((prop, idx) => (
-                <div key={idx} className="bg-white/5 backdrop-blur-sm border border-white/10 p-5 rounded-full flex items-center gap-4 hover:bg-white/10 transition-colors">
-                  <div className={`w-10 h-10 rounded-full ${idx % 2 === 0 ? 'bg-brand-red' : 'bg-brand-yellow text-brand-charcoal'} flex items-center justify-center font-black italic shadow-lg`}>0{idx + 1}</div>
-                  <span className="font-bold text-sm tracking-wide uppercase">{prop}</span>
+        </section>
+        {/* ── TECHNOLOGY DIFFERENTIATION SECTION ── */}
+        <section className="py-12 border-t border-gray-100">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {[
+                { title: 'Smart Browsing', icon: '🔍' },
+                { title: 'Interactive Catalog', icon: '✨' },
+                { title: 'Showroom Availability', icon: '🏬' },
+                { title: 'Curated Collections', icon: '🛋️' }
+              ].map((item, i) => (
+                <div key={i} className="flex flex-col items-center gap-3">
+                  <span className="text-3xl p-4 bg-gray-50 rounded-2xl mb-2">{item.icon}</span>
+                  <span className="text-[11px] font-bold text-gray-900 uppercase tracking-widest">{item.title}</span>
                 </div>
               ))}
             </div>
-
-            <div className="text-center">
-              <div className="bg-white/10 backdrop-blur-md rounded-full py-4 px-10 border border-white/20 inline-block">
-                <p className="text-sm md:text-base text-brand-yellow font-black uppercase tracking-[0.3em]">
-                  Because great homes should be stylish — not stressful.
-                </p>
-              </div>
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-    </div>
+        {/* ── DEAL SECTIONS ── */}
+        <HotSummerDeals products={products} />
+      </div>
+    </main>
   );
 }
 
-function CategoryCard({ name, subtext, delay }: { name: string, subtext: string, delay: number }) {
-  return (
-    <Link
-      href={`/catalogue?category=${name}`}
-      className="group relative h-[180px] rounded-2xl overflow-hidden shadow-premium hover:shadow-2xl transition-all duration-700 animate-in fade-in slide-in-from-bottom duration-1000 border border-brand-sand/10"
-      style={{ animationDelay: `${delay}ms`, background: 'linear-gradient(160deg, #3A7D44, #2a5c32)' }}
-    >
-      {/* Red hover gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-brand-red/0 group-hover:to-brand-red/60 transition-all duration-700" />
-      <div className="absolute top-8 left-8">
-        <div className="w-12 h-12 bg-brand-yellow/20 backdrop-blur rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:-rotate-12 transition-all duration-500 border border-brand-yellow/20">
-          <ArrowRight className="w-6 h-6 text-brand-yellow group-hover:text-white transition-colors" />
-        </div>
-      </div>
-      <div className="absolute bottom-6 left-6 right-6 transform group-hover:translate-y-[-4px] transition-transform duration-500">
-        <div className="flex items-center gap-2 mb-1">
-          <div className="h-[2px] w-4 bg-brand-yellow group-hover:w-8 transition-all duration-500" />
-          <span className="text-[8px] font-black text-brand-yellow uppercase tracking-[0.3em]">Collection</span>
-        </div>
-        <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter drop-shadow-md mb-1 leading-none">{name}</h3>
-        <p className="text-[9px] font-bold text-white/70 group-hover:text-brand-yellow uppercase tracking-[0.1em] transition-all duration-500 line-clamp-1">
-          {subtext}
-        </p>
-      </div>
-    </Link>
-  );
-}
 
-function FeatureCard({ icon: Icon, title, desc, accent }: { icon: any, title: string, desc: string, accent: string }) {
-  return (
-    <div className="bg-white p-6 rounded-[40px] border border-brand-sand shadow-sm group hover:shadow-md transition-all duration-300 flex flex-col justify-center text-center items-center">
-      <div className={`w-10 h-10 flex-shrink-0 ${accent} rounded-[14px] flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-all duration-300`}>
-        <Icon className="w-5 h-5 text-white/90" strokeWidth={2.5} />
-      </div>
-      <h3 className="text-[14px] font-black text-brand-charcoal tracking-widest uppercase mb-2 italic">{title}</h3>
-      <p className="text-brand-gray-neutral leading-relaxed font-medium text-[11px]">{desc}</p>
-    </div>
-  );
-}
+

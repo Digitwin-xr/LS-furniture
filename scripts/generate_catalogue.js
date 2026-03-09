@@ -29,7 +29,7 @@ const BLOB_BASE = 'https://o45t2gs3y3cfhz4u.public.blob.vercel-storage.com';
 
 // Category display order for catalogue
 const CATEGORY_ORDER = [
-    'Sofas', 'Chairs', 'Beds', 'Wardrobes', 'Dining',
+    'Sofas', 'Chairs', 'Beds', 'WARDROBES', 'Dining',
     'Tables', 'Kitchen', 'TV Units', 'Electronics', 'Storage', 'Miscellaneous'
 ];
 
@@ -59,31 +59,56 @@ function toSanitisedKey(filename) {
         .replace(/^_|_$/g, '') + ext;
 }
 
-/** Infer product category from filename keywords */
-function inferCategory(filename) {
-    const f = filename.toLowerCase();
-    if (f.includes('sofa') || f.includes('couch') || f.includes('lounge')) return 'Sofas';
-    if (f.includes('daybed')) return 'Sofas';
-    if (f.includes('dining') || f.includes('dinning')) return 'Dining';
-    if (f.includes('chair') || f.includes('stool') || f.includes('barstool')) return 'Chairs';
-    if (f.includes('bed') || f.includes('mattress') || f.includes('headboard') || f.includes('pedestal')) return 'Beds';
-    if (f.includes('table') || f.includes('desk')) return 'Tables';
-    if (f.includes('fridge') || f.includes('freezer') || f.includes('washing') ||
-        f.includes('microwave') || f.includes('fryer') || f.includes('stove')) return 'Electronics';
-    if (f.includes('wardrobe') || f.includes('robe') || f.includes('chest') ||
-        f.includes('drawer') || f.includes('cabinet') || f.includes('blanket')) return 'Storage';
-    if (f.includes('kitchen')) return 'Kitchen';
-    if (f.includes('tv') || f.includes('stand') || f.includes('tv_stand')) return 'TV Units';
+/** Infer strict product category from filename and/or product name keywords */
+function inferCategory(text) {
+    if (!text) return 'Miscellaneous';
+    const f = text.toLowerCase();
+
+    // Strict priority overrides based on common LS furniture keywords
+    if (f.includes('sofa') || f.includes('couch') || f.includes('lounge') || f.includes('daybed') || f.includes('recliner') || f.includes('seater') || f.includes('bugatti')) return 'Sofas';
+
+    // Bed components (bases, headboards) must go to Beds, not Miscellaneous or Storage
+    if (f.includes('bed') || f.includes('mattress') || f.includes('headboard') || f.includes('base') || f.includes('sleeper') || f.includes('blanket box') || f.includes('bunk') || f.includes('double') || f.includes('single') || f.includes('queen') || f.includes('lux') || f.includes('spine') || f.includes('sleep') || f.includes('bamboo')) return 'Beds';
+
+    // WARDROBES
+    if (f.includes('wardrobe') || f.includes('robe')) return 'WARDROBES';
+
+    // Storage items
+    if (f.includes('chest') || f.includes('drawer') || f.includes('cabinet') || f.includes('dresser') || f.includes('shelf') || f.includes('metal')) return 'Storage';
+
+    // Chairs / Seating
+    if (f.includes('chair') || f.includes('stool') || f.includes('barstool') || f.includes('ottoman')) return 'Chairs';
+
+    // Dining sets
+    if (f.includes('dining') || f.includes('dinning') || f.includes('buffet') || f.includes('server')) return 'Dining';
+
+    // Tables (Coffee, Occasional)
+    if (f.includes('table') || f.includes('desk') || f.includes('coffee')) return 'Tables';
+
+    // TV Units & Media
+    if (f.includes('tv') || f.includes('stand') || f.includes('plasma') || f.includes('entertainment')) return 'TV Units';
+
+    // Kitchen Schemes
+    if (f.includes('kitchen') || f.includes('scheme') || f.includes('combo')) return 'Kitchen';
+
+    // Appliances / Electronics
+    if (f.includes('fridge') || f.includes('freezer') || f.includes('washing') || f.includes('microwave') || f.includes('fryer') || f.includes('stove') || f.includes('oven') || f.includes('defy') || f.includes('hisense') || f.includes('totai') || f.includes('blaze')) return 'Electronics';
+
+    // If it has 'pedestal' but no other context, usually maps to Bedroom
+    if (f.includes('pedestal')) return 'Beds';
+
     return 'Miscellaneous';
 }
 
 /** Generate a short human-readable description from category + name */
-function makeDescription(category, productName) {
+function makeDescription(category, productName, csvDescription) {
+    if (csvDescription && csvDescription.trim()) return csvDescription.trim();
+    
     const templates = {
         'Sofas': `Stylish ${productName} — comfortable seating for your living room.`,
         'Chairs': `${productName} — ergonomic design for home or office.`,
         'Beds': `${productName} — premium sleep solution for restful nights.`,
-        'Wardrobes': `${productName} — spacious storage with elegant finish.`,
+        'WARDROBES': `${productName} — spacious storage with elegant finish.`,
         'Dining': `${productName} — perfect centrepiece for family dining.`,
         'Tables': `${productName} — versatile surface for any room.`,
         'Kitchen': `${productName} — modern kitchen solution for your home.`,
@@ -98,28 +123,54 @@ function makeDescription(category, productName) {
 // ─── CSV PARSER ───────────────────────────────────────────────────────────────
 
 function parseCSV(content) {
-    const lines = content.replace(/\r/g, '').split('\n').filter(l => l.trim());
-    const headers = lines[0].split(',').map(h => h.trim());
     const rows = [];
+    let currentLine = [];
+    let currentField = '';
+    let inQuote = false;
 
-    for (let i = 1; i < lines.length; i++) {
-        // Handle quoted values
-        const parts = [];
-        let current = '';
-        let inQuote = false;
-        for (const ch of lines[i]) {
-            if (ch === '"') { inQuote = !inQuote; continue; }
-            if (ch === ',' && !inQuote) { parts.push(current.trim()); current = ''; continue; }
-            current += ch;
+    // Normalize line endings and split by character for robust parsing
+    const chars = content.replace(/\r/g, ''); 
+    
+    for (let i = 0; i < chars.length; i++) {
+        const char = chars[i];
+        const nextChar = chars[i + 1];
+
+        if (char === '"') {
+            if (inQuote && nextChar === '"') {
+                // Escaped quote
+                currentField += '"';
+                i++;
+            } else {
+                inQuote = !inQuote;
+            }
+        } else if (char === ',' && !inQuote) {
+            currentLine.push(currentField.trim());
+            currentField = '';
+        } else if (char === '\n' && !inQuote) {
+            currentLine.push(currentField.trim());
+            rows.push(currentLine);
+            currentLine = [];
+            currentField = '';
+        } else {
+            currentField += char;
         }
-        parts.push(current.trim());
-
-        const obj = {};
-        headers.forEach((h, idx) => { obj[h] = parts[idx] || ''; });
-        if (obj.SKU) rows.push(obj);
+    }
+    // Push last field/line if exists
+    if (currentField || currentLine.length > 0) {
+        currentLine.push(currentField.trim());
+        rows.push(currentLine);
     }
 
-    return rows;
+    if (rows.length === 0) return [];
+    
+    const headers = rows[0].map(h => h.trim());
+    return rows.slice(1).map(row => {
+        const obj = {};
+        headers.forEach((h, idx) => {
+            obj[h] = row[idx] || '';
+        });
+        return obj;
+    }).filter(p => p.SKU); // Ensure it has at least an SKU
 }
 
 // ─── MATCHING ─────────────────────────────────────────────────────────────────
@@ -142,6 +193,20 @@ const MANUAL_OVERRIDES = {
     'sofa_singe_3div_square_arm_ma': '2999',
     // Pedestal bed set
     '21518_pedestal_york_baf': '215',
+    'wardrobe_4_door_white_dark_g': 'MW762',
+};
+
+// Category overrides: SKU → Category Name
+const CATEGORY_OVERRIDES = {
+    'MW762': 'WARDROBES',     // 4 Door White + Dark G
+    'YG3': 'WARDROBES',       // Robe 3Door Metal + Mirror Whit
+    '215': 'Beds',            // Budget Double (1 Star) 1370 MY
+    'JX1011': 'Chairs',       // Chair Manager Metal Base Black
+    '22488': 'Kitchen',       // Vegas 2Door Kitchen Base BAF
+    '6744': 'Kitchen',        // Linda Base 2Door BAF
+    '23025': 'Kitchen',       // Vegas 3Door Kitchen Base BAF
+    '5011-3-HY': 'Kitchen',    // Kitchenbase 3Door Grey Plaza
+    'MWBR3DBC': 'Kitchen',    // Kitchen Base Nogueira/White
 };
 
 /**
@@ -207,15 +272,24 @@ async function main() {
         process.exit(1);
     }
     const csvContent = fs.readFileSync(CSV_PATH, 'utf8');
-    const csvProducts = parseCSV(csvContent).map(p => {
-        let cat = p.Category === 'DINNING' || p.Category === 'Dinning' ? 'Dining' : p.Category;
-        if (!cat && p['Product Name']) {
+    const parsed = parseCSV(csvContent);
+    const csvProducts = parsed.map(p => {
+        let cat = p.Category === 'DINNING' || p.Category === 'Dinning' ? 'Dinning' : p.Category;
+        const sku = p.SKU.trim();
+
+        // 1. Manual Category Override
+        if (CATEGORY_OVERRIDES[sku]) {
+            cat = CATEGORY_OVERRIDES[sku];
+        } 
+        // 2. Inference if missing
+        else if (!cat && p['Product Name']) {
             cat = inferCategory(p['Product Name']);
         }
+
         return {
             ...p,
             Category: cat,
-            SKU: p.SKU.trim(),
+            SKU: sku,
             'Product Name': p['Product Name'].trim(),
         };
     });
@@ -290,7 +364,7 @@ async function main() {
                 imagePath: null,
                 hasModel: true,
                 hasImage: false,
-                description: makeDescription(product.Category, product['Product Name']),
+                description: makeDescription(product.Category, product['Product Name'], product['Product Description']),
                 fileSizeMB: parseFloat(sizeMB.toFixed(2)),
                 glbFile: sanitisedKey,
             });
@@ -315,7 +389,7 @@ async function main() {
                 imagePath: null,
                 hasModel: true,
                 hasImage: false,
-                description: makeDescription(inferredCat, inferredName),
+                description: makeDescription(inferredCat, inferredName, null),
                 fileSizeMB: parseFloat(sizeMB.toFixed(2)),
                 glbFile: sanitisedKey,
             });
@@ -340,7 +414,7 @@ async function main() {
             imagePath: null,
             hasModel: false,
             hasImage: false,
-            description: makeDescription(product.Category, product['Product Name']),
+            description: makeDescription(product.Category, product['Product Name'], product['Product Description']),
             fileSizeMB: null,
             glbFile: null,
         });

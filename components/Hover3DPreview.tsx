@@ -40,6 +40,7 @@ export default function Hover3DPreview({ modelPath, alt }: Hover3DPreviewProps) 
                 // Dynamic imports to optimize bundle size
                 const THREE = await import('three');
                 const { GLTFLoader } = await import('three/examples/jsm/loaders/GLTFLoader.js');
+                const { DRACOLoader } = await import('three/examples/jsm/loaders/DRACOLoader.js');
 
                 if (!isMounted || !containerRef.current) return;
 
@@ -73,9 +74,15 @@ export default function Hover3DPreview({ modelPath, alt }: Hover3DPreviewProps) 
                 const safeSrc = modelPath;
 
                 // Loading
+                const dracoLoader = new DRACOLoader();
+                dracoLoader.setDecoderPath('/draco/');
+                
                 const loader = new GLTFLoader();
+                loader.setDRACOLoader(dracoLoader);
+                
                 loader.load(
                     safeSrc,
+
                     (gltf: any) => {
                         if (!isMounted) return;
                         model = gltf.scene;

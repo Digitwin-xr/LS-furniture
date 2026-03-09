@@ -1,14 +1,13 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Product } from '@/types';
-import { ShoppingCart, Heart, Share2, Box, ChevronLeft, Camera, Send, Check } from 'lucide-react';
+import { ShoppingCart, Heart, Share2, Box, ChevronLeft, Camera, Send, Check, X } from 'lucide-react';
 import Link from 'next/link';
 import ExpressOrderModal from './ExpressOrderModal';
 import { useSearchParams } from 'next/navigation';
 
 import ModelViewer from './ModelViewer';
-import HotSummerBadge from './HotSummerBadge';
 import ShareButton from './ShareButton';
 import QRCodeModal from './QRCodeModal';
 import { useClient } from '@/engine/context/ClientContext';
@@ -22,7 +21,7 @@ const MATERIAL_FINISHES = [
     { name: 'Grey', color: '#808080' },
     { name: 'Teal', color: '#008080' },
     { name: 'Light Blue', color: '#ADD8E6' },
-    { name: 'Red', color: '#C41E29' },
+    { name: 'Red', color: '#E51A22' },
 ];
 
 export default function ProductDetail({ product }: { product: Product }) {
@@ -35,11 +34,24 @@ export default function ProductDetail({ product }: { product: Product }) {
     const [isSaved, setIsSaved] = useState(false);
     const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
     const [isQRModalOpen, setIsQRModalOpen] = useState(false);
+    const [isFullscreen, setIsFullscreen] = useState(false);
 
     const modelViewerRef = useRef<any>(null);
 
-    const saveAmount = product.WAS ? (parseInt(product.WAS.replace(/[^0-9.]/g, '')) - parseInt(product.NOW.replace(/[^0-9.]/g, ''))) : 0;
-    const savePercentage = product.WAS ? Math.round((saveAmount / parseInt(product.WAS.replace(/[^0-9.]/g, ''))) * 100) : 0;
+    // Auto-trigger AR Logic
+    useEffect(() => {
+        if (autoAR) {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (!isMobile) {
+                // On desktop, show QR code automatically if navigating from an AR link
+                setIsQRModalOpen(true);
+            }
+        }
+    }, [autoAR]);
+
+    const wasPriceParsed = product.WAS ? parseInt(product.WAS.replace(/[^0-9.]/g, '')) : 0;
+    const nowPriceParsed = parseInt(product.NOW.replace(/[^0-9.]/g, ''));
+    const saveAmount = wasPriceParsed ? (wasPriceParsed - nowPriceParsed) : 0;
 
     const handleARLaunch = () => {
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -51,26 +63,51 @@ export default function ProductDetail({ product }: { product: Product }) {
         }
     };
 
-    // Lifestyle-focused marketing description (no technical specs)
     const marketingDescription = `Designed for modern living, the ${product["Product Name"]} blends exceptional comfort with clean, contemporary lines. Perfect for creating a sophisticated focal point in your home, offering both style and durability for everyday living.`;
 
+    if (isFullscreen) {
+        return (
+            <div className="fixed inset-0 z-[100] bg-white flex flex-col">
+                <button
+                    onClick={() => setIsFullscreen(false)}
+                    className="absolute top-8 right-8 z-[110] bg-gray-900 text-white p-3 rounded-full hover:bg-brand-red transition-colors shadow-xl"
+                >
+                    <X className="w-6 h-6" />
+                </button>
+                <div className="flex-grow w-full h-full">
+                    <ModelViewer
+                        src={product.modelPath!}
+                        alt={product["Product Name"]}
+                        variant={selectedFinish}
+                    />
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <div className="max-w-[1600px] mx-auto px-4 py-4 md:py-8">
+        <div className="max-w-[1400px] mx-auto px-6 py-4 md:py-8 mt-24 relative">
             <Link
                 href="/catalogue"
-                className="inline-flex items-center gap-2 text-brand-charcoal hover:text-brand-green-deep font-bold uppercase text-[9px] tracking-[0.2em] mb-6 transition-all group relative z-50 backdrop-blur-sm bg-white/30 px-4 py-2 rounded-full border border-brand-sand shadow-sm"
+                className="absolute top-0 right-6 flex items-center gap-2 text-gray-400 hover:text-brand-red transition-colors font-bold text-[11px] uppercase tracking-widest"
             >
-                <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform text-brand-green" />
-                Back to Collection
+                Back to Shop <ChevronLeft className="w-4 h-4 rotate-180" />
             </Link>
 
-            <div className="flex flex-col lg:flex-row gap-6 items-start h-full">
-                {/* ═══ LEFT: 3D VIEWER ONLY — 60% Desktop ═══ */}
+            <Link
+                href="/catalogue"
+                className="inline-flex items-center gap-3 text-white bg-brand-charcoal hover:bg-brand-red font-black text-[11px] uppercase tracking-widest mb-10 px-5 py-3 rounded-full transition-all duration-300 shadow-md hover:-translate-y-0.5 hover:shadow-lg"
+            >
+                <ChevronLeft className="w-4 h-4" />
+                Back to Shop
+            </Link>
+
+            <div className="flex flex-col lg:flex-row gap-12 items-start h-full">
+                {/* ═══ LEFT: 3D VIEWER ONLY — 70% Desktop ═══ */}
                 <div
                     ref={modelViewerRef}
-                    className="w-full lg:w-[60%] lg:sticky lg:top-24 h-[400px] lg:h-[70vh] rounded-[2rem] bg-brand-sand/30 overflow-hidden relative border border-brand-sand shadow-sm group"
+                    className="w-full lg:w-[70%] lg:sticky lg:top-32 h-[500px] lg:h-[75vh] rounded-3xl bg-[#F8F8F8] overflow-hidden relative border border-gray-100 group"
                 >
-
                     {(features.enable3DViewer && product.modelPath) ? (
                         <ModelViewer
                             src={product.modelPath}
@@ -79,159 +116,109 @@ export default function ProductDetail({ product }: { product: Product }) {
                             autoActivateAR={autoAR}
                         />
                     ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-brand-sand/30">
-                            <Box className="w-16 h-16 text-brand-sand/50 animate-pulse" />
+                        <div className="w-full h-full flex items-center justify-center bg-[#F8F8F8]">
+                            <Box className="w-16 h-16 text-gray-300 animate-pulse" />
                         </div>
                     )}
 
                     {/* Viewer Controls */}
-                    <div className="absolute bottom-4 right-4 flex gap-2 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <div className="bg-white/90 backdrop-blur px-3 py-1.5 rounded-full shadow-sm text-[8px] font-bold uppercase tracking-widest text-brand-gray-neutral flex items-center gap-2">
-                            <Box className="w-2.5 h-2.5 text-brand-green" /> Drag to Rotate
+                    <div className="absolute bottom-6 right-6 flex gap-2 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="bg-white/90 backdrop-blur px-4 py-2 rounded-full shadow-sm text-[10px] font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2">
+                            <Box className="w-3 h-3 text-[#E51A22]" /> Drag to Rotate
                         </div>
                     </div>
                 </div>
 
-                {/* ═══ RIGHT: STRUCTURED PRODUCT CARD — 40% Desktop ═══ */}
-                <div className="w-full lg:w-[40%] flex flex-col justify-center py-2 lg:pl-4">
-                    <div className="bg-white rounded-[1.5rem] p-6 lg:p-7 shadow-premium border border-brand-sand/60 relative overflow-hidden">
+                {/* ═══ RIGHT: STRUCTURED PRODUCT CARD — 30% Desktop ═══ */}
+                <div className="w-full lg:w-[30%] flex flex-col justify-center py-2 lg:pl-4">
+                    <div className="bg-white relative">
 
                         {/* Category Tag */}
-                        <div className="mb-2 relative w-fit mt-2">
-                            <span className="text-[10px] text-[#A6C065] font-black uppercase tracking-[0.3em]">
+                        <div className="mb-4">
+                            <span className="text-[11px] text-gray-500 font-bold uppercase tracking-widest">
                                 {product.Category}
                             </span>
-                            <div className="w-1.5 h-1.5 bg-[#E51E25] rounded-full absolute -bottom-1 left-4"></div>
                         </div>
 
                         {/* Product Name */}
-                        <h1 className="text-2xl lg:text-3xl font-black text-[#343F48] tracking-tight leading-tight mb-2 uppercase">
+                        <h1 className="text-3xl lg:text-[40px] font-serif font-bold text-gray-900 leading-[1.1] mb-2 uppercase">
                             {product["Product Name"]}
                         </h1>
 
                         {/* SKU */}
-                        <p className="text-[#8FA3B0] font-medium uppercase tracking-[0.2em] text-[9px] opacity-80 mb-4">
+                        <p className="text-gray-400 font-medium uppercase tracking-[0.2em] text-[10px] mb-8">
                             Ref: {product.SKU}
                         </p>
 
                         {/* ── Pricing Block ── */}
-                        <div className="flex items-baseline gap-3 mb-6">
-                            <span className="text-4xl lg:text-5xl font-black text-[#E51E25] tracking-tighter italic leading-none">
-                                P {product.NOW}
-                            </span>
-                            {product.WAS && (
-                                <span className="text-sm lg:text-base text-[#8FA3B0] line-through font-black opacity-80 italic">
-                                    P {product.WAS}
+                        <div className="flex items-end flex-wrap gap-4 mb-8">
+                            <div className="flex flex-col">
+                                <span className="text-[10px] font-black uppercase text-gray-500 tracking-widest leading-none mb-1">Now Only</span>
+                                <span className="text-4xl lg:text-5xl font-black text-[#E51A22] tracking-tight leading-none">
+                                    {product.NOW === "Ask for Price" ? "Ask for Price" : `P${product.NOW}`}
                                 </span>
+                            </div>
+                            {product.WAS && (
+                                <div className="flex flex-col ml-2 pb-1">
+                                    <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest leading-none mb-1">Was</span>
+                                    <span className="text-xl lg:text-2xl text-gray-400 line-through font-bold leading-none">
+                                        {product.WAS === "Ask for Price" ? "Ask for Price" : `P${product.WAS}`}
+                                    </span>
+                                </div>
+                            )}
+                            {saveAmount > 0 && (
+                                <div className="ml-2 mb-2 bg-[#FFD700] text-gray-900 px-3 py-1.5 rounded-[4px] text-[11px] font-black tracking-widest uppercase shadow-sm">
+                                    SAVE P {saveAmount}
+                                </div>
                             )}
                         </div>
 
-                        {/* Marketing Description */}
-                        <p className="text-[#343F48]/80 text-[14px] lg:text-[15px] font-medium leading-relaxed mb-6 max-w-md">
-                            {marketingDescription}
+                        {/* Product Description */}
+                        <p className="text-gray-600 text-[15px] leading-relaxed mb-8 max-w-md">
+                            {product.description || `Experience the perfect blend of style and comfort with the ${product["Product Name"]}. A premium choice from the LS Lifestyle collection.`}
                         </p>
 
-                        {/* Standardized CTAs — Side-by-side layout, Hierarchy Upgraded */}
+                        {/* Standardized CTAs */}
                         {product.modelPath && (
-                            <div className="flex flex-row gap-3 mb-8 w-full mt-4">
+                            <div className="flex flex-row gap-3 mb-10 w-full">
                                 {features.enableSpatialPlacement && (
                                     <button
                                         onClick={handleARLaunch}
-                                        className="flex-[3] bg-gradient-to-r from-brand-green to-brand-green-deep text-white py-4 rounded-2xl text-[10px] sm:text-xs font-black tracking-widest flex items-center justify-center gap-2 shadow-[0_10px_25px_rgba(166,192,101,0.4)] hover:shadow-[0_15px_35px_rgba(166,192,101,0.6)] transition-all active:scale-95 border-b-4 border-black/20 animate-pulse-slow"
+                                        className="flex-[1] bg-brand-red text-white py-3 rounded-lg text-[11px] font-black tracking-widest uppercase flex items-center justify-center gap-2 hover:bg-[#C1151A] hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md"
                                     >
                                         <Camera className="w-4 h-4" /> VIEW IN YOUR SPACE
                                     </button>
                                 )}
                                 {features.enable3DViewer && (
                                     <button
-                                        onClick={() => {
-                                            modelViewerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                        }}
-                                        className="flex-[2] bg-gradient-to-r from-[#E31E24] to-[#ff4d4f] text-white hover:text-white border-2 border-transparent hover:border-white/20 py-4 rounded-2xl text-[9px] sm:text-[10px] font-black tracking-widest flex items-center justify-center gap-2 shadow-[0_10px_25px_rgba(227,30,36,0.3)] hover:shadow-[0_15px_35px_rgba(227,30,36,0.5)] transition-all active:scale-95 animate-pulse-slow"
+                                        onClick={() => setIsFullscreen(true)}
+                                        className="flex-[1] bg-brand-green text-white py-3 rounded-lg text-[11px] font-black tracking-widest uppercase flex items-center justify-center gap-2 hover:bg-brand-green-deep hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md"
                                     >
-                                        <Box className="w-4 h-4" /> EXPLORE IN 3D
+                                        <Box className="w-4 h-4" /> FULL 3D
                                     </button>
                                 )}
                             </div>
                         )}
 
-                        {/* Conversion Trust Badges Layer */}
-                        <div className="grid grid-cols-4 gap-2 mb-8 pt-6 border-t border-brand-sand/30">
-                            {[
-                                { icon: '🛡️', label: 'Secure Checkout' },
-                                { icon: '⭐', label: 'Quality Guaranteed' },
-                                { icon: '🚚', label: 'Fast Delivery' },
-                                { icon: '🔄', label: 'Easy Returns' }
-                            ].map((badge, i) => (
-                                <div key={i} className="flex flex-col items-center justify-center text-center gap-1.5 p-2 bg-white rounded-xl shadow-sm border border-brand-sand/30">
-                                    <span className="text-sm">{badge.icon}</span>
-                                    <span className="text-[7px] leading-tight font-black uppercase text-brand-charcoal/60 tracking-widest">{badge.label}</span>
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* Product Dimensions Panel (Collapsible) */}
-                        <details className="group border border-brand-sand/50 rounded-2xl bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                            <summary className="flex justify-between items-center font-bold text-xs uppercase tracking-widest text-[#343F48] cursor-pointer p-5 select-none list-none [&::-webkit-details-marker]:hidden">
-                                Product Dimensions
-                                <span className="transition group-open:rotate-180">
-                                    <svg fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9" /></svg>
-                                </span>
-                            </summary>
-                            <div className="px-5 pb-5 text-sm text-brand-gray-neutral flex flex-col gap-3 pt-2 border-t border-brand-sand/20">
-                                {/* Conditional Rendering based on Schema */}
-                                {(product as any).Width || (product as any).Depth || (product as any).Height ? (
-                                    <div className="grid grid-cols-3 gap-4">
-                                        {(product as any).Width && (
-                                            <div className="flex flex-col">
-                                                <span className="text-[9px] font-black uppercase tracking-widest text-brand-charcoal/40 mb-1">Width</span>
-                                                <span className="text-sm font-bold text-brand-charcoal">{(product as any).Width}</span>
-                                            </div>
-                                        )}
-                                        {(product as any).Depth && (
-                                            <div className="flex flex-col">
-                                                <span className="text-[9px] font-black uppercase tracking-widest text-brand-charcoal/40 mb-1">Depth</span>
-                                                <span className="text-sm font-bold text-brand-charcoal">{(product as any).Depth}</span>
-                                            </div>
-                                        )}
-                                        {(product as any).Height && (
-                                            <div className="flex flex-col">
-                                                <span className="text-[9px] font-black uppercase tracking-widest text-brand-charcoal/40 mb-1">Height</span>
-                                                <span className="text-sm font-bold text-brand-charcoal">{(product as any).Height}</span>
-                                            </div>
-                                        )}
-                                        {(product as any).Weight && (
-                                            <div className="flex flex-col col-span-3 pt-2 mt-2 border-t border-brand-sand/10">
-                                                <span className="text-[9px] font-black uppercase tracking-widest text-brand-charcoal/40 mb-1">Weight</span>
-                                                <span className="text-sm font-bold text-brand-charcoal">{(product as any).Weight}</span>
-                                            </div>
-                                        )}
-                                    </div>
-                                ) : (
-                                    <p className="text-xs italic text-brand-charcoal/50">Detailed spatial dimensions are being updated for this product.</p>
-                                )}
-                            </div>
-                        </details>
-
-                        {/* ── Variant Selector (Oval Finishers) ── */}
-                        <div className="space-y-2.5 mb-6">
-                            <h3 className="text-[9px] font-black text-brand-charcoal uppercase tracking-[0.2em]">Select Finish</h3>
-                            <div className="flex flex-wrap gap-2">
+                        {/* ── Variant Selector ── */}
+                        <div className="space-y-3 mb-10">
+                            <h3 className="text-[11px] font-bold text-gray-900 uppercase tracking-widest">Select Finish</h3>
+                            <div className="flex flex-wrap gap-3">
                                 {MATERIAL_FINISHES.map((finish) => (
                                     <button
                                         key={finish.name}
                                         onClick={() => setSelectedFinish(finish.name)}
-                                        className={`px-4 py-2 rounded-full transition-all flex items-center gap-2 border-2 ${selectedFinish === finish.name
-                                            ? 'border-brand-yellow bg-brand-yellow/10 scale-105 shadow-md'
-                                            : 'border-brand-sand hover:border-brand-yellow/50'
+                                        className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 border ${selectedFinish === finish.name
+                                            ? 'border-gray-900 bg-gray-50'
+                                            : 'border-gray-200 hover:border-gray-400'
                                             }`}
                                         title={finish.name}
                                     >
                                         <div
-                                            className="w-3 h-3 rounded-full border border-brand-sand/40 shadow-inner"
+                                            className="w-4 h-4 rounded-full border border-gray-200 shadow-sm"
                                             style={{ backgroundColor: finish.color }}
                                         />
-                                        <span className={`text-[8px] font-black uppercase tracking-wider ${selectedFinish === finish.name ? 'text-brand-charcoal' : 'text-brand-gray-neutral'}`}>
+                                        <span className={`text-[11px] font-bold tracking-wider ${selectedFinish === finish.name ? 'text-gray-900' : 'text-gray-500'}`}>
                                             {finish.name}
                                         </span>
                                     </button>
@@ -239,35 +226,75 @@ export default function ProductDetail({ product }: { product: Product }) {
                             </div>
                         </div>
 
-                        {/* ── CTA Cluster ── */}
-                        <div className="space-y-3">
-                            <hr className="border-brand-sand my-2" />
-
-                            {/* EXPRESS ORDER — Primary CTA */}
+                        {/* ── Express Order & Core Actions ── */}
+                        <div className="space-y-4">
                             <button
                                 onClick={() => setIsOrderModalOpen(true)}
-                                className="w-full btn-accent py-4 text-sm flex items-center justify-center gap-3 hover:shadow-2xl hover:scale-[1.01] active:scale-95 transition-all shadow-xl relative overflow-hidden btn-pulsate"
+                                className="w-full bg-[#D4AF37] text-white py-4 rounded-lg text-[13px] font-black tracking-widest uppercase flex items-center justify-center gap-3 hover:bg-[#B5952F] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#D4AF37]/20 active:scale-[0.98] relative group/glow"
                             >
-                                <Send className="w-4 h-4" /> Express Order
+                                <div className="absolute inset-0 bg-[#D4AF37] blur-xl opacity-0 group-hover/glow:opacity-30 transition-opacity rounded-lg" />
+                                <Send className="w-4 h-4 relative z-10" /> <span className="relative z-10">EXPRESS ORDER</span>
                             </button>
 
-                            {/* Buy Now / Save / Share */}
-                            <div className="grid grid-cols-3 gap-2">
-                                <button className="btn-secondary py-3 text-[8px] tracking-widest flex items-center justify-center gap-1.5">
-                                    <ShoppingCart className="w-3 h-3" /> Buy Now
+                            <div className="grid grid-cols-3 gap-2 pt-2">
+                                <button className="border border-[#D4AF37] py-3 rounded-lg text-[9px] font-black text-[#D4AF37] tracking-widest uppercase flex flex-col items-center justify-center gap-1 hover:bg-[#B5952F] hover:text-white hover:border-[#B5952F] hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-md group/buy relative overflow-hidden">
+                                    <div className="absolute inset-0 bg-[#B5952F] blur-xl opacity-0 group-hover/buy:opacity-10 transition-opacity" />
+                                    <ShoppingCart className="w-3 h-3 group-hover/buy:scale-110 transition-transform relative z-10" /> <span className="relative z-10">BUY NOW</span>
                                 </button>
                                 <button
                                     onClick={() => setIsSaved(!isSaved)}
-                                    className={`py-3 rounded-full text-[8px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-1.5 border-2 ${isSaved
-                                        ? 'bg-brand-red text-white border-brand-red'
-                                        : 'bg-transparent border-brand-sand text-brand-charcoal hover:border-brand-red hover:text-brand-red'
+                                    className={`py-3 rounded-lg text-[9px] font-black tracking-widest uppercase flex flex-col items-center justify-center gap-1 hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-md border relative group/save ${isSaved
+                                        ? 'bg-[#D4AF37] border-[#D4AF37] text-white'
+                                        : 'bg-white border-[#D4AF37] text-[#D4AF37] hover:bg-[#B5952F] hover:text-white hover:border-[#B5952F]'
                                         }`}
                                 >
-                                    <Heart className={`w-3 h-3 ${isSaved ? 'fill-current' : ''}`} /> {isSaved ? 'Saved' : 'Save'}
+                                    <div className={`absolute inset-0 blur-xl opacity-0 group-hover/save:opacity-20 transition-opacity ${isSaved ? 'bg-white' : 'bg-[#B5952F]'}`} />
+                                    <Heart className={`w-3 h-3 relative z-10 ${isSaved ? 'fill-current' : ''}`} /> <span className="relative z-10">{isSaved ? 'SAVED' : 'SAVE'}</span>
                                 </button>
-                                <ShareButton productName={product["Product Name"]} sku={product.SKU} />
+                                <button
+                                    onClick={() => {
+                                        if (navigator.share) {
+                                            navigator.share({
+                                                title: product["Product Name"],
+                                                url: window.location.href
+                                            });
+                                        }
+                                    }}
+                                    className="border border-[#D4AF37] py-3 rounded-lg text-[9px] font-black text-[#D4AF37] tracking-widest uppercase flex flex-col items-center justify-center gap-1 hover:bg-[#B5952F] hover:text-white hover:border-[#B5952F] hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-md group/share relative overflow-hidden"
+                                >
+                                    <div className="absolute inset-0 bg-[#B5952F] blur-xl opacity-0 group-hover/share:opacity-10 transition-opacity" />
+                                    <Share2 className="w-3 h-3 relative z-10" /> <span className="relative z-10">SHARE</span>
+                                </button>
                             </div>
                         </div>
+
+                        {/* Trust Badges */}
+                        <div className="grid grid-cols-3 gap-3 mt-12 py-6 border-t border-gray-100">
+                            {[
+                                {
+                                    icon: '📋',
+                                    title: 'SIX MONTHS LAY BYE',
+                                    bullets: ['No interest', 'No hidden charges']
+                                },
+                                { icon: '🚚', title: 'SAME DAY DELIVERY' },
+                                { icon: '🛡️', title: 'QUALITY GUARANTEED' }
+                            ].map((badge, i) => (
+                                <div key={i} className="flex flex-col items-center justify-start text-center gap-1.5">
+                                    <span className="text-xl mb-1">{badge.icon}</span>
+                                    <span className="text-[9px] font-black uppercase text-gray-900 tracking-tight leading-tight">{badge.title}</span>
+                                    {badge.bullets && (
+                                        <div className="flex flex-col gap-0.5 mt-0.5">
+                                            {badge.bullets.map((b, idx) => (
+                                                <span key={idx} className="text-[7px] font-bold text-gray-500 uppercase tracking-tighter opacity-80 leading-none">
+                                                    • {b}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+
                     </div>
                 </div>
             </div>

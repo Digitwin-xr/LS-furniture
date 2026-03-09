@@ -45,8 +45,8 @@ export interface ClientConfig {
 // Default LS Lifestyle Configuration fallback
 export const lsLifestyleConfig: ClientConfig = {
     id: 'ls-lifestyle',
-    name: 'LS Lifestyle Furniture & Appliances',
-    shortName: 'LS Lifestyle',
+    name: 'Lifestyle Furniture & Appliances',
+    shortName: 'Lifestyle Furniture',
     logo: '/logo.png',
     tagline: 'Lifestyle. Affordability. Innovation.',
     colors: {

@@ -1,72 +1,77 @@
 'use client';
 
-import Navbar from '@/components/Navbar';
+import dynamic from 'next/dynamic';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { useClient } from '@/engine/context/ClientContext';
+
+const DynamicRetailHeader = dynamic(() => import('@/components/RetailHeader'), { ssr: false });
 
 export default function ContactPage() {
     const config = useClient();
 
     return (
-        <main className="min-h-screen bg-brand-sand/20 pb-24">
-            <Navbar />
-            <div className="max-w-7xl mx-auto px-4 py-12">
-                <div className="grid md:grid-cols-2 gap-12">
+        <main className="min-h-screen bg-white pb-24 font-sans">
+            <DynamicRetailHeader />
+            <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+                <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
                     {/* Info */}
-                    <div>
-                        <h1 className="text-5xl font-black text-brand-green-deep uppercase tracking-tighter mb-4 italic">
-                            Get in <span className="text-brand-charcoal not-italic">Touch</span>
-                        </h1>
-                        <p className="text-lg text-brand-gray-neutral mb-12">
-                            Have questions about our 3D catalogue or specific furniture pieces? Our design consultants are ready to assist.
-                        </p>
+                    <div className="space-y-12">
+                        <div>
+                            <h1 className="text-6xl md:text-7xl font-black text-brand-red uppercase tracking-tighter mb-6 italic leading-none">
+                                Get in <br /><span className="text-brand-green not-italic">Touch.</span>
+                            </h1>
+                            <p className="text-xl text-gray-500 font-medium leading-relaxed max-w-lg">
+                                Have questions about our 3D catalogue, interior solutions, or specific pieces? Our consultants are ready to assist you.
+                            </p>
+                        </div>
 
-                        <div className="space-y-8">
-                            <div className="flex items-start gap-6 group">
-                                <div className="w-16 h-16 bg-brand-green text-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shrink-0">
-                                    <Phone className="w-8 h-8" />
+                        <div className="space-y-10">
+                            <div className="flex items-start gap-8 group">
+                                <div className="w-14 h-14 bg-brand-green text-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl shadow-brand-green/20 shrink-0">
+                                    <Phone className="w-6 h-6" />
                                 </div>
-                                <div className="space-y-4">
+                                <div className="space-y-6">
                                     {config.showrooms.map((showroom) => (
-                                        <div key={showroom.name}>
-                                            <p className="text-sm font-bold text-brand-gray-neutral uppercase tracking-widest mb-1">{showroom.name}</p>
-                                            <p className="text-lg font-bold text-brand-charcoal leading-tight">{showroom.address}</p>
-                                            <p className="text-xl font-black text-brand-green-deep">{showroom.phone}</p>
+                                        <div key={showroom.name} className="border-l-2 border-gray-100 pl-6">
+                                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-2">{showroom.name}</p>
+                                            <p className="text-lg font-bold text-gray-900 leading-tight mb-2 uppercase tracking-tight">{showroom.address}</p>
+                                            <p className="text-2xl font-black text-brand-green leading-none">{showroom.phone}</p>
                                         </div>
                                     ))}
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-6 group">
-                                <div className="w-16 h-16 bg-brand-green-deep text-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
-                                    <Mail className="w-8 h-8" />
+                            <div className="flex items-center gap-8 group">
+                                <div className="w-14 h-14 bg-brand-red text-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl shadow-brand-red/20">
+                                    <Mail className="w-6 h-6" />
                                 </div>
-                                <div>
-                                    <p className="text-sm font-bold text-brand-gray-neutral uppercase tracking-widest">Email Enquiries</p>
-                                    <p className="text-xl font-black text-brand-charcoal">{config.social.whatsapp.includes('@') ? config.social.whatsapp : `sales@${config.id}.co.bw`}</p>
-                                    {/* Note: I'll use a generic fallback for email if not explicitly in config, or just use config.id if needed. For LS it's sales@lslifestyle.co.bw */}
+                                <div className="border-l-2 border-gray-100 pl-6">
+                                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-2">Email Enquiries</p>
+                                    <p className="text-2xl font-black text-gray-900 leading-none">sales@lslifestyle.co.bw</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {/* Form */}
-                    <div className="bg-white rounded-3xl p-8 shadow-2xl border border-brand-sand/30">
-                        <h2 className="text-2xl font-bold text-brand-green-deep uppercase mb-6">Send an Enquiry</h2>
-                        <form className="space-y-6">
-                            <div>
-                                <label className="block text-xs font-bold uppercase tracking-widest text-brand-gray-neutral mb-2">Your Name</label>
-                                <input type="text" className="w-full bg-brand-sand/10 border-2 border-brand-sand/30 rounded-xl px-4 py-3 focus:border-brand-green outline-none transition-colors text-brand-charcoal" placeholder="John Doe" />
+                    <div className="bg-gray-50/50 rounded-[2.5rem] p-10 md:p-12 border border-gray-100 shadow-sm relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-brand-green/5 rounded-full -mr-16 -mt-16 blur-3xl" />
+
+                        <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tight mb-10">Send an Enquiry</h2>
+                        <form className="space-y-8">
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-black uppercase tracking-[0.25em] text-gray-400 ml-1">Your Name</label>
+                                <input type="text" className="w-full bg-white border border-gray-200 rounded-2xl px-6 py-4 focus:border-brand-green outline-none transition-all text-gray-900 font-medium placeholder:text-gray-300" placeholder="FULL NAME" />
                             </div>
-                            <div>
-                                <label className="block text-xs font-bold uppercase tracking-widest text-brand-gray-neutral mb-2">Email Address</label>
-                                <input type="email" className="w-full bg-brand-sand/10 border-2 border-brand-sand/30 rounded-xl px-4 py-3 focus:border-brand-green outline-none transition-colors text-brand-charcoal" placeholder="john@example.com" />
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-black uppercase tracking-[0.25em] text-gray-400 ml-1">Email Address</label>
+                                <input type="email" className="w-full bg-white border border-gray-200 rounded-2xl px-6 py-4 focus:border-brand-green outline-none transition-all text-gray-900 font-medium placeholder:text-gray-300" placeholder="EMAIL@EXAMPLE.COM" />
                             </div>
-                            <div>
-                                <label className="block text-xs font-bold uppercase tracking-widest text-brand-gray-neutral mb-2">Message</label>
-                                <textarea rows={4} className="w-full bg-brand-sand/10 border-2 border-brand-sand/30 rounded-xl px-4 py-3 focus:border-brand-green outline-none transition-colors text-brand-charcoal" placeholder="I'm interested in a product..."></textarea>
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-black uppercase tracking-[0.25em] text-gray-400 ml-1">Message</label>
+                                <textarea rows={4} className="w-full bg-white border border-gray-200 rounded-2xl px-6 py-4 focus:border-brand-green outline-none transition-all text-gray-900 font-medium placeholder:text-gray-300" placeholder="HOW CAN WE ASSIST YOU?"></textarea>
                             </div>
-                            <button className="w-full btn-primary py-5 text-sm flex items-center justify-center gap-3 hover:shadow-2xl group">
+                            <button className="w-full bg-brand-green text-white py-5 rounded-2xl text-[12px] font-black tracking-[0.2em] uppercase flex items-center justify-center gap-3 hover:bg-brand-green-deep hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-brand-green/20 group">
                                 <span>Send Enquiry</span>
                                 <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                             </button>

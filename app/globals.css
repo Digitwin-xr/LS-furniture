@@ -56,6 +56,18 @@
   --brand-yellow: #FED700;
 }
 
+/* Spring Banner slide-down + fade-in */
+@keyframes springBannerIn {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ═══════════════════════════════════════
    GRADIENT SYSTEM
    ═══════════════════════════════════════ */
@@ -114,6 +126,7 @@
   background: white;
   box-shadow: 0 20px 40px rgba(55, 65, 81, 0.05);
   border: 1px solid rgba(55, 65, 81, 0.02);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .paper-peel::after {
@@ -124,16 +137,28 @@
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0 32px 32px 0;
+  border-width: 0 0 0 0;
   border-color: transparent transparent #fefefe transparent;
   box-shadow: -5px 5px 15px rgba(55, 65, 81, 0.08);
-  transition: all 0.5s var(--ease-cinematic);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.paper-peel:hover {
+  transform: perspective(1000px) rotateX(-5deg) rotateY(2deg) translateZ(20px);
 }
 
 .paper-peel:hover::after {
   border-width: 0 48px 48px 0;
   border-color: transparent transparent #FFE926 transparent;
 }
+
+@keyframes paper-peel-glow {
+  50% {
+    transform: perspective(1000px) rotateX(-15deg) rotateY(10deg) translateZ(50px);
+    box-shadow: -20px 20px 40px rgba(0, 0, 0, 0.2);
+  }
+}
+
 
 /* ═══════════════════════════════════════
    KEYFRAMES
@@ -282,27 +307,26 @@ body {
    ═══════════════════════════════════════ */
 
 .btn-primary {
-  background-color: #8CC63F;
-  /* Updated to Light Green */
+  background-color: #7DBB42;
   color: white;
   border-radius: 9999px;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   transition: all 0.3s var(--ease-cinematic);
-  box-shadow: 0 10px 30px -8px rgba(140, 198, 63, 0.3);
+  box-shadow: 0 10px 30px -8px rgba(125, 187, 66, 0.3);
 }
 
 .btn-primary:hover {
-  background-color: #a2d261;
+  background-color: #4A8515;
   transform: translateY(-2px);
-  box-shadow: 0 16px 40px -8px rgba(140, 198, 63, 0.4);
+  box-shadow: 0 16px 40px -8px rgba(125, 187, 66, 0.4);
 }
 
 .btn-secondary {
   background-color: white;
-  color: #5D8E28;
-  border: 2px solid #8CC63F;
+  color: #3D4451;
+  border: 2px solid #7DBB42;
   border-radius: 9999px;
   font-weight: 900;
   text-transform: uppercase;
@@ -313,25 +337,24 @@ body {
 .btn-secondary:hover {
   background-color: #F2F8EB;
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px -8px rgba(140, 198, 63, 0.2);
+  box-shadow: 0 10px 30px -8px rgba(125, 187, 66, 0.2);
 }
 
 .btn-accent {
-  background-color: #E31E24;
+  background-color: #E51A22;
   color: white;
   border-radius: 9999px;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   transition: all 0.3s var(--ease-cinematic);
-  box-shadow: 0 10px 30px -8px rgba(227, 30, 36, 0.35);
+  box-shadow: 0 10px 30px -8px rgba(229, 26, 34, 0.35);
 }
 
 .btn-accent:hover {
-  background-color: #B01A28;
-  /* Slightly darker shade */
+  background-color: #C1151A;
   transform: translateY(-2px);
-  box-shadow: 0 16px 40px -8px rgba(227, 30, 36, 0.5);
+  box-shadow: 0 16px 40px -8px rgba(229, 26, 34, 0.5);
 }
 
 .btn-yellow {

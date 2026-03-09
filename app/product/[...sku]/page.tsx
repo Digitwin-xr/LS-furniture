@@ -1,5 +1,5 @@
 import { getProducts } from '@/lib/products';
-import Navbar from '@/components/Navbar';
+import RetailHeader from '@/components/RetailHeader';
 import { notFound } from 'next/navigation';
 import ProductDetailWrapper from '@/components/ProductDetailWrapper';
 
@@ -24,7 +24,7 @@ export default async function ProductPage({
 
     return (
         <main className="min-h-screen bg-brand-sand/20 pb-24">
-            <Navbar />
+            <RetailHeader />
             <div className="animate-in fade-in duration-1000">
                 <ProductDetailWrapper product={serializedProduct} />
             </div>
