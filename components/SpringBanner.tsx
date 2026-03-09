@@ -12,19 +12,15 @@ export default function SpringBanner() {
                 minHeight: '40px',
                 borderRadius: '0',
                 padding: '0 20px',
-                animation: 'springBannerIn 500ms ease-out both',
                 fontFamily: 'Inter, sans-serif',
                 fontSize: '14px',
                 fontWeight: 500,
             }}
         >
-            {/* Left: Pulsing dot + Message */}
+            {/* Left: Indicator + Message */}
             <div className="flex items-center gap-3 flex-wrap">
-                {/* Soft pulsing attention dot */}
-                <span className="relative flex h-2.5 w-2.5 shrink-0">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-50" />
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white opacity-90" />
-                </span>
+                {/* Static indicator */}
+                <div className="w-2 h-2 rounded-full bg-white opacity-40 shrink-0" />
                 <span className="font-semibold tracking-wide">
                     🌿 Spring Home Refresh
                 </span>
@@ -44,12 +40,6 @@ export default function SpringBanner() {
                     background: '#FFFFFF',
                     color: '#3D4451',
                     border: '2px solid transparent',
-                }}
-                onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = '#D4AF37';
-                }}
-                onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = 'transparent';
                 }}
             >
                 Shop Spring Deals
