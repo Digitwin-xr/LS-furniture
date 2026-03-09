@@ -451,12 +451,15 @@ body {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     filter: none !important;
+    mix-blend-mode: normal !important; /* Prevent artifacts from blend modes */
   }
 
   body, html {
     background-color: #F6F6F6 !important; /* Lightweight static background */
     overflow-x: hidden !important;
     position: relative;
+    transform: none !important;
+    perspective: none !important;
   }
 
   /* 2. Disable heavy canvas animations */
@@ -469,11 +472,24 @@ body {
   /* 3. Simplify UI Overlays */
   .summer-glow-bg::before,
   .spotlight-glow::before,
-  .summer-badge-glow::before {
+  .summer-badge-glow::before,
+  .bg-radial-\[at_50\%_50\% \,rgba\(0 \,0 \,0 \,0\.03\)_0\% \,transparent_70\%\] {
     display: none !important;
+    background: none !important;
   }
 
-  /* 4. Layering Fixes */
+  /* 4. Layering & Transform Fixes */
+  header, nav, aside, main, section, div, article {
+    transform: none !important; /* Reset 3D transforms that might trigger GPU layers */
+    perspective: none !important;
+    transform-style: flat !important;
+  }
+
+  /* Restore basic transforms for essential UI if needed, but keep global flat */
+  .group-hover\:-translate-y-1 {
+    transform: none !important;
+  }
+
   header, nav, aside, main {
     position: relative;
     z-index: 10 !important;
@@ -484,9 +500,12 @@ body {
   .animate-pulse-subtle,
   .animate-summer-glow,
   .animate-marquee,
-  .animate-float {
+  .animate-float,
+  .animate-in,
+  .animate-pulse,
+  .animate-spin {
     animation: none !important;
-    transform: none !important;
+    transition: none !important;
   }
 
   /* Explicitly replace gradients with solid colors if they fail */

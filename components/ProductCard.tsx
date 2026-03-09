@@ -18,20 +18,36 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
     const [isHovered, setIsHovered] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     // null = checking, true = ok, false = unavailable
     const [modelOk, setModelOk] = useState<boolean | null>(
         product.modelPath ? null : false
     );
 
-    // Pre-validate the model URL to silently catch 404s before rendering model-viewer
+    // Detect mobile for WebGL optimization
     useEffect(() => {
-        if (!product.modelPath) { setModelOk(false); return; }
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Pre-validate the model URL to silently catch 404s before rendering model-viewer
+    // Only run if NOT on mobile to save network/GPU
+    useEffect(() => {
+        if (!product.modelPath || isMobile) { 
+            if (isMobile) setModelOk(false);
+            else if (!product.modelPath) setModelOk(false);
+            return; 
+        }
         let cancelled = false;
         fetch(product.modelPath, { method: 'HEAD' })
             .then(res => { if (!cancelled) setModelOk(res.ok); })
             .catch(() => { if (!cancelled) setModelOk(false); });
         return () => { cancelled = true; };
-    }, [product.modelPath]);
+    }, [product.modelPath, isMobile]);
 
     const wasPrice = product.WAS ? parseInt(product.WAS.replace(/[^0-9.]/g, '')) : 0;
     const nowPrice = parseInt((product.NOW || '0').replace(/[^0-9.]/g, ''));
