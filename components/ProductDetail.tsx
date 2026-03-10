@@ -88,33 +88,33 @@ export default function ProductDetail({ product }: { product: Product }) {
 
     return (
         <div id={`product-${product.SKU}`} className="max-w-[1400px] mx-auto px-6 py-4 md:py-8 mt-24 relative">
-            <button
-                onClick={() => {
-                    // Force a native back to preserve scroll position perfectly
-                    if (window.history.length > 1) {
-                        window.history.back();
-                    } else {
-                        window.location.href = '/catalogue';
-                    }
-                }}
-                className="absolute top-0 right-6 flex items-center gap-2 text-gray-400 hover:text-brand-red transition-colors font-bold text-[9px] md:text-[11px] uppercase tracking-widest"
-            >
-                Back <ChevronLeft className="w-4 h-4 rotate-180" />
-            </button>
-
-            <Link
-                href="/catalogue"
-                className="inline-flex items-center gap-3 text-white bg-brand-charcoal hover:bg-brand-red font-black text-[9px] md:text-[11px] uppercase tracking-widest mb-10 px-4 md:px-5 py-2 md:py-3 rounded-full transition-all duration-300 shadow-md hover:-translate-y-0.5 hover:shadow-lg"
-            >
-                <ChevronLeft className="w-4 h-4" />
-                Back to Shop
-            </Link>
+            {/* Top Navigation Row */}
+            <div className="flex items-center justify-end gap-6 mb-8">
+                <Link
+                    href="/catalogue"
+                    className="flex items-center gap-2 text-brand-green hover:text-brand-green-deep font-black text-[9px] md:text-[11px] uppercase tracking-[0.2em] transition-colors"
+                >
+                    <ChevronLeft className="w-3.5 h-3.5" /> Back to Shop
+                </Link>
+                <button
+                    onClick={() => {
+                        if (window.history.length > 1) {
+                            window.history.back();
+                        } else {
+                            window.location.href = '/catalogue';
+                        }
+                    }}
+                    className="flex items-center gap-2 text-brand-red hover:text-red-700 font-black text-[9px] md:text-[11px] uppercase tracking-[0.2em] transition-colors"
+                >
+                    Back <ChevronLeft className="w-3.5 h-3.5 rotate-180" />
+                </button>
+            </div>
 
             <div className="flex flex-col lg:flex-row gap-12 items-start h-full">
                 {/* ═══ LEFT: 3D VIEWER ONLY — 70% Desktop ═══ */}
                 <div
                     ref={modelViewerRef}
-                    className="w-full lg:w-[70%] lg:sticky lg:top-32 h-[500px] max-h-[50vh] lg:max-h-none lg:h-[75vh] rounded-3xl bg-[#F8F8F8] overflow-hidden relative border border-gray-100 group"
+                    className="w-full lg:w-[70%] lg:sticky lg:top-32 h-[450px] sm:h-[600px] lg:h-[80vh] rounded-[2.5rem] bg-[#F8F8F8] overflow-hidden relative border border-gray-100 group shadow-inner"
                 >
                     {(features.enable3DViewer && product.modelPath) ? (
                         <ModelViewer

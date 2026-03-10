@@ -47,7 +47,7 @@ export default function Home() {
           <div className="inline-flex items-center gap-3 bg-brand-green/5 px-8 py-4 rounded-full border border-brand-green/10 overflow-hidden group shadow-sm">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-green/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
             <div className="w-2.5 h-2.5 rounded-full bg-brand-green animate-pulse" />
-            <span className="text-[10px] md:text-[12px] font-black text-brand-green uppercase tracking-[0.25em] relative z-10 leading-tight">
+            <span className="text-[10px] md:text-[12px] font-black text-brand-red uppercase tracking-[0.25em] relative z-10 leading-tight">
               Powered by 3D and realtime Spatial Technology
             </span>
           </div>
@@ -68,7 +68,7 @@ export default function Home() {
                   <p className="text-lg md:text-xl font-bold max-w-md leading-relaxed text-gray-400">
                     Discover stylish furniture and reliable appliances designed for modern homes &mdash; now available at <span className="text-brand-green">exclusive seasonal prices.</span>
                   </p>
-                  <p className="text-[12px] font-black uppercase tracking-[0.2em] pt-2 text-gray-300">
+                  <p className="text-[12px] font-black uppercase tracking-[0.2em] pt-2 text-[#FFD700]">
                     Shop smarter &middot; Explore in 360 &middot; Visualize in your space
                   </p>
                 </div>
