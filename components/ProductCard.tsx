@@ -83,7 +83,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 {/* Single Refined CTA */}
                 <Link
                     href={`/product/${product.SKU}`}
-                    className="w-full bg-brand-charcoal text-white py-4 rounded-xl text-[11px] font-black tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 uppercase shadow-lg shadow-gray-200 hover:bg-brand-green hover:shadow-brand-green/20 group-hover:shadow-xl active:scale-95"
+                    className="w-full btn-gold py-4 flex items-center justify-center gap-2 group-hover:shadow-xl active:scale-95"
                 >
                     VIEW PRODUCT <Box className="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform" />
                 </Link>

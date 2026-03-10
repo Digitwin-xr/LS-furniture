@@ -12,6 +12,8 @@
 @theme {
   --color-brand-green: #7DBB42;
   /* Brighter Light Green */
+  --color-brand-gold: #D4AF37;
+  /* Premium Gold */
   --color-brand-green-deep: #4A8515;
   /* Energetic Deep Green */
   --color-brand-green-light: #F2F8EB;
@@ -374,6 +376,23 @@ body {
   box-shadow: 0 16px 40px -8px rgba(255, 215, 0, 0.5);
 }
 
+.btn-gold {
+  background-color: #D4AF37;
+  color: white;
+  border-radius: 9999px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s var(--ease-cinematic);
+  box-shadow: 0 10px 30px -8px rgba(212, 175, 55, 0.35);
+}
+
+.btn-gold:hover {
+  background-color: #B5952F;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -8px rgba(212, 175, 55, 0.5);
+}
+
 .btn-pulsate {
   animation: btn-pulse 3s infinite var(--ease-cinematic);
   box-shadow: 0 15px 40px -10px rgba(227, 30, 36, 0.3);
@@ -478,6 +497,18 @@ body {
   header, nav {
     position: fixed;
     z-index: 100 !important;
+  }
+
+  /* 5. Streamlined Global Buttons for Mobile */
+  .btn-primary, .btn-secondary, .btn-accent, .btn-yellow, .btn-gold,
+  [class*="bg-brand-charcoal"], [class*="bg-brand-green"], [class*="bg-brand-red"] {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    font-size: 9px !important;
+    letter-spacing: 0.1em !important;
+    border-radius: 12px !important;
   }
 
   /* Simple borders instead of shadows for mobile hierarchy */

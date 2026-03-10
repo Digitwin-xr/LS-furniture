@@ -42,21 +42,24 @@ export default function Home() {
       <SpringBanner />
 
       <div className="max-w-7xl mx-auto px-6">
+        {/* ── POWERED BY BRANDING: Top Positioned ── */}
+        <div className="pt-24 md:pt-32 flex justify-center w-full mb-8">
+          <div className="inline-flex items-center gap-3 bg-brand-green/5 px-8 py-4 rounded-full border border-brand-green/10 overflow-hidden group shadow-sm">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-green/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+            <div className="w-2.5 h-2.5 rounded-full bg-brand-green animate-pulse" />
+            <span className="text-[10px] md:text-[12px] font-black text-brand-green uppercase tracking-[0.25em] relative z-10 leading-tight">
+              Powered by 3D and realtime Spatial Technology
+            </span>
+          </div>
+        </div>
+
         {/* ── CONSOLIDATED 3D HERO SECTION ── */}
-        <section className="pt-32 pb-24 md:pt-40 lg:pt-48 w-full block">
+        <section className="pb-24 w-full block">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-8 items-center w-full">
 
             {/* LEFT SIDE: Brand Narrative - 30% */}
-            <div className="w-full lg:w-[30%] space-y-10 relative animate-in slide-in-from-left duration-1000 pl-4 lg:pl-0">
+            <div className="w-full lg:w-[30%] space-y-10 relative animate-in slide-in-from-left duration-1000 pl-4 lg:pl-0 order-2 lg:order-1">
               <div className="relative z-10">
-                <div className="inline-flex items-center gap-3 bg-brand-green/5 px-6 py-3 rounded-full border border-brand-green/10 mb-8 overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-green/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-brand-green animate-pulse" />
-                  <span className="text-[10px] md:text-[11px] font-black text-brand-green uppercase tracking-[0.2em] relative z-10 leading-tight animate-pulse">
-                    Powered by 3D and realtime Spatial Technology
-                  </span>
-                </div>
-
                 <div className="space-y-6">
                   <h1 className="text-5xl lg:text-[5rem] xl:text-[5.5rem] font-black tracking-tighter leading-[1.1] pr-4">
                     <span className="block mb-1 text-gray-900">Beautiful <span className="text-brand-green">Living.</span></span>
@@ -69,13 +72,12 @@ export default function Home() {
                     Shop smarter &middot; Explore in 360 &middot; Visualize in your space
                   </p>
                 </div>
-                
               </div>
             </div>
 
             {/* RIGHT SIDE: 3D Product Visualization - 70% */}
-            <div className="flex flex-col items-center w-full lg:w-[70%]">
-              <div className="relative w-full aspect-[4/3] lg:aspect-[16/9] lg:min-h-[600px] xl:min-h-[700px] bg-[#FAFAFA] rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden group">
+            <div className="flex flex-col items-center w-full lg:w-[70%] order-1 lg:order-2">
+              <div className="relative w-full aspect-[1/1] sm:aspect-[4/3] lg:aspect-[16/9] lg:min-h-[600px] xl:min-h-[700px] bg-[#FAFAFA] rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden group">
                 
                 {heroProduct?.modelPath ? (
                   <div className="w-full h-full cursor-grab active:cursor-grabbing relative z-10">

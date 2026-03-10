@@ -184,7 +184,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                                 {features.enableSpatialPlacement && (
                                     <button
                                         onClick={handleARLaunch}
-                                        className="flex-[1] bg-brand-red text-white py-3 rounded-lg text-[11px] font-black tracking-widest uppercase flex items-center justify-center gap-2 hover:bg-[#C1151A] hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md"
+                                        className="flex-[1] btn-accent py-3 flex items-center justify-center gap-2 hover:-translate-y-1"
                                     >
                                         <Camera className="w-4 h-4" /> VIEW IN YOUR SPACE
                                     </button>
@@ -192,7 +192,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                                 {features.enable3DViewer && (
                                     <button
                                         onClick={() => setIsFullscreen(true)}
-                                        className="flex-[1] bg-brand-green text-white py-3 rounded-lg text-[11px] font-black tracking-widest uppercase flex items-center justify-center gap-2 hover:bg-brand-green-deep hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md"
+                                        className="flex-[1] btn-primary py-3 flex items-center justify-center gap-2 hover:-translate-y-1"
                                     >
                                         <Box className="w-4 h-4" /> FULL 3D
                                     </button>
@@ -230,7 +230,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                         <div className="space-y-4">
                             <button
                                 onClick={() => setIsOrderModalOpen(true)}
-                                className="w-full bg-[#D4AF37] text-white py-4 rounded-lg text-[13px] font-black tracking-widest uppercase flex items-center justify-center gap-3 hover:bg-[#B5952F] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#D4AF37]/20 active:scale-[0.98] relative group/glow"
+                                className="w-full btn-gold py-5 flex items-center justify-center gap-3 relative group/glow"
                             >
                                 <div className="absolute inset-0 bg-[#D4AF37] blur-xl opacity-0 group-hover/glow:opacity-30 transition-opacity rounded-lg" />
                                 <Send className="w-4 h-4 relative z-10" /> <span className="relative z-10">EXPRESS ORDER</span>
