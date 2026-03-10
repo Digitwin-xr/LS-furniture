@@ -70,7 +70,7 @@ export default function SmartGrid({ products, categories, initialCategory }: Sma
       </aside>
 
       {/* Mobile Category Row */}
-      <div className="flex md:hidden overflow-x-auto gap-2 pb-3 px-4 sticky top-[72px] z-40 bg-white border-b border-gray-100 w-full no-scrollbar">
+      <div className="flex md:hidden overflow-x-auto gap-2 pb-3 px-4 sticky top-[96px] z-40 bg-white border-b border-gray-100 w-full no-scrollbar">
         {ORDERED_CATEGORIES.map((cat) => (
           <button
             key={cat}
@@ -126,15 +126,14 @@ export default function SmartGrid({ products, categories, initialCategory }: Sma
             {filteredProducts.map((product, idx) => (
               <div
                 key={product.SKU}
-                className="md:animate-in md:fade-in md:slide-in-from-bottom duration-700"
-                style={{ animationDelay: `${idx * 40}ms` }}
+                className="transition-opacity duration-300"
               >
                 <ProductCard product={product} />
               </div>
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-32 text-center animate-in zoom-in duration-500">
+          <div className="flex flex-col items-center justify-center py-32 text-center">
             <div className="w-20 h-20 bg-brand-sand/30 rounded-[30px] flex items-center justify-center mb-6">
               <FilterX className="w-10 h-10 text-brand-charcoal/20" />
             </div>

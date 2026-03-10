@@ -446,71 +446,49 @@ body {
    ═══════════════════════════════════════ */
 
 @media (max-width: 767px) {
-  /* 1. Global Reset for GPU Effects */
+  /* 1. Targeted Reset for GPU-heavy effects (Blurs/Filters) */
   * {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     filter: none !important;
-    mix-blend-mode: normal !important;
-    will-change: auto !important;
   }
 
   body, html {
     background-color: #F6F6F6 !important;
     overflow-x: hidden !important;
     position: relative;
-    transform: none !important;
-    perspective: none !important;
-    transform-style: flat !important;
-    backface-visibility: visible !important;
   }
 
-  /* 2. Disable heavy canvas animations */
-  canvas {
-    max-width: 100vw !important;
-    max-height: 100vh !important;
-    pointer-events: auto;
-  }
-
-  /* 3. Simplify UI Overlays & Shadows */
-  .summer-glow-bg::before,
-  .spotlight-glow::before,
-  .summer-badge-glow::before,
-  .shadow-xl, .shadow-2xl, .shadow-premium {
-    display: none !important;
-    box-shadow: none !important;
-    background: none !important;
-  }
-
-  /* 4. Layering & Transform Fixes */
-  header, nav, aside, main, section, div, article, span, h1, h2, h3, p {
-    transform: none !important;
-    perspective: none !important;
-    transform-style: flat !important;
-  }
-
-  header, nav, aside, main {
-    position: relative;
-    z-index: 10 !important;
-  }
-
-  /* 5. Disable ALL animations for total stability in Phase 3 */
-  .animate-pulse-subtle,
-  .animate-summer-glow,
-  .animate-marquee,
-  .animate-float,
-  .animate-in,
-  .animate-pulse,
-  .animate-spin,
-  .animate-bounce,
-  .transition-all, .transition-colors, .transition-transform {
+  /* 2. Force visibility for elements that start at 0 opacity */
+  .animate-in, 
+  .md\:animate-in,
+  [class*="animate-"] {
+    opacity: 1 !important;
+    visibility: visible !important;
     animation: none !important;
     transition: none !important;
     transform: none !important;
+    will-change: auto !important;
+  }
+
+  /* 3. Global Transform/Perspective Suppression for UI stability */
+  /* Remove universal * reset that was breaking layout transforms */
+  
+  /* 4. Layering & Essential Z-Index */
+  header, nav {
+    position: fixed;
+    z-index: 100 !important;
   }
 
   /* Simple borders instead of shadows for mobile hierarchy */
-  .rounded-2xl, .rounded-xl, .rounded-3xl {
-    border: 1px solid rgba(0,0,0,0.05) !important;
+  .rounded-2xl, .rounded-xl, .rounded-3xl, .card-elevated {
+    box-shadow: none !important;
+    border: 1px solid rgba(0,0,0,0.06) !important;
+  }
+
+  .summer-glow-bg::before,
+  .spotlight-glow::before,
+  .summer-badge-glow::before {
+    display: none !important;
   }
 }
