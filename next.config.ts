@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+const nextConfig: any = {
   /* standard config */
   typescript: {
     ignoreBuildErrors: true, // Bypass potential strict type issues on Vercel
