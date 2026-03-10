@@ -9,9 +9,10 @@ import React, { useEffect, useRef, useState } from 'react';
 interface Product3DViewerProps {
     modelPath: string;
     alt: string;
+    onLoad?: () => void;
 }
 
-export default function Product3DViewer({ modelPath, alt }: Product3DViewerProps) {
+export default function Product3DViewer({ modelPath, alt, onLoad }: Product3DViewerProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -69,8 +70,8 @@ export default function Product3DViewer({ modelPath, alt }: Product3DViewerProps
                 const width = containerRef.current.clientWidth;
                 const height = containerRef.current.clientHeight;
 
-                camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
-                camera.position.set(0, 1, 5);
+                camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 1000);
+                camera.position.set(0, 1.2, 5.5); // Slightly back and up to prevent clipping
 
                 renderer = new THREE.WebGLRenderer({
                     antialias: true,
@@ -81,15 +82,15 @@ export default function Product3DViewer({ modelPath, alt }: Product3DViewerProps
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Performance cap
                 containerRef.current.appendChild(renderer.domElement);
 
-                const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+                const ambientLight = new THREE.AmbientLight(0xffffff, 2.0); // Brighter
                 scene.add(ambientLight);
 
-                const dirLight = new THREE.DirectionalLight(0xffffff, 2.0);
-                dirLight.position.set(2, 5, 2);
+                const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+                dirLight.position.set(5, 10, 5);
                 scene.add(dirLight);
 
                 const dracoLoader = new DRACOLoader();
-                dracoLoader.setDecoderPath('/draco/');
+                dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/'); // Robust CDN path
                 
                 const loader = new GLTFLoader();
                 loader.setDRACOLoader(dracoLoader);
@@ -106,11 +107,12 @@ export default function Product3DViewer({ modelPath, alt }: Product3DViewerProps
 
                         model.position.sub(center);
                         const maxDim = Math.max(size.x, size.y, size.z);
-                        const scale = 3.2 / maxDim;
+                        const scale = 3.0 / maxDim; // Slightly smaller to prevent clipping
                         model.scale.multiplyScalar(scale);
 
                         scene.add(model);
                         setIsLoading(false);
+                        if (onLoad) onLoad();
                         animate();
                     },
                     undefined,

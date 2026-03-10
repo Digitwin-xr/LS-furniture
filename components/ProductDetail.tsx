@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { ShoppingCart, Heart, Share2, Box, ChevronLeft, Camera, Send, Check, X, ChevronRight, Share, ShoppingBag } from 'lucide-react';
 import { Product } from '@/types';
-import { ShoppingCart, Heart, Share2, Box, ChevronLeft, Camera, Send, Check, X } from 'lucide-react';
 import Link from 'next/link';
 import ExpressOrderModal from './ExpressOrderModal';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -87,25 +88,27 @@ export default function ProductDetail({ product }: { product: Product }) {
 
     const marketingDescription = `Designed for modern living, the ${product["Product Name"]} blends exceptional comfort with clean, contemporary lines. Perfect for creating a sophisticated focal point in your home, offering both style and durability for everyday living.`;
 
-    if (isFullscreen) {
-        return (
-            <div className="fixed inset-0 top-0 left-0 w-full h-full z-[200] bg-white flex flex-col items-center justify-center overscroll-none">
+    // We'll use a Portal for the Fullscreen view to ensure it clears all mobile UI hurdles
+    const FullscreenViewer = isFullscreen && product.modelPath ? (
+        createPortal(
+            <div className="fixed inset-0 top-0 left-0 w-full h-full z-[9999] bg-white flex flex-col items-center justify-center overscroll-none">
                 <button
                     onClick={() => setIsFullscreen(false)}
-                    className="absolute top-6 right-6 z-[210] bg-brand-red text-white p-4 rounded-full hover:bg-red-700 transition-all shadow-2xl active:scale-90"
+                    className="absolute top-6 right-6 z-[10000] bg-brand-red text-white p-4 rounded-full hover:bg-red-700 transition-all shadow-2xl active:scale-90"
                 >
                     <X className="w-6 h-6" />
                 </button>
                 <div className="w-full h-full p-4 lg:p-12">
                     <ModelViewer
-                        src={product.modelPath!}
+                        src={product.modelPath}
                         alt={product["Product Name"]}
                         variant={selectedFinish}
                     />
                 </div>
-            </div>
-        );
-    }
+            </div>,
+            document.body
+        )
+    ) : null;
 
     return (
         <div id={`product-${product.SKU}`} className="max-w-[1400px] mx-auto px-6 py-4 md:py-8 mt-24 relative">
@@ -135,9 +138,9 @@ export default function ProductDetail({ product }: { product: Product }) {
                 {/* ═══ LEFT: 3D VIEWER ONLY — 70% Desktop ═══ */}
                 <div
                     ref={modelViewerRef}
-                    className="w-full lg:w-[70%] lg:sticky lg:top-32 h-[400px] sm:h-[600px] lg:h-[75vh] rounded-[2.5rem] bg-[#F8F8F8] relative border border-gray-100 group shadow-inner overflow-hidden"
+                    className="w-full lg:w-[70%] lg:sticky lg:top-32 h-[400px] sm:h-[600px] lg:h-[75vh] rounded-[2.5rem] bg-[#F8F8F8] relative border border-gray-100 group shadow-inner"
                 >
-                    <div className="w-full h-full p-2 md:p-4">
+                    <div className="absolute inset-0 overflow-hidden rounded-[2.5rem]">
                         {(features.enable3DViewer && product.modelPath) ? (
                             <ModelViewer
                                 src={product.modelPath}

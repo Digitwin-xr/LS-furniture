@@ -82,6 +82,7 @@ export default function HotSummerDeals({ products }: { products: any[] }) {
                                             <Product3DViewer 
                                                 modelPath={product.modelPath} 
                                                 alt={product["Product Name"]} 
+                                                onLoad={() => setIsLoaded(true)}
                                             />
                                         </div>
                                     )}

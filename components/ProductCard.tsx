@@ -60,6 +60,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                         <Product3DViewer 
                             modelPath={product.modelPath} 
                             alt={product["Product Name"]} 
+                            onLoad={() => setIsLoaded(true)}
                         />
                         {/* Invisible trigger to help detect "ready" state if needed, 
                             but for now we'll rely on the viewer's transiton */}
