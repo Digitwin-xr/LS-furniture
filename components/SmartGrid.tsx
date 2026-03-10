@@ -118,9 +118,9 @@ export default function SmartGrid({ products, categories, initialCategory }: Sma
 
         {filteredProducts.length > 0 ? (
           <div className={cn(
-            "grid gap-6 transition-all duration-500 mb-24",
+            "grid gap-4 md:gap-8 transition-all duration-500 animate-in fade-in slide-in-from-bottom-4 duration-500",
             isCompact
-              ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+              ? "grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
               : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
           )}>
             {filteredProducts.map((product, idx) => (

@@ -58,7 +58,7 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-8 items-center w-full">
 
             {/* LEFT SIDE: Brand Narrative - 30% */}
-            <div className="w-full lg:w-[30%] space-y-10 relative animate-in slide-in-from-left duration-1000 pl-4 lg:pl-0 order-2 lg:order-1">
+            <div className="w-full lg:w-[30%] space-y-10 relative animate-in slide-in-from-left duration-1000 pl-4 lg:pl-0 order-1 lg:order-1">
               <div className="relative z-10">
                 <div className="space-y-6">
                   <h1 className="text-5xl lg:text-[5rem] xl:text-[5.5rem] font-black tracking-tighter leading-[1.1] pr-4">
@@ -76,7 +76,7 @@ export default function Home() {
             </div>
 
             {/* RIGHT SIDE: 3D Product Visualization - 70% */}
-            <div className="flex flex-col items-center w-full lg:w-[70%] order-1 lg:order-2">
+            <div className="flex flex-col items-center w-full lg:w-[70%] order-2 lg:order-2">
               <div className="relative w-full aspect-[1/1] sm:aspect-[4/3] lg:aspect-[16/9] max-h-[60vh] lg:max-h-none lg:min-h-[600px] xl:min-h-[700px] bg-[#FAFAFA] rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden group">
                 
                 {heroProduct?.modelPath ? (

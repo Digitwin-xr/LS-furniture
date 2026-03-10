@@ -22,7 +22,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     const saveAmount = wasPrice > 0 ? (wasPrice - nowPrice) : 0;
 
     return (
-        <div className="group relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-brand-green/30 border border-gray-100 flex flex-col h-full">
+        <div className="group relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-brand-green/30 border border-gray-100 flex flex-col h-full animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Save Badge */}
             <div className="absolute top-4 left-4 z-10 pointer-events-none">
                 {saveAmount > 0 && (
