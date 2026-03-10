@@ -87,9 +87,16 @@ export default function ProductDetail({ product }: { product: Product }) {
     }
 
     return (
-        <div className="max-w-[1400px] mx-auto px-6 py-4 md:py-8 mt-24 relative">
+        <div id={`product-${product.SKU}`} className="max-w-[1400px] mx-auto px-6 py-4 md:py-8 mt-24 relative">
             <button
-                onClick={() => router.back()}
+                onClick={() => {
+                    // Force a native back to preserve scroll position perfectly
+                    if (window.history.length > 1) {
+                        window.history.back();
+                    } else {
+                        window.location.href = '/catalogue';
+                    }
+                }}
                 className="absolute top-0 right-6 flex items-center gap-2 text-gray-400 hover:text-brand-red transition-colors font-bold text-[9px] md:text-[11px] uppercase tracking-widest"
             >
                 Back <ChevronLeft className="w-4 h-4 rotate-180" />

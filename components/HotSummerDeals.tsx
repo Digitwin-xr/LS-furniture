@@ -4,8 +4,15 @@ import React from 'react';
 import Image from 'next/image';
 import { Box } from 'lucide-react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const Product3DViewer = dynamic(() => import('./Product3DViewer'), {
+    ssr: false,
+    loading: () => <div className="absolute inset-0 bg-transparent z-10" />
+});
 
 export default function HotSummerDeals({ products }: { products: any[] }) {
+    const [isLoaded, setIsLoaded] = React.useState(false);
     // Final curated "Explore Our Deals" lineup as requested
     const targetSKUs = [
         '52600',    // Magnificent King 20 Star Bed
@@ -59,17 +66,30 @@ export default function HotSummerDeals({ products }: { products: any[] }) {
                                     href={`/product/${product.SKU}`}
                                     className="relative w-full aspect-square rounded-xl overflow-hidden bg-gray-50 mb-6 flex items-center justify-center transition-colors duration-500"
                                 >
-                                    {product.imagePath ? (
+                                    {product.imagePath && (
                                         <Image
                                             src={product.imagePath}
                                             alt={product["Product Name"]}
                                             fill
-                                            className="object-contain p-8 group-hover:scale-110 transition-transform duration-700 ease-out"
+                                            className={`object-contain p-8 group-hover:scale-105 transition-all duration-1000 ease-out ${isLoaded && product.modelPath ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
+                                            priority={false}
                                         />
-                                    ) : (
+                                    )}
+
+                                    {/* Always-On 3D Preview (Lazy-Loaded) */}
+                                    {product.modelPath && (
+                                        <div className="absolute inset-0 z-20 animate-in fade-in zoom-in duration-1000">
+                                            <Product3DViewer 
+                                                modelPath={product.modelPath} 
+                                                alt={product["Product Name"]} 
+                                            />
+                                        </div>
+                                    )}
+
+                                    {!product.imagePath && !product.modelPath && (
                                         <div className="w-full h-full flex items-center justify-center text-gray-200 font-serif text-4xl font-bold">LS</div>
                                     )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                                 </Link>
 
                                 <div className="flex flex-col flex-grow">
