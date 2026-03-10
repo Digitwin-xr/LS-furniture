@@ -179,13 +179,13 @@ export default function ProductDetail({ product }: { product: Product }) {
                             {product.description || `Experience the perfect blend of style and comfort with the ${product["Product Name"]}. A premium choice from the LS Lifestyle collection.`}
                         </p>
 
-                        {/* Standardized CTAs */}
+                        {/* Compact CTAs */}
                         {product.modelPath && (
                             <div className="flex flex-row gap-3 mb-10 w-full">
                                 {features.enableSpatialPlacement && (
                                     <button
                                         onClick={handleARLaunch}
-                                        className="flex-1 btn-accent min-h-[48px] py-2.5 flex items-center justify-center gap-2 hover:-translate-y-1"
+                                        className="flex-1 btn-accent min-h-[40px] py-2 flex items-center justify-center gap-2 text-[10px] tracking-widest font-black transition-all hover:-translate-y-1"
                                     >
                                         <Camera className="w-4 h-4" /> VIEW IN YOUR SPACE
                                     </button>
@@ -193,7 +193,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                                 {features.enable3DViewer && (
                                     <button
                                         onClick={() => setIsFullscreen(true)}
-                                        className="flex-1 btn-primary min-h-[48px] py-2.5 flex items-center justify-center gap-2 hover:-translate-y-1"
+                                        className="flex-1 btn-primary min-h-[40px] py-2 flex items-center justify-center gap-2 text-[10px] tracking-widest font-black transition-all hover:-translate-y-1"
                                     >
                                         <Box className="w-4 h-4" /> FULL 3D
                                     </button>
@@ -227,11 +227,11 @@ export default function ProductDetail({ product }: { product: Product }) {
                             </div>
                         </div>
 
-                        {/* ── Express Order & Core Actions ── */}
+                        {/* ── Express Order ── */}
                         <div className="space-y-4">
                             <button
                                 onClick={() => setIsOrderModalOpen(true)}
-                                className="w-full btn-gold py-5 md:py-4 flex items-center justify-center gap-3 relative group/glow"
+                                className="w-full btn-gold min-h-[44px] py-3 md:py-2.5 flex items-center justify-center gap-3 relative group/glow text-[11px] font-black tracking-[0.2em]"
                             >
                                 <div className="absolute inset-0 bg-[#D4AF37] blur-xl opacity-0 group-hover/glow:opacity-30 transition-opacity rounded-lg" />
                                 <Send className="w-4 h-4 relative z-10" /> <span className="relative z-10">EXPRESS ORDER</span>

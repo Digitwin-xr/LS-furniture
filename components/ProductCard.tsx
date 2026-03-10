@@ -12,9 +12,9 @@ const DynamicModelViewer = dynamic(() => import('./DynamicModelViewer'), {
     loading: () => <div className="w-full h-full bg-gray-100 animate-pulse rounded-2xl" />
 });
 
-const Hover3DPreview = dynamic(() => import('./Hover3DPreview'), {
+const Product3DViewer = dynamic(() => import('./Product3DViewer'), {
     ssr: false,
-    loading: () => <div className="absolute inset-0 bg-white/20 backdrop-blur-sm z-10" />
+    loading: () => <div className="absolute inset-0 bg-transparent z-10" />
 });
 
 interface ProductCardProps {
@@ -22,7 +22,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-    const [isHovering, setIsHovering] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
     const wasPrice = product.WAS ? parseInt(product.WAS.replace(/[^0-9.]/g, '')) : 0;
     const nowPrice = parseInt((product.NOW || '0').replace(/[^0-9.]/g, ''));
     const saveAmount = wasPrice > 0 ? (wasPrice - nowPrice) : 0;
@@ -38,11 +38,9 @@ export default function ProductCard({ product }: ProductCardProps) {
                 )}
             </div>
 
-            {/* Thumbnail Area - Always Static for Stability */}
+            {/* Thumbnail Area - Live 3D Previews Enabled */}
             <Link
                 href={`/product/${product.SKU}`}
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
                 className="relative aspect-square w-full bg-gray-50 flex items-center justify-center overflow-hidden transition-colors duration-500"
             >
                 {product.imagePath && (
@@ -50,28 +48,31 @@ export default function ProductCard({ product }: ProductCardProps) {
                         src={product.imagePath}
                         alt={product["Product Name"]}
                         fill
-                        className={`object-contain p-8 group-hover:scale-110 transition-all duration-700 ease-out ${isHovering && product.modelPath ? 'opacity-0' : 'opacity-100'}`}
+                        className={`object-contain p-8 group-hover:scale-105 transition-all duration-1000 ease-out ${isLoaded && product.modelPath ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
+                        priority={false}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                 )}
 
-                {!product.imagePath && (
+                {/* Always-On 3D Preview (Lazy-Loaded) */}
+                {product.modelPath && (
+                    <div className="absolute inset-0 z-20 animate-in fade-in zoom-in duration-1000">
+                        <Product3DViewer 
+                            modelPath={product.modelPath} 
+                            alt={product["Product Name"]} 
+                        />
+                        {/* Invisible trigger to help detect "ready" state if needed, 
+                            but for now we'll rely on the viewer's transiton */}
+                    </div>
+                )}
+
+                {!product.imagePath && !product.modelPath && (
                     <div className="flex flex-col items-center gap-2 text-gray-200">
                         <span className="font-serif text-4xl font-bold select-none">LS</span>
                         <span className="text-[8px] font-bold tracking-[0.3em] uppercase">No Preview</span>
                     </div>
                 )}
                 
-                {/* 3D Preview on Hover (Desktop Only) */}
-                {isHovering && product.modelPath && (
-                    <div className="absolute inset-0 z-20 hidden md:block animate-in fade-in duration-500">
-                        <Hover3DPreview 
-                            modelPath={product.modelPath} 
-                            alt={product["Product Name"]} 
-                        />
-                    </div>
-                )}
-
                 {/* Visual Polish Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             </Link>
