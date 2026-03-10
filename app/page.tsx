@@ -77,7 +77,7 @@ export default function Home() {
 
             {/* RIGHT SIDE: 3D Product Visualization - 70% */}
             <div className="flex flex-col items-center w-full lg:w-[70%] order-1 lg:order-2">
-              <div className="relative w-full aspect-[1/1] sm:aspect-[4/3] lg:aspect-[16/9] lg:min-h-[600px] xl:min-h-[700px] bg-[#FAFAFA] rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden group">
+              <div className="relative w-full aspect-[1/1] sm:aspect-[4/3] lg:aspect-[16/9] max-h-[60vh] lg:max-h-none lg:min-h-[600px] xl:min-h-[700px] bg-[#FAFAFA] rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden group">
                 
                 {heroProduct?.modelPath ? (
                   <div className="w-full h-full cursor-grab active:cursor-grabbing relative z-10">

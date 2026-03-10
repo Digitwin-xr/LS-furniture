@@ -106,7 +106,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                 {/* ═══ LEFT: 3D VIEWER ONLY — 70% Desktop ═══ */}
                 <div
                     ref={modelViewerRef}
-                    className="w-full lg:w-[70%] lg:sticky lg:top-32 h-[500px] lg:h-[75vh] rounded-3xl bg-[#F8F8F8] overflow-hidden relative border border-gray-100 group"
+                    className="w-full lg:w-[70%] lg:sticky lg:top-32 h-[500px] max-h-[50vh] lg:max-h-none lg:h-[75vh] rounded-3xl bg-[#F8F8F8] overflow-hidden relative border border-gray-100 group"
                 >
                     {(features.enable3DViewer && product.modelPath) ? (
                         <ModelViewer
