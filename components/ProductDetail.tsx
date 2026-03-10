@@ -54,11 +54,20 @@ export default function ProductDetail({ product }: { product: Product }) {
     useEffect(() => {
         if (isFullscreen) {
             document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
         } else {
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
         }
         return () => {
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
         };
     }, [isFullscreen]);
 
@@ -80,14 +89,14 @@ export default function ProductDetail({ product }: { product: Product }) {
 
     if (isFullscreen) {
         return (
-            <div className="fixed inset-0 z-[100] bg-white flex flex-col">
+            <div className="fixed inset-0 top-0 left-0 w-full h-full z-[200] bg-white flex flex-col items-center justify-center overscroll-none">
                 <button
                     onClick={() => setIsFullscreen(false)}
-                    className="absolute top-8 right-8 z-[110] bg-gray-900 text-white p-3 rounded-full hover:bg-brand-red transition-colors shadow-xl"
+                    className="absolute top-6 right-6 z-[210] bg-brand-red text-white p-4 rounded-full hover:bg-red-700 transition-all shadow-2xl active:scale-90"
                 >
                     <X className="w-6 h-6" />
                 </button>
-                <div className="flex-grow w-full h-full">
+                <div className="w-full h-full p-4 lg:p-12">
                     <ModelViewer
                         src={product.modelPath!}
                         alt={product["Product Name"]}
@@ -126,9 +135,9 @@ export default function ProductDetail({ product }: { product: Product }) {
                 {/* ═══ LEFT: 3D VIEWER ONLY — 70% Desktop ═══ */}
                 <div
                     ref={modelViewerRef}
-                    className="w-full lg:w-[70%] lg:sticky lg:top-32 h-[450px] sm:h-[600px] lg:h-[80vh] rounded-[2.5rem] bg-[#F8F8F8] relative border border-gray-100 group shadow-inner"
+                    className="w-full lg:w-[70%] lg:sticky lg:top-32 h-[400px] sm:h-[600px] lg:h-[75vh] rounded-[2.5rem] bg-[#F8F8F8] relative border border-gray-100 group shadow-inner overflow-hidden"
                 >
-                    <div className="absolute inset-4 md:inset-8">
+                    <div className="w-full h-full p-2 md:p-4">
                         {(features.enable3DViewer && product.modelPath) ? (
                             <ModelViewer
                                 src={product.modelPath}
