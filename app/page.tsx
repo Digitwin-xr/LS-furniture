@@ -32,6 +32,8 @@ export default function Home() {
     loadData();
   }, []);
 
+  // Triggering fresh production deployment after optimization phase...
+
   return (
     <main className="min-h-screen bg-white font-sans overflow-x-hidden">
       <RetailHeader />
