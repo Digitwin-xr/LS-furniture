@@ -30,7 +30,7 @@ export default function SmartGrid({ products, categories, initialCategory }: Sma
   }, [products, activeCategory, searchQuery]);
 
   return (
-    <div className="w-full flex gap-0">
+    <div className="w-full flex flex-col md:flex-row gap-0">
 
       {/* ═══ LEFT SIDEBAR: Categories + Search ═══ */}
       <aside className="hidden md:flex flex-col w-52 shrink-0 sticky top-[80px] self-start h-[calc(100vh-80px)] border-r border-gray-100 bg-white pr-4 pt-4 pb-6">
