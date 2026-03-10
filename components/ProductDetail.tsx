@@ -185,7 +185,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                                 {features.enableSpatialPlacement && (
                                     <button
                                         onClick={handleARLaunch}
-                                        className="flex-[1] btn-accent py-3 flex items-center justify-center gap-2 hover:-translate-y-1"
+                                        className="flex-1 btn-accent min-h-[48px] py-2.5 flex items-center justify-center gap-2 hover:-translate-y-1"
                                     >
                                         <Camera className="w-4 h-4" /> VIEW IN YOUR SPACE
                                     </button>
@@ -193,7 +193,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                                 {features.enable3DViewer && (
                                     <button
                                         onClick={() => setIsFullscreen(true)}
-                                        className="flex-[1] btn-primary py-3 flex items-center justify-center gap-2 hover:-translate-y-1"
+                                        className="flex-1 btn-primary min-h-[48px] py-2.5 flex items-center justify-center gap-2 hover:-translate-y-1"
                                     >
                                         <Box className="w-4 h-4" /> FULL 3D
                                     </button>
