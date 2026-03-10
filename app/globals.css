@@ -478,16 +478,14 @@ body {
     position: relative;
   }
 
-  /* 2. Force visibility for elements that start at 0 opacity */
+  /* 2. Soft Visibility for animations (Stable Previews) */
   .animate-in, 
   .md\:animate-in,
   [class*="animate-"] {
-    opacity: 1 !important;
-    visibility: visible !important;
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
-    will-change: auto !important;
+    /* Allow animations to run by default, but ensure visibility if they are too slow */
+    opacity: 1;
+    visibility: visible;
+    will-change: transform, opacity;
   }
 
   /* 3. Global Transform/Perspective Suppression for UI stability */

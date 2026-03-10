@@ -5,7 +5,7 @@ import { Product } from '@/types';
 import { ShoppingCart, Heart, Share2, Box, ChevronLeft, Camera, Send, Check, X } from 'lucide-react';
 import Link from 'next/link';
 import ExpressOrderModal from './ExpressOrderModal';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import ModelViewer from './ModelViewer';
 import ShareButton from './ShareButton';
@@ -26,6 +26,7 @@ const MATERIAL_FINISHES = [
 
 export default function ProductDetail({ product }: { product: Product }) {
     const config = useClient();
+    const router = useRouter();
     const features = getFeatureFlags();
     const searchParams = useSearchParams();
     const autoAR = searchParams.get('ar') === 'true';
@@ -87,16 +88,16 @@ export default function ProductDetail({ product }: { product: Product }) {
 
     return (
         <div className="max-w-[1400px] mx-auto px-6 py-4 md:py-8 mt-24 relative">
-            <Link
-                href="/catalogue"
-                className="absolute top-0 right-6 flex items-center gap-2 text-gray-400 hover:text-brand-red transition-colors font-bold text-[11px] uppercase tracking-widest"
+            <button
+                onClick={() => router.back()}
+                className="absolute top-0 right-6 flex items-center gap-2 text-gray-400 hover:text-brand-red transition-colors font-bold text-[9px] md:text-[11px] uppercase tracking-widest"
             >
-                Back to Shop <ChevronLeft className="w-4 h-4 rotate-180" />
-            </Link>
+                Back <ChevronLeft className="w-4 h-4 rotate-180" />
+            </button>
 
             <Link
                 href="/catalogue"
-                className="inline-flex items-center gap-3 text-white bg-brand-charcoal hover:bg-brand-red font-black text-[11px] uppercase tracking-widest mb-10 px-5 py-3 rounded-full transition-all duration-300 shadow-md hover:-translate-y-0.5 hover:shadow-lg"
+                className="inline-flex items-center gap-3 text-white bg-brand-charcoal hover:bg-brand-red font-black text-[9px] md:text-[11px] uppercase tracking-widest mb-10 px-4 md:px-5 py-2 md:py-3 rounded-full transition-all duration-300 shadow-md hover:-translate-y-0.5 hover:shadow-lg"
             >
                 <ChevronLeft className="w-4 h-4" />
                 Back to Shop
@@ -230,7 +231,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                         <div className="space-y-4">
                             <button
                                 onClick={() => setIsOrderModalOpen(true)}
-                                className="w-full btn-gold py-5 flex items-center justify-center gap-3 relative group/glow"
+                                className="w-full btn-gold py-5 md:py-4 flex items-center justify-center gap-3 relative group/glow"
                             >
                                 <div className="absolute inset-0 bg-[#D4AF37] blur-xl opacity-0 group-hover/glow:opacity-30 transition-opacity rounded-lg" />
                                 <Send className="w-4 h-4 relative z-10" /> <span className="relative z-10">EXPRESS ORDER</span>

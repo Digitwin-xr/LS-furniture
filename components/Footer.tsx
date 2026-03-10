@@ -4,11 +4,15 @@ import { Facebook, Instagram, Mail, Phone, MapPin, Send, MessageCircle, Video } 
 import { useClient } from '@/engine/context/ClientContext';
 import Link from 'next/link';
 
+import OurShowrooms from './OurShowrooms';
+
 export default function Footer() {
     const config = useClient();
     const currentYear = new Date().getFullYear();
 
     return (
+        <>
+        <OurShowrooms />
         <footer className="bg-white border-t border-brand-sand/20 text-brand-charcoal pt-24 pb-12 overflow-hidden relative">
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 
@@ -94,5 +98,6 @@ export default function Footer() {
             {/* Minimalist bg accent */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-brand-sand/50 to-transparent" />
         </footer>
+        </>
     );
 }
