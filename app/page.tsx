@@ -55,32 +55,33 @@ export default function Home() {
 
         {/* ── CONSOLIDATED 3D HERO SECTION ── */}
         <section className="pb-24 w-full block">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-8 items-center w-full">
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-8 items-center w-full">
 
             {/* LEFT SIDE: Brand Narrative - 30% */}
-            <div className="w-full lg:w-[30%] space-y-10 relative animate-in slide-in-from-left duration-1000 pl-4 lg:pl-0 order-1 lg:order-1">
-              <div className="relative z-10">
-                <div className="space-y-6">
-                  <h1 className="text-5xl lg:text-[5rem] xl:text-[5.5rem] font-black tracking-tighter leading-[1.1] pr-4">
-                    <span className="block mb-1 text-gray-900">Beautiful <span className="text-brand-green">Living.</span></span>
-                    <span className="block text-brand-green">Smart Spring Savings.</span>
+            <div className="w-full lg:w-max space-y-12 relative animate-in slide-in-from-left duration-1000 pl-4 lg:pl-0 order-1 lg:order-1">
+              <div className="relative z-10 max-w-[520px]">
+                <div className="space-y-10">
+                  <h1 className="text-5xl lg:text-[5.5rem] font-black tracking-tighter leading-[0.95] text-gray-900 uppercase">
+                    Spring<br />Living <span className="text-brand-green">Event</span>
                   </h1>
-                  <p className="text-lg md:text-xl font-bold max-w-md leading-relaxed text-gray-400">
-                    Discover stylish furniture and reliable appliances designed for modern homes &mdash; now available at <span className="text-brand-green">exclusive seasonal prices.</span>
+                  <p className="text-lg md:text-xl font-bold leading-relaxed text-gray-500">
+                    Discover stylish furniture and reliable appliances designed for modern homes &mdash; now available at <span className="text-brand-green">seasonal prices.</span>
                   </p>
-                  <p className="text-[12px] font-black uppercase tracking-[0.2em] pt-2 text-[#FFD700]">
-                    Shop smarter &middot; Explore in 360 &middot; Visualize in your space
-                  </p>
+                </div>
+                
+                {/* Hero CTAs below text on mobile, or in 30% col on desktop */}
+                <div className="mt-12 hidden lg:block">
+                  <HeroCTAs sku={heroProduct?.SKU || '251024'} />
                 </div>
               </div>
             </div>
 
             {/* RIGHT SIDE: 3D Product Visualization - 70% */}
-            <div className="flex flex-col items-center w-full lg:w-[70%] order-2 lg:order-2">
-              <div className="relative w-full aspect-[1/1] sm:aspect-[4/3] lg:aspect-[16/9] max-h-[60vh] lg:max-h-none lg:min-h-[600px] xl:min-h-[700px] bg-[#FAFAFA] rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden group">
+            <div className="flex flex-col items-center w-full lg:w-grow order-2 lg:order-2">
+              <div className="relative w-full aspect-[1/1] sm:aspect-[4/3] lg:aspect-[16/9] max-h-[60vh] lg:max-h-none lg:min-h-[600px] xl:min-h-[700px] bg-gradient-to-br from-[#FAFAFA] to-[#F1F1F1] rounded-[3rem] border border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden group">
                 
                 {heroProduct?.modelPath ? (
-                  <div className="w-full h-full cursor-grab active:cursor-grabbing relative z-10">
+                  <div className="w-full h-full cursor-grab active:cursor-grabbing relative z-10 p-12 md:p-24">
                     <DynamicModelViewer
                       src={heroProduct.modelPath}
                       alt="Hero Product Visualization"
@@ -95,8 +96,9 @@ export default function Home() {
                 )}
               </div>
 
-              {/* Hero CTAs moved below the viewer */}
-              <div className="w-full mt-10 max-w-2xl px-4 lg:px-0">
+              {/* Hero CTAs moved below the viewer for mobile specifically, 
+                  while desktop has them in the 30% text col */}
+              <div className="w-full mt-10 lg:hidden px-4">
                  <HeroCTAs sku={heroProduct?.SKU || '251024'} />
               </div>
             </div>
