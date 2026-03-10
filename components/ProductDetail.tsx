@@ -50,6 +50,18 @@ export default function ProductDetail({ product }: { product: Product }) {
         }
     }, [autoAR]);
 
+    // Lock Body Scroll when in Fullscreen
+    useEffect(() => {
+        if (isFullscreen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isFullscreen]);
+
     const wasPriceParsed = product.WAS ? parseInt(product.WAS.replace(/[^0-9.]/g, '')) : 0;
     const nowPriceParsed = parseInt(product.NOW.replace(/[^0-9.]/g, ''));
     const saveAmount = wasPriceParsed ? (wasPriceParsed - nowPriceParsed) : 0;
@@ -89,7 +101,7 @@ export default function ProductDetail({ product }: { product: Product }) {
     return (
         <div id={`product-${product.SKU}`} className="max-w-[1400px] mx-auto px-6 py-4 md:py-8 mt-24 relative">
             {/* Top Navigation Row */}
-            <div className="flex items-center justify-end gap-6 mb-8">
+            <div className="flex items-center justify-between mb-8">
                 <Link
                     href="/catalogue"
                     className="flex items-center gap-2 text-brand-green hover:text-brand-green-deep font-black text-[9px] md:text-[11px] uppercase tracking-[0.2em] transition-colors"
@@ -114,20 +126,22 @@ export default function ProductDetail({ product }: { product: Product }) {
                 {/* ═══ LEFT: 3D VIEWER ONLY — 70% Desktop ═══ */}
                 <div
                     ref={modelViewerRef}
-                    className="w-full lg:w-[70%] lg:sticky lg:top-32 h-[450px] sm:h-[600px] lg:h-[80vh] rounded-[2.5rem] bg-[#F8F8F8] overflow-hidden relative border border-gray-100 group shadow-inner"
+                    className="w-full lg:w-[70%] lg:sticky lg:top-32 h-[450px] sm:h-[600px] lg:h-[80vh] rounded-[2.5rem] bg-[#F8F8F8] relative border border-gray-100 group shadow-inner"
                 >
-                    {(features.enable3DViewer && product.modelPath) ? (
-                        <ModelViewer
-                            src={product.modelPath}
-                            alt={product["Product Name"]}
-                            variant={selectedFinish}
-                            autoActivateAR={autoAR}
-                        />
-                    ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-[#F8F8F8]">
-                            <Box className="w-16 h-16 text-gray-300 animate-pulse" />
-                        </div>
-                    )}
+                    <div className="absolute inset-4 md:inset-8">
+                        {(features.enable3DViewer && product.modelPath) ? (
+                            <ModelViewer
+                                src={product.modelPath}
+                                alt={product["Product Name"]}
+                                variant={selectedFinish}
+                                autoActivateAR={autoAR}
+                            />
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center bg-[#F8F8F8]">
+                                <Box className="w-16 h-16 text-gray-300 animate-pulse" />
+                            </div>
+                        )}
+                    </div>
 
                     {/* Viewer Controls */}
                     <div className="absolute bottom-6 right-6 flex gap-2 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
