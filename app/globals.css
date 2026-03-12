@@ -10,28 +10,19 @@
    ═══════════════════════════════════════════════════════════════ */
 
 @theme {
-  --color-brand-green: #7DBB42;
-  /* Brighter Light Green */
-  --color-brand-gold: #D4AF37;
-  /* Premium Gold */
-  --color-brand-green-deep: #4A8515;
-  /* Energetic Deep Green */
-  --color-brand-green-light: #F2F8EB;
-  --color-brand-red: #E31E24;
-  --color-brand-red-deep: #B01A28;
-  /* Keep deep red or match it? Let's leave deep as is or update slightly if needed, I will just leave it. */
-  --color-brand-yellow: #FFE926;
-  --color-brand-yellow-warm: #FFD700;
-
-  /* ── Neutral System (NO BLACK) ── */
-  --color-brand-charcoal: #3D4451;
+  --color-brand-green: #6BBF4E;
+  /* Lifestyle Green */
+  --color-brand-red: #E53935;
+  /* Brand Red */
+  --color-brand-charcoal: #1F1F1F;
+  /* Deep Charcoal */
   --color-brand-gray-neutral: #6B7280;
-  --color-brand-sand: #FAFAF6;
+  --color-brand-sand: #F6F6F6;
+  /* Soft showroom grey */
 
-  /* ── Semantic Aliases ── */
-  --color-ls-red: #E31E24;
-  --color-ls-yellow: #FFE926;
-  --color-ls-green: #8CC63F;
+  /* ── Typography Tokens ── */
+  --font-serif: var(--font-playfair), serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
 
   /* ── Animation Tokens ── */
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -48,14 +39,13 @@
   --spacing-unit: 8px;
 
   /* Brand Variable Defaults (LS Lifestyle) */
-  --brand-primary: #1D2A2A;
-  --brand-secondary: #A6C065;
-  --brand-accent: #E51E25;
-  --brand-background: #FAFAFA;
-  --brand-text: #343F48;
-  --brand-charcoal: #343F48;
-  --brand-sand: #EAE2D5;
-  --brand-yellow: #FED700;
+  --brand-primary: #1F1F1F;
+  --brand-secondary: #6BBF4E;
+  --brand-accent: #E53935;
+  --brand-background: #F6F6F6;
+  --brand-text: #1F1F1F;
+  --brand-charcoal: #1F1F1F;
+  --brand-sand: #F6F6F6;
 }
 
 /* Spring Banner slide-down + fade-in */
@@ -308,27 +298,34 @@ body {
    Yellow:    Yellow bg, dark text, pill (for AR CTAs)
    ═══════════════════════════════════════ */
 
+/* ═══════════════════════════════════════
+   BUTTON SYSTEM
+   Primary:   Green bg, white text, pill
+   Secondary: White bg, charcoal border, pill
+   Accent:    Red bg, white text, pill (for Space CTAs)
+   ═══════════════════════════════════════ */
+
 .btn-primary {
-  background-color: #7DBB42;
+  background-color: #6BBF4E;
   color: white;
   border-radius: 9999px;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   transition: all 0.3s var(--ease-cinematic);
-  box-shadow: 0 10px 30px -8px rgba(125, 187, 66, 0.3);
+  box-shadow: 0 10px 30px -8px rgba(107, 191, 78, 0.3);
 }
 
 .btn-primary:hover {
-  background-color: #4A8515;
+  background-color: #5AA642;
   transform: translateY(-2px);
-  box-shadow: 0 16px 40px -8px rgba(125, 187, 66, 0.4);
+  box-shadow: 0 16px 40px -8px rgba(107, 191, 78, 0.4);
 }
 
 .btn-secondary {
   background-color: white;
-  color: #3D4451;
-  border: 2px solid #7DBB42;
+  color: #1F1F1F;
+  border: 2px solid #1F1F1F;
   border-radius: 9999px;
   font-weight: 900;
   text-transform: uppercase;
@@ -337,27 +334,30 @@ body {
 }
 
 .btn-secondary:hover {
-  background-color: #F2F8EB;
+  background-color: #F6F6F6;
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px -8px rgba(125, 187, 66, 0.2);
 }
 
 .btn-accent {
-  background-color: #E51A22;
+  background-color: #E53935;
   color: white;
   border-radius: 9999px;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   transition: all 0.3s var(--ease-cinematic);
-  box-shadow: 0 10px 30px -8px rgba(229, 26, 34, 0.35);
+  box-shadow: 0 10px 30px -8px rgba(229, 57, 53, 0.35);
 }
 
 .btn-accent:hover {
-  background-color: #C1151A;
+  background-color: #D32F2F;
   transform: translateY(-2px);
-  box-shadow: 0 16px 40px -8px rgba(229, 26, 34, 0.5);
+  box-shadow: 0 16px 40px -8px rgba(229, 57, 53, 0.5);
 }
+
+/* ── Typography Utility ── */
+.font-playfair { font-family: var(--font-playfair), serif; }
+.font-inter { font-family: var(--font-inter), sans-serif; }
 
 .btn-yellow {
   background-color: #FFE926;

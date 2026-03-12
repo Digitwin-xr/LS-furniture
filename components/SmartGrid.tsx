@@ -15,9 +15,28 @@ interface SmartGridProps {
 }
 
 export default function SmartGrid({ products, categories, initialCategory }: SmartGridProps) {
-  const [activeCategory, setActiveCategory] = useState(initialCategory || ORDERED_CATEGORIES[0]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isCompact, setIsCompact] = useState(false);
+  // Scroll Restoration Logic
+  useEffect(() => {
+    const savedState = sessionStorage.getItem('ls_catalogue_state');
+    if (savedState) {
+      const { category, scrollY } = JSON.parse(savedState);
+      setActiveCategory(category);
+      
+      // Delay scroll to ensure grid has rendered
+      const timeout = setTimeout(() => {
+        window.scrollTo({ top: scrollY, behavior: 'instant' });
+        sessionStorage.removeItem('ls_catalogue_state');
+      }, 100);
+      return () => clearTimeout(timeout);
+    }
+  }, []);
+
+  // Sync category to state (without scroll pos, that happens on click)
+  const handleCategoryChange = (cat: string) => {
+    setActiveCategory(cat);
+    // When manually changing category, we should reset any pending restoration
+    sessionStorage.removeItem('ls_catalogue_state');
+  };
 
   const filteredProducts = useMemo(() => {
     return products.filter(p => {
@@ -93,8 +112,8 @@ export default function SmartGrid({ products, categories, initialCategory }: Sma
         {/* Category Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-black text-gray-900 uppercase tracking-tight">{activeCategory}</h1>
-            <p className="text-[11px] text-gray-400 font-medium mt-1">{filteredProducts.length} pieces in collection</p>
+            <h1 className="text-3xl lg:text-5xl font-bold text-gray-900 uppercase tracking-tighter font-playfair">{activeCategory}</h1>
+            <p className="text-[11px] text-gray-400 font-bold uppercase tracking-widest mt-2 font-inter">{filteredProducts.length} pieces in collection</p>
           </div>
           <button
             onClick={() => setIsCompact(!isCompact)}

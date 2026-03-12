@@ -70,8 +70,8 @@ export default function Product3DViewer({ modelPath, alt, onLoad }: Product3DVie
                 const width = containerRef.current.clientWidth;
                 const height = containerRef.current.clientHeight;
 
-                camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 1000);
-                camera.position.set(0, 1.2, 5.5); // Slightly back and up to prevent clipping
+                camera = new THREE.PerspectiveCamera(35, width / height, 0.05, 1000); // Near plane 0.05 to prevent clipping
+                camera.position.set(0, 1.0, 6.5); // Further back to prevent clipping
 
                 renderer = new THREE.WebGLRenderer({
                     antialias: true,
@@ -107,7 +107,7 @@ export default function Product3DViewer({ modelPath, alt, onLoad }: Product3DVie
 
                         model.position.sub(center);
                         const maxDim = Math.max(size.x, size.y, size.z);
-                        const scale = 3.0 / maxDim; // Slightly smaller to prevent clipping
+                        const scale = 1.8 / maxDim; // Reduced from 2.2 for safer global visibility
                         model.scale.multiplyScalar(scale);
 
                         scene.add(model);

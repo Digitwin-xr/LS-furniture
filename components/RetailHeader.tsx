@@ -13,8 +13,8 @@ export default function RetailHeader() {
 
                 {/* Left: Logo Section */}
                 <Link href="/" className="flex items-center gap-4 group">
-                    <div className="w-12 h-12 bg-[#E51A22] transform rotate-45 flex items-center justify-center rounded-sm shadow-sm hover:scale-105 transition-transform">
-                        <span className="text-white font-impact tracking-widest text-lg transform -rotate-45 block pt-1 ml-1">LS</span>
+                    <div className="w-12 h-12 bg-brand-red transform rotate-45 flex items-center justify-center rounded-sm shadow-sm hover:scale-105 transition-transform">
+                        <span className="text-white font-black tracking-widest text-lg transform -rotate-45 block pt-1 ml-1 leading-none">LS</span>
                     </div>
                     <div className="flex flex-col">
                         <span className="font-serif font-bold text-xl text-gray-900 tracking-tight leading-none mb-1">

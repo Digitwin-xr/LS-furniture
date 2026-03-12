@@ -29,3 +29,4 @@ models_deploy_temp_large/
 
 # Firebase
 .firebase/
+firebase-debug.log

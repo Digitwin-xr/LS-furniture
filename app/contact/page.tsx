@@ -12,15 +12,15 @@ export default function ContactPage() {
     return (
         <main className="min-h-screen bg-white pb-24 font-sans">
             <DynamicRetailHeader />
-            <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+            <div className="max-w-7xl mx-auto px-6 pt-32 pb-24 md:pt-40 md:pb-32">
                 <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
                     {/* Info */}
                     <div className="space-y-12">
-                        <div>
-                            <h1 className="text-6xl md:text-7xl font-black text-brand-red uppercase tracking-tighter mb-6 italic leading-none">
+                        <div className="animate-in slide-in-from-left duration-1000">
+                            <h1 className="text-5xl md:text-8xl font-black text-brand-red uppercase tracking-tighter mb-8 italic leading-[0.8] font-playfair">
                                 Get in <br /><span className="text-brand-green not-italic">Touch.</span>
                             </h1>
-                            <p className="text-xl text-gray-500 font-medium leading-relaxed max-w-lg">
+                            <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed max-w-lg font-inter">
                                 Have questions about our 3D catalogue, interior solutions, or specific pieces? Our consultants are ready to assist you.
                             </p>
                         </div>
@@ -32,22 +32,22 @@ export default function ContactPage() {
                                 </div>
                                 <div className="space-y-6">
                                     {config.showrooms.map((showroom) => (
-                                        <div key={showroom.name} className="border-l-2 border-gray-100 pl-6">
+                                        <div key={showroom.name} className="border-l-2 border-gray-100 pl-4 md:pl-6 overflow-hidden">
                                             <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-2">{showroom.name}</p>
-                                            <p className="text-lg font-bold text-gray-900 leading-tight mb-2 uppercase tracking-tight">{showroom.address}</p>
-                                            <p className="text-2xl font-black text-brand-green leading-none">{showroom.phone}</p>
+                                            <p className="text-base md:text-lg font-bold text-gray-900 leading-tight mb-2 uppercase tracking-tight">{showroom.address}</p>
+                                            <p className="text-xl md:text-2xl font-black text-brand-green leading-none">{showroom.phone}</p>
                                         </div>
                                     ))}
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-8 group">
-                                <div className="w-14 h-14 bg-brand-red text-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl shadow-brand-red/20">
-                                    <Mail className="w-6 h-6" />
+                            <div className="flex items-center gap-4 md:gap-8 group">
+                                <div className="w-12 h-12 md:w-14 md:h-14 bg-brand-red text-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl shadow-brand-red/20 shrink-0">
+                                    <Mail className="w-5 h-5 md:w-6 md:h-6" />
                                 </div>
-                                <div className="border-l-2 border-gray-100 pl-6">
+                                <div className="border-l-2 border-gray-100 pl-4 md:pl-6 overflow-hidden">
                                     <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-2">Email Enquiries</p>
-                                    <p className="text-2xl font-black text-gray-900 leading-none">sales@lslifestyle.co.bw</p>
+                                    <p className="text-lg md:text-2xl font-black text-gray-900 leading-none break-all">sales@lslifestyle.co.bw</p>
                                 </div>
                             </div>
                         </div>

@@ -61,11 +61,14 @@ export default function Home() {
             <div className="w-full lg:w-max space-y-12 relative animate-in slide-in-from-left duration-1000 pl-4 lg:pl-0 order-1 lg:order-1">
               <div className="relative z-10 max-w-[520px]">
                 <div className="space-y-10">
-                  <h1 className="text-5xl lg:text-[5.5rem] font-black tracking-tighter leading-[0.95] text-gray-900 uppercase">
-                    Spring<br />Living <span className="text-brand-green">Event</span>
+                  <h1 className="text-6xl lg:text-[6.5rem] font-bold tracking-tighter leading-[0.9] text-gray-900 uppercase font-playfair">
+                    Modern <br />Living <span className="text-brand-green font-normal">Starts Here</span>
                   </h1>
-                  <p className="text-lg md:text-xl font-bold leading-relaxed text-gray-500">
-                    Discover stylish furniture and reliable appliances designed for modern homes &mdash; now available at <span className="text-brand-green">seasonal prices.</span>
+                  <p className="text-xl md:text-2xl font-medium leading-relaxed text-gray-500 font-inter">
+                    Discover premium furniture designed for the modern lifestyle. Explore our spatial catalogue and visualize pieces in your own space before you buy.
+                  </p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-green/60">
+                    See it in 3D. Place it in your space. Shop with confidence.
                   </p>
                 </div>
                 
@@ -77,11 +80,11 @@ export default function Home() {
             </div>
 
             {/* RIGHT SIDE: 3D Product Visualization - 70% */}
-            <div className="flex flex-col items-center w-full lg:w-grow order-2 lg:order-2">
-              <div className="relative w-full aspect-[1/1] sm:aspect-[4/3] lg:aspect-[16/9] max-h-[60vh] lg:max-h-none lg:min-h-[600px] xl:min-h-[700px] bg-gradient-to-br from-[#FAFAFA] to-[#F1F1F1] rounded-[3rem] border border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden group">
+            <div className="flex flex-col items-center w-full lg:w-grow order-2 lg:order-2 px-0 lg:px-4">
+              <div className="relative w-[calc(100%+3rem)] mx-[-1.5rem] lg:w-full h-[80vh] lg:h-auto lg:aspect-[16/9] bg-gradient-to-br from-[#FAFAFA] to-[#F1F1F1] rounded-none lg:rounded-[3rem] border-y lg:border border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden group">
                 
                 {heroProduct?.modelPath ? (
-                  <div className="w-full h-full cursor-grab active:cursor-grabbing relative z-10 p-12 md:p-24">
+                  <div className="w-full h-full cursor-grab active:cursor-grabbing relative z-10 p-0 md:p-24">
                     <DynamicModelViewer
                       src={heroProduct.modelPath}
                       alt="Hero Product Visualization"
@@ -121,6 +124,35 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ── CATEGORY NAVIGATION GRID ── */}
+        <section className="py-24 animate-in fade-in duration-1000 delay-500">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { name: 'Living Room', cat: 'SOFAS', color: 'bg-brand-green/10' },
+              { name: 'Bedroom', cat: 'BEDS', color: 'bg-brand-red/5' },
+              { name: 'Dining', cat: 'DINING', color: 'bg-gray-100' },
+              { name: 'Appliances', cat: 'ELECTRONICS', color: 'bg-brand-green/5' }
+            ].map((category) => (
+              <a 
+                key={category.name} 
+                href={`/catalogue?category=${category.cat}`} 
+                className={`group relative aspect-square rounded-[2.5rem] overflow-hidden ${category.color} border border-gray-100 shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-3`}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-8 left-8">
+                  <p className="text-gray-900 group-hover:text-white text-2xl font-bold uppercase tracking-tighter leading-none transition-colors duration-300">{category.name}</p>
+                  <p className="text-[10px] text-gray-400 group-hover:text-white/60 font-black uppercase tracking-[0.2em] mt-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">Shop Collection</p>
+                </div>
+                <div className="absolute top-8 right-8 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 -translate-x-4 group-hover:translate-x-0">
+                  <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </div>
+              </a>
+            ))}
           </div>
         </section>
 

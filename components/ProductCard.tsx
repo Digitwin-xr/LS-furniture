@@ -27,6 +27,12 @@ export default function ProductCard({ product }: ProductCardProps) {
     const nowPrice = parseInt((product.NOW || '0').replace(/[^0-9.]/g, ''));
     const saveAmount = wasPrice > 0 ? (wasPrice - nowPrice) : 0;
 
+    const saveScrollState = () => {
+        const category = product.Category;
+        const scrollY = window.scrollY;
+        sessionStorage.setItem('ls_catalogue_state', JSON.stringify({ category, scrollY }));
+    };
+
     return (
         <div className="group relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-brand-green/30 border border-gray-100 flex flex-col h-full animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Save Badge */}
@@ -41,6 +47,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             {/* Thumbnail Area - Live 3D Previews Enabled */}
             <Link
                 href={`/product/${product.SKU}`}
+                onClick={saveScrollState}
                 className="relative aspect-square w-full bg-gray-50 flex items-center justify-center overflow-hidden transition-colors duration-500"
             >
                 {product.imagePath && (
@@ -62,8 +69,6 @@ export default function ProductCard({ product }: ProductCardProps) {
                             alt={product["Product Name"]} 
                             onLoad={() => setIsLoaded(true)}
                         />
-                        {/* Invisible trigger to help detect "ready" state if needed, 
-                            but for now we'll rely on the viewer's transiton */}
                     </div>
                 )}
 
@@ -88,7 +93,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <div className="flex items-end flex-wrap gap-4 mt-auto mb-6">
                     <div className="flex flex-col">
                         <span className="text-[9px] font-black uppercase text-gray-300 tracking-widest leading-none mb-1">Exclusive Price</span>
-                        <span className="text-brand-red font-black text-2xl leading-none tracking-tighter">
+                        <span className="text-brand-red font-black text-2xl leading-none tracking-tighter font-inter">
                             {product.NOW === "Ask for Price" ? "Ask for Price" : `P${product.NOW}`}
                         </span>
                     </div>
@@ -105,9 +110,11 @@ export default function ProductCard({ product }: ProductCardProps) {
                 {/* Single Refined CTA */}
                 <Link
                     href={`/product/${product.SKU}`}
-                    className="w-full btn-gold py-4 flex items-center justify-center gap-2 group-hover:shadow-xl active:scale-95"
+                    onClick={saveScrollState}
+                    className="w-full btn-primary py-4 flex items-center justify-center gap-2 group-hover:shadow-xl active:scale-95 transition-all duration-300"
                 >
-                    VIEW PRODUCT <Box className="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform" />
+                    <span className="text-[10px] font-black tracking-widest uppercase">View Product</span>
+                    <Box className="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform" />
                 </Link>
             </div>
         </div>

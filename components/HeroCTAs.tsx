@@ -9,20 +9,20 @@ interface HeroCTAsProps {
 
 export default function HeroCTAs({ sku }: HeroCTAsProps) {
     return (
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
             {/* Primary: Brand Green — EXPLORE IN 3D */}
             <button
                 onClick={() => window.location.href = `/product/${sku}`}
-                className="flex-1 btn-primary min-h-[56px] md:min-h-[60px] flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"
+                className="btn-primary px-8 py-3.5 sm:py-2.5 min-h-[44px] flex items-center justify-center gap-2"
             >
-                <Box className="w-5 h-5" /> EXPLORE IN 3D
+                <Box className="w-4 h-4" /> <span className="text-[10px] font-black tracking-[0.2em] uppercase">Explore in 3D</span>
             </button>
             {/* Secondary: Red Accent — VIEW IN YOUR SPACE */}
             <button
                 onClick={() => window.location.href = `/product/${sku}?ar=true`}
-                className="flex-1 btn-accent min-h-[56px] md:min-h-[60px] flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"
+                className="btn-accent px-8 py-3.5 sm:py-2.5 min-h-[44px] flex items-center justify-center gap-2"
             >
-                <Camera className="w-5 h-5" /> VIEW IN YOUR SPACE
+                <Camera className="w-4 h-4" /> <span className="text-[10px] font-black tracking-[0.2em] uppercase">View in Your Space</span>
             </button>
         </div>
     );

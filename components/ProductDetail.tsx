@@ -22,7 +22,7 @@ const MATERIAL_FINISHES = [
     { name: 'Grey', color: '#808080' },
     { name: 'Teal', color: '#008080' },
     { name: 'Light Blue', color: '#ADD8E6' },
-    { name: 'Red', color: '#E51A22' },
+    { name: 'Red', color: '#E53935' },
 ];
 
 export default function ProductDetail({ product }: { product: Product }) {
@@ -135,8 +135,12 @@ export default function ProductDetail({ product }: { product: Product }) {
             {/* Top Navigation Row */}
             <div className="flex items-center justify-between mb-8">
                 <Link
-                    href="/catalogue"
-                    className="flex items-center gap-2 text-brand-green hover:text-brand-green-deep font-black text-[9px] md:text-[11px] uppercase tracking-[0.2em] transition-colors"
+                    href={`/catalogue#product-${product.SKU}`}
+                    onClick={() => {
+                        // The SmartGrid handles scroll restoration if coming from history
+                        // This direct link ensures we hit the anchor if history is missing or stale
+                    }}
+                    className="flex items-center gap-2 text-brand-green hover:text-brand-green font-black text-[9px] md:text-[11px] uppercase tracking-[0.2em] transition-colors font-inter"
                 >
                     <ChevronLeft className="w-3.5 h-3.5" /> Back to Shop
                 </Link>
@@ -177,8 +181,8 @@ export default function ProductDetail({ product }: { product: Product }) {
 
                     {/* Viewer Controls */}
                     <div className="absolute bottom-6 right-6 flex gap-2 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="bg-white/90 backdrop-blur px-4 py-2 rounded-full shadow-sm text-[10px] font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2">
-                            <Box className="w-3 h-3 text-[#E51A22]" /> Drag to Rotate
+                        <div className="bg-white/90 backdrop-blur px-4 py-2 rounded-full shadow-sm text-[10px] font-bold uppercase tracking-widest text-gray-600 flex items-center gap-2 font-inter">
+                            <Box className="w-3 h-3 text-brand-red" /> Drag to Rotate
                         </div>
                     </div>
                 </div>
@@ -207,8 +211,8 @@ export default function ProductDetail({ product }: { product: Product }) {
                         {/* ── Pricing Block ── */}
                         <div className="flex items-end flex-wrap gap-4 mb-8">
                             <div className="flex flex-col">
-                                <span className="text-[10px] font-black uppercase text-gray-500 tracking-widest leading-none mb-1">Now Only</span>
-                                <span className="text-4xl lg:text-5xl font-black text-[#E51A22] tracking-tight leading-none">
+                                <span className="text-[10px] font-black uppercase text-gray-500 tracking-widest leading-none mb-1 font-inter">Now Only</span>
+                                <span className="text-4xl lg:text-5xl font-black text-brand-red tracking-tight leading-none font-inter">
                                     {product.NOW === "Ask for Price" ? "Ask for Price" : `P${product.NOW}`}
                                 </span>
                             </div>
@@ -234,21 +238,21 @@ export default function ProductDetail({ product }: { product: Product }) {
 
                         {/* Compact CTAs */}
                         {product.modelPath && (
-                            <div className="flex flex-row gap-3 mb-10 w-full">
+                            <div className="flex flex-row gap-3 mb-10 w-full animate-in fade-in slide-in-from-bottom-2 duration-500">
                                 {features.enableSpatialPlacement && (
                                     <button
                                         onClick={handleARLaunch}
-                                        className="flex-1 btn-accent min-h-[40px] py-2 flex items-center justify-center gap-2 text-[10px] tracking-widest font-black transition-all hover:-translate-y-1"
+                                        className="flex-1 btn-accent px-4 py-2.5 min-h-[44px] flex items-center justify-center gap-2"
                                     >
-                                        <Camera className="w-4 h-4" /> VIEW IN YOUR SPACE
+                                        <Camera className="w-4 h-4" /> <span className="text-[10px] font-black tracking-widest leading-none">VIEW IN SPACE</span>
                                     </button>
                                 )}
                                 {features.enable3DViewer && (
                                     <button
                                         onClick={() => setIsFullscreen(true)}
-                                        className="flex-1 btn-primary min-h-[40px] py-2 flex items-center justify-center gap-2 text-[10px] tracking-widest font-black transition-all hover:-translate-y-1"
+                                        className="flex-1 btn-primary px-4 py-2.5 min-h-[44px] flex items-center justify-center gap-2"
                                     >
-                                        <Box className="w-4 h-4" /> FULL 3D
+                                        <Box className="w-4 h-4" /> <span className="text-[10px] font-black tracking-widest leading-none">FULL 3D</span>
                                     </button>
                                 )}
                             </div>
