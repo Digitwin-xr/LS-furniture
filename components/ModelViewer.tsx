@@ -34,7 +34,6 @@ function resolveModelUrl(originalPath: string) {
     // Convert local /assets/models path to Firebase Storage
     if (originalPath.startsWith('/assets/models/')) {
         const filename = originalPath.replace('/assets/models/', '');
-        // URL encode the filename, but since it might have spaces, encodeURIComponent is safer
         const encodedFilename = encodeURIComponent(filename);
         return `https://firebasestorage.googleapis.com/v0/b/ls-furniture-d53dd.firebasestorage.app/o/assets%2Fmodels%2F${encodedFilename}?alt=media`;
     }
