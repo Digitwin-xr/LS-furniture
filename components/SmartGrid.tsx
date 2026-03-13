@@ -1,7 +1,7 @@
 // @ts-nocheck
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { cn } from '@/lib/utils';
 import { Search, ArrowUpRight, FilterX, LayoutGrid, List } from 'lucide-react';
@@ -15,6 +15,10 @@ interface SmartGridProps {
 }
 
 export default function SmartGrid({ products, categories, initialCategory }: SmartGridProps) {
+  const [activeCategory, setActiveCategory] = useState(initialCategory || ORDERED_CATEGORIES[0]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isCompact, setIsCompact] = useState(false);
+
   // Scroll Restoration Logic
   useEffect(() => {
     const savedState = sessionStorage.getItem('ls_catalogue_state');
