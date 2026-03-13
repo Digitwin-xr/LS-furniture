@@ -22,6 +22,26 @@ interface ModelViewerProps {
     priorityLoad?: boolean;
 }
 
+// Convert local model paths to Firebase Storage URLs
+function resolveModelUrl(originalPath: string) {
+    if (!originalPath) return originalPath;
+    
+    // If it's already an absolute URL (http, https, blob), keep it
+    if (originalPath.startsWith('http://') || originalPath.startsWith('https://') || originalPath.startsWith('blob:')) {
+        return originalPath;
+    }
+
+    // Convert local /assets/models path to Firebase Storage
+    if (originalPath.startsWith('/assets/models/')) {
+        const filename = originalPath.replace('/assets/models/', '');
+        // URL encode the filename, but since it might have spaces, encodeURIComponent is safer
+        const encodedFilename = encodeURIComponent(filename);
+        return `https://firebasestorage.googleapis.com/v0/b/ls-furniture-d53dd.firebasestorage.app/o/assets%2Fmodels%2F${encodedFilename}?alt=media`;
+    }
+
+    return originalPath;
+}
+
 const FINISH_COLORS: Record<string, [number, number, number, number]> = {
     'Original': [1, 1, 1, 1],
     'White': [1, 1, 1, 1],
@@ -141,7 +161,7 @@ export default function ModelViewer({
             {/* ACTUAL MODEL VIEWER */}
             <model-viewer
                 ref={modelRef}
-                src={src}
+                src={resolveModelUrl(src)}
                 alt={alt}
                 poster={poster}
                 ar
