@@ -14,10 +14,7 @@
     "rewrites": [
       {
         "source": "**",
-        "run": {
-          "serviceId": "ssrlsfurnitured53dd",
-          "region": "us-central1"
-        }
+        "destination": "/index.html"
       }
     ]
   },

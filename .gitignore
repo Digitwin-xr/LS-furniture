@@ -18,7 +18,7 @@ npm-debug.log*
 Thumbs.db
 
 # Large 3D model assets (served from Firebase Storage)
-# public/assets/models/*.glb
+public/assets/models/*.glb
 
 # Temporary files
 models_deploy_temp_large/
@@ -30,3 +30,5 @@ models_deploy_temp_large/
 # Firebase
 .firebase/
 firebase-debug.log
+firebase-key.json
+*.json.json

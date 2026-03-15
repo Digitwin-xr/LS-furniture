@@ -18,7 +18,7 @@ const CSV_PATH = path.join(process.cwd(), 'public', 'products.csv');
 const MODELS_DIR = path.join(process.cwd(), 'public', 'assets', 'models');
 const IMAGES_DIR = path.join(process.cwd(), 'public', 'assets', 'images');
 const OUTPUT_JSON = path.join(process.cwd(), 'public', 'products.json');
-const BLOB_BASE_URL = 'https://o45t2gs3y3cfhz4u.public.blob.vercel-storage.com';
+const BLOB_BASE_URL = 'https://firebasestorage.googleapis.com/v0/b/ls-furniture-d53dd.firebasestorage.app/o/assets%2Fmodels';
 const MAX_MODEL_MB = 10;
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────
@@ -210,7 +210,7 @@ async function main() {
         if (csvIdx !== -1 && !pairedCSVRows.has(csvIdx)) {
             const p = rawProducts[csvIdx];
             const img = findImage(p.SKU, p['Product Name'], imageFiles);
-            const blob = `${BLOB_BASE_URL}/${rawFile}`;
+            const blob = `${BLOB_BASE_URL}%2F${encodeURIComponent(rawFile)}?alt=media`;
 
             finalProducts.push({
                 Category: p.Category,
@@ -234,7 +234,7 @@ async function main() {
             const inferredName = inferName(rawFile);
             const inferredSKU = path.basename(rawFile, '.glb').split('_')[0].toUpperCase();
             const img = findImage(inferredSKU, inferredName, imageFiles);
-            const blob = `${BLOB_BASE_URL}/${rawFile}`;
+            const blob = `${BLOB_BASE_URL}%2F${encodeURIComponent(rawFile)}?alt=media`;
 
             finalProducts.push({
                 Category: inferCategory(rawFile),

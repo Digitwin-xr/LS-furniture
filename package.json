@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/stitch_bind.js",
+    "prebuild": "node scripts/stitch_bind_v2.js",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy:storage": "npx firebase deploy --only storage",
+    "upload:models": "node scripts/upload_to_firebase_storage.js"
   },
   "dependencies": {
     "@google/model-viewer": "^4.1.0",
