@@ -38,7 +38,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             {/* Save Badge */}
             <div className="absolute top-4 left-4 z-10 pointer-events-none">
                 {saveAmount > 0 && (
-                    <span className="text-gray-900 bg-[#FFD700] px-3 py-1 rounded-full text-[9px] font-black tracking-widest uppercase shadow-sm animate-in fade-in zoom-in duration-500">
+                    <span className="text-gray-900 bg-[#FFE926] px-3 py-1 rounded-full text-[9px] font-black tracking-widest uppercase shadow-sm animate-in fade-in zoom-in duration-500">
                         SAVE P {saveAmount}
                     </span>
                 )}

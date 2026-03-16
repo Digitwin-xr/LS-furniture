@@ -1,7 +1,7 @@
 [
   {
     "category": "Sofas",
-    "productCount": 20,
+    "productCount": 19,
     "products": [
       {
         "Category": "Sofas",
@@ -80,27 +80,12 @@
       },
       {
         "Category": "Sofas",
-        "SKU": "SOFA",
-        "Product Name": "Single 2div Square",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/Sofa Single 2DIV Square.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Stylish Single 2div Square — comfortable seating for your living room.",
-        "fileSizeMB": 1.42,
-        "glbFile": "sofa_single_2div_square.glb"
-      },
-      {
-        "Category": "Sofas",
         "SKU": "3103",
         "Product Name": "Sofa 4PC Africo Brown",
         "WAS": "P3,500",
         "NOW": "P2,999",
         "SAVE": "P501",
-        "modelPath": "/assets/models/Sofa 4PC Africo Brown.glb",
+        "modelPath": "/assets/models/sofa_4pc_africo_brown.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -175,7 +160,7 @@
         "WAS": "P3,500",
         "NOW": "P2,999",
         "SAVE": "P501",
-        "modelPath": "/assets/models/Sofa Nikki L-Shape Valv.glb",
+        "modelPath": "/assets/models/sofa_nikki_l_shape_valv.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -200,21 +185,6 @@
       },
       {
         "Category": "Sofas",
-        "SKU": "SOFA_2",
-        "Product Name": "Sofa Singe 3div Square Arm Ma",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/sofa_singe_3div_square_arm_ma.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Stylish Sofa Singe 3div Square Arm Ma — comfortable seating for your living room.",
-        "fileSizeMB": 1.35,
-        "glbFile": "sofa_singe_3div_square_arm_ma.glb"
-      },
-      {
-        "Category": "Sofas",
         "SKU": "4857",
         "Product Name": "Sofa Single 2Div Cup Holder SQ",
         "WAS": "2200",
@@ -227,6 +197,21 @@
         "description": "The 4857 masterfully-crafted sofa redefines home relaxation with its generous proportions and superior ergonomic support. Upholstered in high-grade, resilient fabric, it offers a plush seating experience that maintains its shape over years of intensive use. Its modern aesthetic and clean silhouette make it a perfect centerpiece for sophisticated Botswana living rooms, seamlessly blending comfort with high-end retail style.",
         "fileSizeMB": 1.55,
         "glbFile": "4857_sofa_single_2div_cup_holder_sq.glb"
+      },
+      {
+        "Category": "Sofas",
+        "SKU": "SOFA",
+        "Product Name": "Sofa Single 2div Square",
+        "WAS": null,
+        "NOW": "Ask for Price",
+        "SAVE": null,
+        "modelPath": "/assets/models/sofa_single_2div_square.glb",
+        "imagePath": null,
+        "hasModel": true,
+        "hasImage": false,
+        "description": "Stylish Sofa Single 2div Square — comfortable seating for your living room.",
+        "fileSizeMB": 1.42,
+        "glbFile": "sofa_single_2div_square.glb"
       },
       {
         "Category": "Sofas",
@@ -250,13 +235,28 @@
         "WAS": "2500",
         "NOW": "1999",
         "SAVE": "501",
-        "modelPath": "/assets/models/Sofa Single 3Div Square Arm MA.glb",
+        "modelPath": "/assets/models/sofa_single_3div_square_arm_ma.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
         "description": "The 2999 sophisticated sofa redefines home relaxation with its generous proportions and superior ergonomic support. Upholstered in high-grade, resilient fabric, it offers a plush seating experience that maintains its shape over years of intensive use. Its modern aesthetic and clean silhouette make it a perfect centerpiece for sophisticated Botswana living rooms, seamlessly blending comfort with high-end retail style.",
         "fileSizeMB": 1.38,
         "glbFile": "sofa_single_3div_square_arm_ma.glb"
+      },
+      {
+        "Category": "Sofas",
+        "SKU": "SOFA_1",
+        "Product Name": "Sofa Two Tone L Shape",
+        "WAS": null,
+        "NOW": "Ask for Price",
+        "SAVE": null,
+        "modelPath": "/assets/models/sofa_two_tone_l_shape.glb",
+        "imagePath": null,
+        "hasModel": true,
+        "hasImage": false,
+        "description": "Stylish Sofa Two Tone L Shape — comfortable seating for your living room.",
+        "fileSizeMB": 1.91,
+        "glbFile": "sofa_two_tone_l_shape.glb"
       },
       {
         "Category": "Sofas",
@@ -287,27 +287,12 @@
         "description": "The 11159 masterfully-crafted sofa redefines home relaxation with its generous proportions and superior ergonomic support. Upholstered in high-grade, resilient fabric, it offers a plush seating experience that maintains its shape over years of intensive use. Its modern aesthetic and clean silhouette make it a perfect centerpiece for sophisticated Botswana living rooms, seamlessly blending comfort with high-end retail style.",
         "fileSizeMB": 1.23,
         "glbFile": "11159_sofa_two_tone_l_shape_bao.glb"
-      },
-      {
-        "Category": "Sofas",
-        "SKU": "SOFA_1",
-        "Product Name": "Two Tone L Shape",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/Sofa Two Tone L Shape.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Stylish Two Tone L Shape — comfortable seating for your living room.",
-        "fileSizeMB": 1.91,
-        "glbFile": "sofa_two_tone_l_shape.glb"
       }
     ]
   },
   {
     "category": "Chairs",
-    "productCount": 24,
+    "productCount": 21,
     "products": [
       {
         "Category": "Chairs",
@@ -401,21 +386,6 @@
       },
       {
         "Category": "Chairs",
-        "SKU": "OCCASIONAL",
-        "Product Name": "Chair Grey",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/Occasional Chair Grey.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Chair Grey — ergonomic design for home or office.",
-        "fileSizeMB": 1.75,
-        "glbFile": "occasional_chair_grey.glb"
-      },
-      {
-        "Category": "Chairs",
         "SKU": "JX1011",
         "Product Name": "Chair Manager Metal Base Black",
         "WAS": "1300",
@@ -466,7 +436,7 @@
         "WAS": "P700",
         "NOW": "P599",
         "SAVE": "P101",
-        "modelPath": "/assets/models/Chair Only Black.glb",
+        "modelPath": "/assets/models/chair_only_black.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -481,7 +451,7 @@
         "WAS": "P2,200",
         "NOW": "P1,999",
         "SAVE": "P201",
-        "modelPath": "/assets/models/Gaming Chair Black Red.glb",
+        "modelPath": "/assets/models/gaming_chair_black_red.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -496,7 +466,7 @@
         "WAS": "P3,300",
         "NOW": "P2,999",
         "SAVE": "P301",
-        "modelPath": "/assets/models/Gaming Chair Bucket Seat Red B.glb",
+        "modelPath": "/assets/models/gaming_chair_bucket_seat_red_b.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -511,7 +481,7 @@
         "WAS": "P1,500",
         "NOW": "P1,200",
         "SAVE": "P300",
-        "modelPath": "/assets/models/Mesh Office Chair.glb",
+        "modelPath": "/assets/models/mesh_office_chair.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -548,36 +518,6 @@
         "description": "Experience the perfect combination of ergonomic support and high-end aesthetic with this ergonomic seating solution. Crafted from premium materials to ensure long-lasting durability, it provides a comfortable and stylish addition to your dining area or bar. The modern design and sturdy build quality reflect the LS Lifestyle commitment to luxury, functionality, and timeless retail appeal. This masterpiece serves as a testament to quality craftsmanship, offering an unparalleled blend of style and functional longevity for your",
         "fileSizeMB": 1.42,
         "glbFile": "mwoc18a_multipurpose_chair_dark_greenbluegrey_velvet.glb"
-      },
-      {
-        "Category": "Chairs",
-        "SKU": "MWOC10C_1",
-        "Product Name": "Mwoc10c Occasional Chair Dark Turquoise Greyvel",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/mwoc10c_occasional_chair_dark_turquoise_greyvel.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Mwoc10c Occasional Chair Dark Turquoise Greyvel — ergonomic design for home or office.",
-        "fileSizeMB": 1.63,
-        "glbFile": "mwoc10c_occasional_chair_dark_turquoise_greyvel.glb"
-      },
-      {
-        "Category": "Chairs",
-        "SKU": "MWOC16A_1",
-        "Product Name": "Mwoc16a Accent Chair Black Grey Orange",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/mwoc16a_accent_chair_black_grey_orange.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Mwoc16a Accent Chair Black Grey Orange — ergonomic design for home or office.",
-        "fileSizeMB": 1.64,
-        "glbFile": "mwoc16a_accent_chair_black_grey_orange.glb"
       },
       {
         "Category": "Chairs",
@@ -673,7 +613,7 @@
   },
   {
     "category": "Beds",
-    "productCount": 37,
+    "productCount": 36,
     "products": [
       {
         "Category": "Beds",
@@ -704,21 +644,6 @@
         "description": "Transform your bedroom into a high-end sanctuary with this luxurious bed set, designed for restorative sleep and lasting stability. The reinforced framing and premium textile detailing offer a luxurious feel that elevates your personal retreat to boutique hotel standards. Combining timeless elegance with durable craftsmanship, it ensures every night is spent in total comfort and sophisticated style. This masterpiece serves as a testament to quality craftsmanship, offering an unparalleled blend of style and functional longevity",
         "fileSizeMB": 1.43,
         "glbFile": "mwrt2dbc_2_door_base_biscuit_mport.glb"
-      },
-      {
-        "Category": "Beds",
-        "SKU": "215_1",
-        "Product Name": "215 Budget Double 1 Star 1370 My",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/215_budget_double_1_star_1370_my.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "215 Budget Double 1 Star 1370 My — premium sleep solution for restful nights.",
-        "fileSizeMB": 1.21,
-        "glbFile": "215_budget_double_1_star_1370_my.glb"
       },
       {
         "Category": "Beds",
@@ -802,7 +727,7 @@
         "WAS": "1600",
         "NOW": "1399",
         "SAVE": "201",
-        "modelPath": "/assets/models/Bamboo Single (3 Star) 910 RES.glb",
+        "modelPath": "/assets/models/bamboo_single_3_star_910_res.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -892,13 +817,13 @@
         "WAS": "1300",
         "NOW": "1099",
         "SAVE": "201",
-        "modelPath": "/assets/models/21518_pedestal_york_baf.glb",
+        "modelPath": "/assets/models/215_budget_double_1_star_1370_my.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
         "description": "Transform your bedroom into a high-end sanctuary with this exquisite bed set, designed for restorative sleep and lasting stability. The reinforced framing and premium textile detailing offer a luxurious feel that elevates your personal retreat to boutique hotel standards. Combining timeless elegance with durable craftsmanship, it ensures every night is spent in total comfort and sophisticated style. This masterpiece serves as a testament to quality craftsmanship, offering an unparalleled blend of style and functional longevity",
-        "fileSizeMB": 1.58,
-        "glbFile": "21518_pedestal_york_baf.glb"
+        "fileSizeMB": 1.21,
+        "glbFile": "215_budget_double_1_star_1370_my.glb"
       },
       {
         "Category": "Beds",
@@ -967,7 +892,7 @@
         "WAS": "1500",
         "NOW": "1200",
         "SAVE": "300",
-        "modelPath": "/assets/models/Headboard Classic B Grey Queen.glb",
+        "modelPath": "/assets/models/headboard_classic_b_grey_queen.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -1117,13 +1042,13 @@
         "WAS": "250",
         "NOW": "199",
         "SAVE": "51",
-        "modelPath": null,
+        "modelPath": "/assets/models/21518_pedestal_york_baf.glb",
         "imagePath": null,
-        "hasModel": false,
+        "hasModel": true,
         "hasImage": false,
         "description": "Enhance your home organization with this sophisticated storage solution, featuring expansive internal space and a precision-engineered frame. The smooth-gliding mechanisms and high-quality finishes ensure effortless daily usability while protecting your wardrobe and essentials with care. Its clean lines and premium aesthetic make it a versatile addition that brings order and elegance to any bedroom or dressing area. This masterpiece serves as a testament to quality craftsmanship, offering an unparalleled blend of style and functional longevity",
-        "fileSizeMB": null,
-        "glbFile": null
+        "fileSizeMB": 1.58,
+        "glbFile": "21518_pedestal_york_baf.glb"
       },
       {
         "Category": "Beds",
@@ -1192,7 +1117,7 @@
         "WAS": "700",
         "NOW": "499",
         "SAVE": "201",
-        "modelPath": "/assets/models/Vanessa Queen Headboard BAF.glb",
+        "modelPath": "/assets/models/vanessa_queen_headboard_baf.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -1288,7 +1213,7 @@
         "WAS": "2500",
         "NOW": "1999",
         "SAVE": "501",
-        "modelPath": "/assets/models/Robe 3Door Metal + Mirror White.glb",
+        "modelPath": "/assets/models/robe_3door_metal_mirror_white.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -1348,7 +1273,7 @@
         "WAS": "2700",
         "NOW": "2199",
         "SAVE": "501",
-        "modelPath": "/assets/models/Wardrobe 4 Door White + Dark G.glb",
+        "modelPath": "/assets/models/wardrobe_4_door_white_dark_g.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -1441,7 +1366,7 @@
   },
   {
     "category": "Tables",
-    "productCount": 17,
+    "productCount": 15,
     "products": [
       {
         "Category": "Tables",
@@ -1465,13 +1390,13 @@
         "WAS": "1200",
         "NOW": "899",
         "SAVE": "301",
-        "modelPath": "/assets/models/Coffee Table Gold 3 Piece Abst.glb",
+        "modelPath": "/assets/models/mwct2p04_coffee_table_2_piece_black.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
         "description": "This masterfully-crafted furniture piece brings a sense of grand occasion to your home with its elegant craftsmanship and stable design. Built to accommodate social gatherings and family use alike, the premium surfaces are easy to maintain while exuding a high-end polished look. An essential piece for the modern Botswana home, it creates a welcoming and sophisticated environment for social connection and shared experiences.",
-        "fileSizeMB": 2.83,
-        "glbFile": "coffee_table_gold_3_piece_abst.glb"
+        "fileSizeMB": 1.21,
+        "glbFile": "mwct2p04_coffee_table_2_piece_black.glb"
       },
       {
         "Category": "Tables",
@@ -1525,13 +1450,13 @@
         "WAS": "3500",
         "NOW": "2999",
         "SAVE": "501",
-        "modelPath": null,
+        "modelPath": "/assets/models/coffee_table_gold_3_piece_abst.glb",
         "imagePath": null,
-        "hasModel": false,
+        "hasModel": true,
         "hasImage": false,
         "description": "This premium furniture piece brings a sense of grand occasion to your home with its elegant craftsmanship and stable design. Built to accommodate social gatherings and family use alike, the premium surfaces are easy to maintain while exuding a high-end polished look. An essential piece for the modern Botswana home, it creates a welcoming and sophisticated environment for social connection and shared experiences.",
-        "fileSizeMB": null,
-        "glbFile": null
+        "fileSizeMB": 2.83,
+        "glbFile": "coffee_table_gold_3_piece_abst.glb"
       },
       {
         "Category": "Tables",
@@ -1577,36 +1502,6 @@
         "description": "This refined furniture piece brings a sense of grand occasion to your home with its elegant craftsmanship and stable design. Built to accommodate social gatherings and family use alike, the premium surfaces are easy to maintain while exuding a high-end polished look. An essential piece for the modern Botswana home, it creates a welcoming and sophisticated environment for social connection and shared experiences.",
         "fileSizeMB": 1.35,
         "glbFile": "mw25_coffee_table_uk_oak_black.glb"
-      },
-      {
-        "Category": "Tables",
-        "SKU": "MW612F_1",
-        "Product Name": "Mw612f Study Desk Sonama Oak White Grey",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/mw612f_study_desk_sonama_oak_white_grey.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Mw612f Study Desk Sonama Oak White Grey — versatile surface for any room.",
-        "fileSizeMB": 1.51,
-        "glbFile": "mw612f_study_desk_sonama_oak_white_grey.glb"
-      },
-      {
-        "Category": "Tables",
-        "SKU": "MWCT2P04_1",
-        "Product Name": "Mwct2p04 Coffee Table 2 Piece Black",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/mwct2p04_coffee_table_2_piece_black.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Mwct2p04 Coffee Table 2 Piece Black — versatile surface for any room.",
-        "fileSizeMB": 1.21,
-        "glbFile": "mwct2p04_coffee_table_2_piece_black.glb"
       },
       {
         "Category": "Tables",
@@ -1702,7 +1597,7 @@
   },
   {
     "category": "Kitchen",
-    "productCount": 10,
+    "productCount": 9,
     "products": [
       {
         "Category": "Kitchen",
@@ -1756,7 +1651,7 @@
         "WAS": "800",
         "NOW": "599",
         "SAVE": "201",
-        "modelPath": "/assets/models/Linda Base 2Door BAF.glb",
+        "modelPath": "/assets/models/linda_base_2door_baf.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -1793,21 +1688,6 @@
         "description": "This exquisite piece from the LS Lifestyle collection is crafted for those who value both high-performance durability and elegant design. Featuring a resilient build and refined aesthetic, it offers exceptional lifestyle value and everyday usability in any modern setting. Its premium craftsmanship and sophisticated silhouette ensure it remains a functional and stylish focal point in your home for years to come.",
         "fileSizeMB": 1.1,
         "glbFile": "16150_romeo_kitchen_scheme_3pc_baf.glb"
-      },
-      {
-        "Category": "Kitchen",
-        "SKU": "ROMEO",
-        "Product Name": "Romeo Kitchen Scheme 3pcs Baf",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/romeo_kitchen_scheme_3pcs_baf.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Romeo Kitchen Scheme 3pcs Baf — modern kitchen solution for your home.",
-        "fileSizeMB": 1.34,
-        "glbFile": "romeo_kitchen_scheme_3pcs_baf.glb"
       },
       {
         "Category": "Kitchen",
@@ -1858,7 +1738,7 @@
   },
   {
     "category": "TV Units",
-    "productCount": 17,
+    "productCount": 16,
     "products": [
       {
         "Category": "TV Units",
@@ -1874,21 +1754,6 @@
         "description": "This magnificent microwave oven offers professional-grade heating precision in a compact, stylish design perfect for modern countertops. With intuitive digital controls and a resilient interior, it provides effortless daily usability and reliable performance for busy households. Its reflective finish and sophisticated build quality make it a refined addition to the LS Lifestyle appliance collection for the discerning homeowner.",
         "fileSizeMB": 1.54,
         "glbFile": "barcelona_microwave_stand_baf.glb"
-      },
-      {
-        "Category": "TV Units",
-        "SKU": "MWBR6854_1",
-        "Product Name": "Mwbr6854 Tv Stand Vitta Offwhite Matte",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/mwbr6854_tv_stand_vitta_offwhite_matte.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Mwbr6854 Tv Stand Vitta Offwhite Matte — sleek media storage and display unit.",
-        "fileSizeMB": 1.32,
-        "glbFile": "mwbr6854_tv_stand_vitta_offwhite_matte.glb"
       },
       {
         "Category": "TV Units",
@@ -2047,13 +1912,13 @@
         "WAS": "3300",
         "NOW": "2999",
         "SAVE": "301",
-        "modelPath": null,
+        "modelPath": "/assets/models/mwbr684_tv_stand_londres_off_white_mat.glb",
         "imagePath": null,
-        "hasModel": false,
+        "hasModel": true,
         "hasImage": false,
         "description": "Elevate your home cinema with this luxurious media unit, offering a sleek and secure foundation for your entertainment technology. Its sturdy build and integrated storage solutions provide a clean, organized look that complements any high-definition television setup. A functional masterpiece of modern furniture design, it adds a layer of refined sophistication to your family’s digital lifestyle. This masterpiece serves as a testament to quality craftsmanship, offering an unparalleled blend of style and functional longevity for",
-        "fileSizeMB": null,
-        "glbFile": null
+        "fileSizeMB": 1.21,
+        "glbFile": "mwbr684_tv_stand_londres_off_white_mat.glb"
       },
       {
         "Category": "TV Units",
@@ -2092,13 +1957,13 @@
         "WAS": "2300",
         "NOW": "1999",
         "SAVE": "301",
-        "modelPath": "/assets/models/mwbr684_tv_stand_londres_off_white_mat.glb",
+        "modelPath": "/assets/models/mwbr6854_tv_stand_vitta_offwhite_matte.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
         "description": "Elevate your home cinema with this masterfully-crafted media unit, offering a sleek and secure foundation for your entertainment technology. Its sturdy build and integrated storage solutions provide a clean, organized look that complements any high-definition television setup. A functional masterpiece of modern furniture design, it adds a layer of refined sophistication to your family’s digital lifestyle. This masterpiece serves as a testament to quality craftsmanship, offering an unparalleled blend of style and functional longevity for",
-        "fileSizeMB": 1.21,
-        "glbFile": "mwbr684_tv_stand_londres_off_white_mat.glb"
+        "fileSizeMB": 1.32,
+        "glbFile": "mwbr6854_tv_stand_vitta_offwhite_matte.glb"
       },
       {
         "Category": "TV Units",
@@ -2479,7 +2344,7 @@
         "WAS": "P900",
         "NOW": "P799",
         "SAVE": "P101",
-        "modelPath": "/assets/models/4 Shelf Unit Sanremo.glb",
+        "modelPath": "/assets/models/4_shelf_unit_sanremo.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
@@ -2791,23 +2656,8 @@
   },
   {
     "category": "Miscellaneous",
-    "productCount": 2,
+    "productCount": 1,
     "products": [
-      {
-        "Category": "Miscellaneous",
-        "SKU": "17030_1",
-        "Product Name": "17030 Blanket Box May Small Bax",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/17030_blanket_box_may_small_bax.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "17030 Blanket Box May Small Bax — quality furniture piece from LS Lifestyle.",
-        "fileSizeMB": 1.45,
-        "glbFile": "17030_blanket_box_may_small_bax.glb"
-      },
       {
         "Category": "Miscellaneous",
         "SKU": "MWBR3119",
@@ -2815,7 +2665,7 @@
         "WAS": "P400",
         "NOW": "P299",
         "SAVE": "P101",
-        "modelPath": "/assets/models/Hanging Shelves Rope.glb",
+        "modelPath": "/assets/models/hanging_shelves_rope.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,

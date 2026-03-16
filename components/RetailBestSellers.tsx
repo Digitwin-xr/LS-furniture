@@ -51,9 +51,9 @@ export default function RetailBestSellers({ products }: { products: any[] }) {
 
                                 <Link
                                     href={`/product/${product.SKU}`}
-                                    className="mt-auto w-full bg-white border-2 border-gray-200 hover:border-brand-green text-gray-900 hover:text-brand-green py-3 rounded-xl font-bold text-xs tracking-wide text-center transition-colors uppercase shadow-sm"
+                                    className="mt-auto w-full btn-primary py-4 rounded-xl text-center uppercase shadow-md flex items-center justify-center"
                                 >
-                                    Quick View
+                                    <span className="text-[10px] font-black tracking-widest uppercase">View Product</span>
                                 </Link>
                             </div>
                         </div>

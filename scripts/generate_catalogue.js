@@ -187,13 +187,15 @@ const MANUAL_OVERRIDES = {
     'romeo_kitchen_scheme_3pcs_baf': '16150',
     // Bar chair — mwbc72a file should map to MWBC72A/B not Squiggle Chair
     'mwbc72a_s_bar_chair_red_black_minimalist': 'MWBC72A/B',
-    // TV stand duplicates
-    'mwbr684_tv_stand_londres_off_white_mat': 'MWBR6854',
     // Sofa — typo "SINGE" vs "SINGLE"
     'sofa_singe_3div_square_arm_ma': '2999',
-    // Pedestal bed set
-    '21518_pedestal_york_baf': '215',
+    // Wardrobe
     'wardrobe_4_door_white_dark_g': 'MW762',
+    // Coffee Table Gold
+    'coffee_table_gold_3_piece_abst': 'MWCTG273P',
+    // Correcting these:
+    '21518_pedestal_york_baf': '21518',
+    'mwbr684_tv_stand_londres_off_white_mat': 'MWBR684',
 };
 
 // Category overrides: SKU → Category Name

@@ -225,7 +225,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                                 </div>
                             )}
                             {saveAmount > 0 && (
-                                <div className="ml-2 mb-2 bg-[#FFD700] text-gray-900 px-3 py-1.5 rounded-[4px] text-[11px] font-black tracking-widest uppercase shadow-sm">
+                                <div className="ml-2 mb-2 bg-[#FFE926] text-gray-900 px-3 py-1.5 rounded-[4px] text-[11px] font-black tracking-widest uppercase shadow-sm">
                                     SAVE P {saveAmount}
                                 </div>
                             )}

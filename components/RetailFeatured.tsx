@@ -27,9 +27,10 @@ export default function RetailFeatured({ products }: { products: any[] }) {
                     </div>
                     <Link
                         href="/catalogue"
-                        className="text-gray-900 font-bold hover:text-brand-green transition-colors flex items-center gap-2 group"
+                        className="btn-primary px-6 py-3 flex items-center gap-2 shadow-lg"
                     >
-                        View All Products <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        <span className="text-[10px] font-black tracking-widest uppercase">EXPLORE COLLECTION</span>
+                        <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
 
@@ -83,15 +84,15 @@ export default function RetailFeatured({ products }: { products: any[] }) {
                                 <div className="grid grid-cols-2 gap-3 mt-6">
                                     <Link
                                         href={`/product/${product.SKU}`}
-                                        className="bg-gray-900 hover:bg-black text-white py-3 rounded-xl font-bold text-sm tracking-wide text-center transition-colors shadow-md"
+                                        className="btn-primary py-4 rounded-xl font-black text-[10px] tracking-widest text-center transition-all uppercase shadow-md flex items-center justify-center gap-2"
                                     >
                                         View Product
                                     </Link>
                                     <button
                                         onClick={() => window.location.href = `/product/${product.SKU}?ar=true`}
-                                        className="bg-green-50 hover:bg-brand-green text-brand-green hover:text-white border border-brand-green/20 py-3 rounded-xl font-bold text-sm tracking-wide transition-colors flex items-center justify-center gap-2 shadow-sm"
+                                        className="btn-accent py-4 rounded-xl font-black text-[10px] tracking-widest transition-all flex items-center justify-center gap-2 shadow-sm uppercase"
                                     >
-                                        <Camera className="w-4 h-4" /> VIEW IN YOUR SPACE
+                                        <Camera className="w-4 h-4" /> View in Space
                                     </button>
                                 </div>
                             </div>
