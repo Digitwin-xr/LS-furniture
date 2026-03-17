@@ -211,15 +211,15 @@ export default function ProductDetail({ product }: { product: Product }) {
                         {/* ── Pricing Block ── */}
                         <div className="flex items-end flex-wrap gap-4 mb-8">
                             <div className="flex flex-col">
-                                <span className="text-[10px] font-black uppercase text-gray-500 tracking-widest leading-none mb-1 font-inter">Now Only</span>
+                                <span className="text-[10px] font-black uppercase text-brand-red tracking-widest leading-none mb-1 font-inter">Now Only</span>
                                 <span className="text-4xl lg:text-5xl font-black text-brand-red tracking-tight leading-none font-inter">
                                     {product.NOW === "Ask for Price" ? "Ask for Price" : `P${product.NOW}`}
                                 </span>
                             </div>
                             {product.WAS && (
                                 <div className="flex flex-col ml-2 pb-1">
-                                    <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest leading-none mb-1">Was</span>
-                                    <span className="text-xl lg:text-2xl text-gray-400 line-through font-bold leading-none">
+                                    <span className="text-[10px] font-black uppercase text-black tracking-widest leading-none mb-1">Was</span>
+                                    <span className="text-xl lg:text-2xl text-black line-through font-bold leading-none">
                                         {product.WAS === "Ask for Price" ? "Ask for Price" : `P${product.WAS}`}
                                     </span>
                                 </div>
@@ -288,22 +288,22 @@ export default function ProductDetail({ product }: { product: Product }) {
                         <div className="space-y-4">
                             <button
                                 onClick={() => setIsOrderModalOpen(true)}
-                                className="w-full btn-gold min-h-[44px] py-3 md:py-2.5 flex items-center justify-center gap-3 relative group/glow text-[11px] font-black tracking-[0.2em]"
+                                className="w-full btn-primary min-h-[44px] py-3 md:py-2.5 flex items-center justify-center gap-3 relative group/glow text-[11px] font-black tracking-[0.2em]"
                             >
                                 <div className="absolute inset-0 bg-[#D4AF37] blur-xl opacity-0 group-hover/glow:opacity-30 transition-opacity rounded-lg" />
                                 <Send className="w-4 h-4 relative z-10" /> <span className="relative z-10">EXPRESS ORDER</span>
                             </button>
 
                             <div className="grid grid-cols-3 gap-2 pt-2">
-                                <button className="border border-[#D4AF37] py-3 rounded-lg text-[9px] font-black text-[#D4AF37] tracking-widest uppercase flex flex-col items-center justify-center gap-1 hover:bg-[#B5952F] hover:text-white hover:border-[#B5952F] hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-md group/buy relative overflow-hidden">
+                                <button className="border border-brand-green py-3 rounded-lg text-[9px] font-black text-brand-green tracking-widest uppercase flex flex-col items-center justify-center gap-1 hover:bg-brand-green hover:text-white hover:border-brand-green hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-md group/buy relative overflow-hidden">
                                     <div className="absolute inset-0 bg-[#B5952F] blur-xl opacity-0 group-hover/buy:opacity-10 transition-opacity" />
                                     <ShoppingCart className="w-3 h-3 group-hover/buy:scale-110 transition-transform relative z-10" /> <span className="relative z-10">BUY NOW</span>
                                 </button>
                                 <button
                                     onClick={() => setIsSaved(!isSaved)}
                                     className={`py-3 rounded-lg text-[9px] font-black tracking-widest uppercase flex flex-col items-center justify-center gap-1 hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-md border relative group/save ${isSaved
-                                        ? 'bg-[#D4AF37] border-[#D4AF37] text-white'
-                                        : 'bg-white border-[#D4AF37] text-[#D4AF37] hover:bg-[#B5952F] hover:text-white hover:border-[#B5952F]'
+                                        ? 'bg-brand-green border-brand-green text-white'
+                                        : 'bg-white border-brand-green text-brand-green hover:bg-brand-green hover:text-white hover:border-brand-green'
                                         }`}
                                 >
                                     <div className={`absolute inset-0 blur-xl opacity-0 group-hover/save:opacity-20 transition-opacity ${isSaved ? 'bg-white' : 'bg-[#B5952F]'}`} />
@@ -318,7 +318,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                                             });
                                         }
                                     }}
-                                    className="border border-[#D4AF37] py-3 rounded-lg text-[9px] font-black text-[#D4AF37] tracking-widest uppercase flex flex-col items-center justify-center gap-1 hover:bg-[#B5952F] hover:text-white hover:border-[#B5952F] hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-md group/share relative overflow-hidden"
+                                    className="border border-brand-green py-3 rounded-lg text-[9px] font-black text-brand-green tracking-widest uppercase flex flex-col items-center justify-center gap-1 hover:bg-brand-green hover:text-white hover:border-brand-green hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-md group/share relative overflow-hidden"
                                 >
                                     <div className="absolute inset-0 bg-[#B5952F] blur-xl opacity-0 group-hover/share:opacity-10 transition-opacity" />
                                     <Share2 className="w-3 h-3 relative z-10" /> <span className="relative z-10">SHARE</span>

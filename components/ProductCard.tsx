@@ -92,15 +92,15 @@ export default function ProductCard({ product }: ProductCardProps) {
                 {/* Pricing */}
                 <div className="flex items-end flex-wrap gap-4 mt-auto mb-6">
                     <div className="flex flex-col">
-                        <span className="text-[9px] font-black uppercase text-gray-300 tracking-widest leading-none mb-1">Exclusive Price</span>
+                        <span className="text-[9px] font-black uppercase text-brand-red tracking-widest leading-none mb-1">Now Only</span>
                         <span className="text-brand-red font-black text-2xl leading-none tracking-tighter font-inter">
                             {product.NOW === "Ask for Price" ? "Ask for Price" : `P${product.NOW}`}
                         </span>
                     </div>
                     {wasPrice > 0 && (
                         <div className="flex flex-col mb-0.5">
-                            <span className="text-[9px] font-black uppercase text-gray-300 tracking-widest leading-none mb-1">Was</span>
-                            <span className="text-[13px] text-gray-300 line-through font-extrabold leading-none">
+                            <span className="text-[9px] font-black uppercase text-black tracking-widest leading-none mb-1">Was</span>
+                            <span className="text-[13px] text-black line-through font-extrabold leading-none">
                                 P{product.WAS}
                             </span>
                         </div>
@@ -111,9 +111,9 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <Link
                     href={`/product/${product.SKU}`}
                     onClick={saveScrollState}
-                    className="w-full btn-primary py-4 flex items-center justify-center gap-2 group-hover:shadow-xl active:scale-95 transition-all duration-300"
+                    className="w-full btn-primary py-4 px-6 flex items-center justify-center gap-3 active:scale-95 transition-all"
                 >
-                    <span className="text-[10px] font-black tracking-widest uppercase">View Product</span>
+                    <span className="text-[11px] font-black tracking-[0.2em] uppercase">View Product</span>
                     <Box className="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform" />
                 </Link>
             </div>

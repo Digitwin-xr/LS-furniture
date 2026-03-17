@@ -196,6 +196,16 @@ const MANUAL_OVERRIDES = {
     // Correcting these:
     '21518_pedestal_york_baf': '21518',
     'mwbr684_tv_stand_londres_off_white_mat': 'MWBR684',
+    // New Products & Models
+    '255_bamboo_double_3_star_1370_re': '0255',
+    '309_better_lux_double_10_star_13': '0309',
+    '215_budget_double_1_star_1370_my': '0215',
+    '0225_good_sleep_double_2_star_137': '0225',
+    'mwoc16a_accent_chair_black_greyorange': 'MWOC16A/B',
+    'mwoc10c_occasional_chair_darkturquoise_grey_vel': 'MWOC10C',
+    'mwch2b_shell_chair_beach_legs_whitered': 'MWCH2A/B',
+    'mw515j_cabinet_2door_3_shelf_with_doo': 'MW515',
+    'mw612f_study_desk_sonama_oak_white_and_grey': 'MW612F/G',
 };
 
 // Category overrides: SKU → Category Name

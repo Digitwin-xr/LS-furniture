@@ -49,9 +49,10 @@ export default function ARExperienceBanner() {
                     <div className="pt-8">
                         <Link
                             href="/catalogue"
-                            className="inline-flex bg-brand-charcoal text-white py-6 px-12 rounded-2xl text-[12px] font-black tracking-widest items-center justify-center gap-4 shadow-2xl hover:bg-brand-red transition-all active:scale-95 group"
+                            className="btn-primary py-5 px-12 inline-flex items-center justify-center gap-4 active:scale-95 transition-all"
                         >
-                            EXPLORE SPATIAL CATALOGUE <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            <span className="text-[12px] font-black tracking-[0.2em] uppercase">EXPLORE SPATIAL CATALOGUE</span>
+                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
                 </div>

@@ -29,7 +29,7 @@ export default function RetailHeader() {
                 {/* Center: Navigation */}
                 <nav className="hidden md:flex items-center gap-8">
                     <Link href="/catalogue" className={`text-[13px] font-black tracking-widest uppercase transition-colors hover:text-brand-green ${pathname === '/catalogue' ? 'text-brand-green' : 'text-gray-600'}`}>SHOP</Link>
-                    <Link href="/#showrooms" className="text-[13px] font-black tracking-widest uppercase transition-colors hover:text-brand-green text-gray-600">SHOWROOMS</Link>
+                    <Link href="/showrooms" className={`text-[13px] font-black tracking-widest uppercase transition-colors hover:text-brand-green ${pathname === '/showrooms' ? 'text-brand-green' : 'text-gray-600'}`}>SHOWROOMS</Link>
                     <Link href="/contact" className={`text-[13px] font-black tracking-widest uppercase transition-colors hover:text-brand-green ${pathname === '/contact' ? 'text-brand-green' : 'text-gray-600'}`}>CONTACT US</Link>
                 </nav>
 

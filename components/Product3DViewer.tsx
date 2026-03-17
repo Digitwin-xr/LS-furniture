@@ -70,8 +70,8 @@ export default function Product3DViewer({ modelPath, alt, onLoad }: Product3DVie
                 const width = containerRef.current.clientWidth;
                 const height = containerRef.current.clientHeight;
 
-                camera = new THREE.PerspectiveCamera(35, width / height, 0.05, 1000); // Near plane 0.05 to prevent clipping
-                camera.position.set(0, 1.0, 8.5); // Moved further back (8.5 vs 6.5) to accommodate larger scale
+                camera = new THREE.PerspectiveCamera(50, width / height, 0.05, 1000);
+                camera.position.set(0, 0.8, 5.5);
 
                 renderer = new THREE.WebGLRenderer({
                     antialias: true,
@@ -107,7 +107,7 @@ export default function Product3DViewer({ modelPath, alt, onLoad }: Product3DVie
 
                         model.position.sub(center);
                         const maxDim = Math.max(size.x, size.y, size.z);
-                        const scale = 2.4 / maxDim; // Increased from 1.8 for maximum visibility per user request
+                        const scale = 3.5 / maxDim; // Maximise visibility in card viewer
                         model.scale.multiplyScalar(scale);
 
                         scene.add(model);

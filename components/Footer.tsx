@@ -12,7 +12,7 @@ export default function Footer() {
 
     return (
         <>
-        <OurShowrooms />
+        <div id="showrooms"><OurShowrooms /></div>
         <footer className="bg-white border-t border-brand-sand/20 text-brand-charcoal pt-24 pb-12 overflow-hidden relative">
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 

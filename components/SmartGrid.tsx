@@ -40,6 +40,9 @@ export default function SmartGrid({ products, categories, initialCategory }: Sma
     setActiveCategory(cat);
     // When manually changing category, we should reset any pending restoration
     sessionStorage.removeItem('ls_catalogue_state');
+    
+    // Ensure the page scrolls to the top when a category is selected
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const filteredProducts = useMemo(() => {
@@ -64,7 +67,7 @@ export default function SmartGrid({ products, categories, initialCategory }: Sma
           {ORDERED_CATEGORIES.map((cat) => (
             <button
               key={cat}
-              onClick={() => setActiveCategory(cat)}
+              onClick={() => handleCategoryChange(cat)}
               className={cn(
                 "w-full text-left px-4 py-3 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-200",
                 activeCategory === cat

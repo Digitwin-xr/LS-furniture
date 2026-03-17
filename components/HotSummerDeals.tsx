@@ -101,15 +101,15 @@ export default function HotSummerDeals({ products }: { products: any[] }) {
                                     <div className="mt-auto">
                                         <div className="flex items-end flex-wrap gap-4 mb-6">
                                             <div className="flex flex-col">
-                                                <span className="text-[9px] font-black uppercase text-gray-300 tracking-widest leading-none mb-1">Exclusive Price</span>
+                                                <span className="text-[9px] font-black uppercase text-brand-red tracking-widest leading-none mb-1">Now Only</span>
                                                 <span className="text-brand-red font-black text-2xl leading-none tracking-tighter">
                                                     {product.NOW === "Ask for Price" ? "Ask for Price" : `P${product.NOW}`}
                                                 </span>
                                             </div>
                                             {wasPrice > 0 && (
                                                 <div className="flex flex-col mb-0.5">
-                                                    <span className="text-[9px] font-black uppercase text-gray-300 tracking-widest leading-none mb-1">Was</span>
-                                                    <span className="text-[13px] text-gray-300 line-through font-extrabold leading-none">
+                                                    <span className="text-[9px] font-black uppercase text-black tracking-widest leading-none mb-1">Was</span>
+                                                    <span className="text-[13px] text-black line-through font-extrabold leading-none">
                                                         P{product.WAS}
                                                     </span>
                                                 </div>
@@ -118,7 +118,7 @@ export default function HotSummerDeals({ products }: { products: any[] }) {
 
                                         <Link
                                             href={`/product/${product.SKU}`}
-                                            className="w-full btn-gold py-4 flex items-center justify-center gap-2 group-hover:shadow-xl active:scale-95 transition-all text-center"
+                                            className="w-full btn-primary py-4 flex items-center justify-center gap-2 group-hover:shadow-xl active:scale-95 transition-all text-center"
                                         >
                                             VIEW PRODUCT <Box className="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform" />
                                         </Link>
