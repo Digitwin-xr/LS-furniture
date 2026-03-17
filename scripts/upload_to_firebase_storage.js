@@ -43,6 +43,14 @@ async function uploadModels() {
         for (const file of files) {
             const localFilePath = path.join(LOCAL_MODELS_DIR, file);
             const remoteFilePath = `${REMOTE_MODELS_DIR}/${file}`;
+            const remoteFile = bucket.file(remoteFilePath);
+
+            // Check if file already exists
+            const [exists] = await remoteFile.exists();
+            if (exists) {
+                console.log(`⏭️ Skipping ${file} (already exists)...`);
+                continue;
+            }
 
             console.log(`⬆️ Uploading ${file}...`);
             await bucket.upload(localFilePath, {

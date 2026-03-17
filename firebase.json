@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "ls-furniture-d53dd",
-    "public": "public",
+    "public": "out",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -11,6 +11,7 @@
       "scripts/**",
       ".next/**"
     ],
+    "cleanUrls": true,
     "rewrites": [
       {
         "source": "**",

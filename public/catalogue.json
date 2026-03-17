@@ -1,26 +1,11 @@
 [
   {
     "category": "Sofas",
-    "productCount": 2,
+    "productCount": 1,
     "products": [
       {
         "Category": "Sofas",
         "SKU": "SOFA",
-        "Product Name": "Sofa Single 3div Square Arm Ma",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/sofa_single_3div_square_arm_ma.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Stylish Sofa Single 3div Square Arm Ma — comfortable seating for your living room.",
-        "fileSizeMB": 1.38,
-        "glbFile": "sofa_single_3div_square_arm_ma.glb"
-      },
-      {
-        "Category": "Sofas",
-        "SKU": "SOFA_1",
         "Product Name": "Sofa Two Tone L Shape",
         "WAS": null,
         "NOW": "Ask for Price",
@@ -71,24 +56,60 @@
       },
       {
         "Category": "Chairs",
-        "SKU": "MWOC14A_1",
-        "Product Name": "Mwoc14a Occasional Chair Orangetealgrey",
+        "SKU": "MWCH2B_1",
+        "Product Name": "Mwch2b Shell Chair Beach Legs Whitered",
         "WAS": null,
         "NOW": "Ask for Price",
         "SAVE": null,
-        "modelPath": "/assets/models/mwoc14a_occasional_chair_orangetealgrey.glb",
+        "modelPath": "/assets/models/mwch2b_shell_chair_beach_legs_whitered.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
-        "description": "Mwoc14a Occasional Chair Orangetealgrey — ergonomic design for home or office.",
-        "fileSizeMB": 1.61,
-        "glbFile": "mwoc14a_occasional_chair_orangetealgrey.glb"
+        "description": "Mwch2b Shell Chair Beach Legs Whitered — ergonomic design for home or office.",
+        "fileSizeMB": 1.36,
+        "glbFile": "mwch2b_shell_chair_beach_legs_whitered.glb"
+      }
+    ]
+  },
+  {
+    "category": "Beds",
+    "productCount": 2,
+    "products": [
+      {
+        "Category": "Beds",
+        "SKU": "NIGHT",
+        "Product Name": "Stand Sanremo Lig",
+        "WAS": null,
+        "NOW": "Ask for Price",
+        "SAVE": null,
+        "modelPath": "/assets/models/Night stand sanremo lig.glb",
+        "imagePath": null,
+        "hasModel": true,
+        "hasImage": false,
+        "description": "Stand Sanremo Lig — premium sleep solution for restful nights.",
+        "fileSizeMB": 1.5,
+        "glbFile": "night_stand_sanremo_lig.glb"
+      },
+      {
+        "Category": "Beds",
+        "SKU": "NIGHT_1",
+        "Product Name": "Stand Sanremo Ligh",
+        "WAS": null,
+        "NOW": "Ask for Price",
+        "SAVE": null,
+        "modelPath": "/assets/models/Night stand sanremo ligh.glb",
+        "imagePath": null,
+        "hasModel": true,
+        "hasImage": false,
+        "description": "Stand Sanremo Ligh — premium sleep solution for restful nights.",
+        "fileSizeMB": 1.28,
+        "glbFile": "night_stand_sanremo_ligh.glb"
       }
     ]
   },
   {
     "category": "WARDROBES",
-    "productCount": 11,
+    "productCount": 10,
     "products": [
       {
         "Category": "WARDROBES",
@@ -157,26 +178,11 @@
         "WAS": "2500",
         "NOW": "1999",
         "SAVE": "501",
-        "modelPath": null,
-        "imagePath": null,
-        "hasModel": false,
-        "hasImage": false,
-        "description": "Transform your bedroom into a sanctuary. The Robe 3Door Metal + Mirror Whit offers superior comfort and elegant storage. On sale for P1999.",
-        "fileSizeMB": null,
-        "glbFile": null
-      },
-      {
-        "Category": "WARDROBES",
-        "SKU": "ROBE",
-        "Product Name": "Robe 3door Metal Mirror White",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
         "modelPath": "/assets/models/robe_3door_metal_mirror_white.glb",
         "imagePath": null,
         "hasModel": true,
         "hasImage": false,
-        "description": "Robe 3door Metal Mirror White — spacious storage with elegant finish.",
+        "description": "Transform your bedroom into a sanctuary. The Robe 3Door Metal + Mirror Whit offers superior comfort and elegant storage. On sale for P1999.",
         "fileSizeMB": 1.98,
         "glbFile": "robe_3door_metal_mirror_white.glb"
       },
@@ -361,38 +367,8 @@
   },
   {
     "category": "TV Units",
-    "productCount": 3,
+    "productCount": 1,
     "products": [
-      {
-        "Category": "TV Units",
-        "SKU": "NIGHT",
-        "Product Name": "Stand Sanremo Lig",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/Night stand sanremo lig.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Stand Sanremo Lig — sleek media storage and display unit.",
-        "fileSizeMB": 1.5,
-        "glbFile": "night_stand_sanremo_lig.glb"
-      },
-      {
-        "Category": "TV Units",
-        "SKU": "NIGHT_1",
-        "Product Name": "Stand Sanremo Ligh",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/Night stand sanremo ligh.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "Stand Sanremo Ligh — sleek media storage and display unit.",
-        "fileSizeMB": 1.28,
-        "glbFile": "night_stand_sanremo_ligh.glb"
-      },
       {
         "Category": "TV Units",
         "SKU": "PLASMA",
@@ -433,23 +409,8 @@
   },
   {
     "category": "Storage",
-    "productCount": 2,
+    "productCount": 1,
     "products": [
-      {
-        "Category": "Storage",
-        "SKU": "4",
-        "Product Name": "4 Shelf Unit Sanremo",
-        "WAS": null,
-        "NOW": "Ask for Price",
-        "SAVE": null,
-        "modelPath": "/assets/models/4_shelf_unit_sanremo.glb",
-        "imagePath": null,
-        "hasModel": true,
-        "hasImage": false,
-        "description": "4 Shelf Unit Sanremo — practical storage with lasting quality.",
-        "fileSizeMB": 1.46,
-        "glbFile": "4_shelf_unit_sanremo.glb"
-      },
       {
         "Category": "Storage",
         "SKU": "LENZO",
@@ -1315,13 +1276,13 @@
         "WAS": "2500",
         "NOW": "1999",
         "SAVE": "501",
-        "modelPath": null,
+        "modelPath": "/assets/models/sofa_single_3div_square_arm_ma.glb",
         "imagePath": null,
-        "hasModel": false,
+        "hasModel": true,
         "hasImage": false,
         "description": "Experience ultimate comfort and style with the Sofa Single 3Div Square Arm MA. Plush fabric and modern design, perfect for any living room. Now P1999.",
-        "fileSizeMB": null,
-        "glbFile": null
+        "fileSizeMB": 1.38,
+        "glbFile": "sofa_single_3div_square_arm_ma.glb"
       },
       {
         "Category": "SOFAS",
@@ -1396,13 +1357,13 @@
         "WAS": "900",
         "NOW": "799",
         "SAVE": "101",
-        "modelPath": null,
+        "modelPath": "/assets/models/4_shelf_unit_sanremo.glb",
         "imagePath": null,
-        "hasModel": false,
+        "hasModel": true,
         "hasImage": false,
         "description": "Boost your productivity with the stylish and ergonomic 4 Shelf Unit Sanremo Light + W/Grey. Professional quality and comfort at an incredible price of P799.",
-        "fileSizeMB": null,
-        "glbFile": null
+        "fileSizeMB": 1.46,
+        "glbFile": "4_shelf_unit_sanremo.glb"
       },
       {
         "Category": "STORAGE",
@@ -1516,13 +1477,13 @@
         "WAS": "1300",
         "NOW": "999",
         "SAVE": "301",
-        "modelPath": null,
+        "modelPath": "/assets/models/mw515j_cabinet_2door_3_shelf_with_doo.glb",
         "imagePath": null,
-        "hasModel": false,
+        "hasModel": true,
         "hasImage": false,
         "description": "Boost your productivity with the stylish and ergonomic Cabinet 2Door 3 Shelf With Doo. Professional quality and comfort at an incredible price of P999.",
-        "fileSizeMB": null,
-        "glbFile": null
+        "fileSizeMB": 1.29,
+        "glbFile": "mw515j_cabinet_2door_3_shelf_with_doo.glb"
       },
       {
         "Category": "STORAGE",
@@ -1531,13 +1492,13 @@
         "WAS": "1300",
         "NOW": "999",
         "SAVE": "301",
-        "modelPath": "/assets/models/mw515j_cabinet_2door_3_shelf_with_doo.glb",
+        "modelPath": null,
         "imagePath": null,
-        "hasModel": true,
+        "hasModel": false,
         "hasImage": false,
         "description": "Boost your productivity with the stylish and ergonomic Cabinet 2Door 3 Shelf With Doors Sanremo + Light Grey. Professional quality and comfort at an incredible price of P999.",
-        "fileSizeMB": 1.29,
-        "glbFile": "mw515j_cabinet_2door_3_shelf_with_doo.glb"
+        "fileSizeMB": null,
+        "glbFile": null
       },
       {
         "Category": "STORAGE",
@@ -1702,13 +1663,13 @@
         "WAS": "1500",
         "NOW": "1299",
         "SAVE": "201",
-        "modelPath": "/assets/models/mwoc16a_accent_chair_black_greyorange.glb",
+        "modelPath": null,
         "imagePath": null,
-        "hasModel": true,
+        "hasModel": false,
         "hasImage": false,
         "description": "Boost your productivity with the stylish and ergonomic Accent Chair Black + Grey/Black + Orange. Professional quality and comfort at an incredible price of P1299.",
-        "fileSizeMB": 1.31,
-        "glbFile": "mwoc16a_accent_chair_black_greyorange.glb"
+        "fileSizeMB": null,
+        "glbFile": null
       },
       {
         "Category": "CHAIRS",
@@ -1717,13 +1678,13 @@
         "WAS": "1500",
         "NOW": "1299",
         "SAVE": "201",
-        "modelPath": null,
+        "modelPath": "/assets/models/mwoc16a_accent_chair_black_greyorange.glb",
         "imagePath": null,
-        "hasModel": false,
+        "hasModel": true,
         "hasImage": false,
         "description": "Boost your productivity with the stylish and ergonomic Accent Chair Black + Grey/Orange. Professional quality and comfort at an incredible price of P1299.",
-        "fileSizeMB": null,
-        "glbFile": null
+        "fileSizeMB": 1.31,
+        "glbFile": "mwoc16a_accent_chair_black_greyorange.glb"
       },
       {
         "Category": "CHAIRS",
@@ -1922,7 +1883,7 @@
       },
       {
         "Category": "CHAIRS",
-        "SKU": "MWOC14A",
+        "SKU": "MWOC14A/B/C",
         "Product Name": "Occasional Chair Orange/Teal/Grey",
         "WAS": "1700",
         "NOW": "1399",
@@ -1937,18 +1898,18 @@
       },
       {
         "Category": "CHAIRS",
-        "SKU": "MWOC14A/B/C",
+        "SKU": "MWOC14A",
         "Product Name": "Occasional Chair Orange/Teal/Grey",
         "WAS": "1700",
         "NOW": "1399",
         "SAVE": "301",
-        "modelPath": null,
+        "modelPath": "/assets/models/mwoc14a_occasional_chair_orangetealgrey.glb",
         "imagePath": null,
-        "hasModel": false,
+        "hasModel": true,
         "hasImage": false,
         "description": "Boost your productivity with the stylish and ergonomic Occasional Chair Orange/Teal/Grey. Professional quality and comfort at an incredible price of P1399.",
-        "fileSizeMB": null,
-        "glbFile": null
+        "fileSizeMB": 1.61,
+        "glbFile": "mwoc14a_occasional_chair_orangetealgrey.glb"
       },
       {
         "Category": "CHAIRS",
@@ -1957,13 +1918,13 @@
         "WAS": "600",
         "NOW": "399",
         "SAVE": "201",
-        "modelPath": "/assets/models/mwch2b_shell_chair_beach_legs_whitered.glb",
+        "modelPath": null,
         "imagePath": null,
-        "hasModel": true,
+        "hasModel": false,
         "hasImage": false,
         "description": "Boost your productivity with the stylish and ergonomic Shell Chair Beach Legs White/Black. Professional quality and comfort at an incredible price of P399.",
-        "fileSizeMB": 1.36,
-        "glbFile": "mwch2b_shell_chair_beach_legs_whitered.glb"
+        "fileSizeMB": null,
+        "glbFile": null
       },
       {
         "Category": "CHAIRS",
@@ -2278,13 +2239,13 @@
         "WAS": "1200",
         "NOW": "999",
         "SAVE": "201",
-        "modelPath": null,
+        "modelPath": "/assets/models/mw612f_study_desk_sonama_oak_white_and_grey.glb",
         "imagePath": null,
-        "hasModel": false,
+        "hasModel": true,
         "hasImage": false,
         "description": "Boost your productivity with the stylish and ergonomic Study Desk Sonama Oak + White/Grey. Professional quality and comfort at an incredible price of P999.",
-        "fileSizeMB": null,
-        "glbFile": null
+        "fileSizeMB": 1.48,
+        "glbFile": "mw612f_study_desk_sonama_oak_white_and_grey.glb"
       },
       {
         "Category": "TABLES & DESKS",
@@ -2293,13 +2254,13 @@
         "WAS": "1399",
         "NOW": "1100",
         "SAVE": "299",
-        "modelPath": "/assets/models/mw612f_study_desk_sonama_oak_white_and_grey.glb",
+        "modelPath": null,
         "imagePath": null,
-        "hasModel": true,
+        "hasModel": false,
         "hasImage": false,
         "description": "Boost your productivity with the stylish and ergonomic Study Desk Sonama Oak + White/Oak + Dark G. Professional quality and comfort at an incredible price of P1100.",
-        "fileSizeMB": 1.48,
-        "glbFile": "mw612f_study_desk_sonama_oak_white_and_grey.glb"
+        "fileSizeMB": null,
+        "glbFile": null
       },
       {
         "Category": "TABLES & DESKS",

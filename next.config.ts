@@ -1,13 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: any = {
-  /* standard config */
-  output: 'standalone',
+  /* Static export for Firebase Hosting */
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
   typescript: {
-    ignoreBuildErrors: true, // Bypass potential strict type issues on Vercel
+    ignoreBuildErrors: true,
   },
   eslint: {
-    ignoreDuringBuilds: true, // Bypass linting on build to ensure deployment
+    ignoreDuringBuilds: true,
   }
 };
 

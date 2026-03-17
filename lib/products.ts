@@ -1,20 +1,28 @@
-'use server';
-
-import fs from 'fs';
-import path from 'path';
 import { Product } from '@/types';
 
 export async function getProducts(): Promise<Product[]> {
-    const jsonPath = path.join(process.cwd(), 'public', 'products.json');
-
     try {
-        if (!fs.existsSync(jsonPath)) {
-            console.error('products.json not found.');
-            return [];
-        }
+        let rawProducts: any[];
 
-        const fileContent = fs.readFileSync(jsonPath, 'utf8');
-        const rawProducts = JSON.parse(fileContent);
+        // On the server (build time / SSR), read the file directly for reliability.
+        // On the client, fetch the public JSON.
+        if (typeof window === 'undefined') {
+            const fs = await import('fs');
+            const path = await import('path');
+            const jsonPath = path.join(process.cwd(), 'public', 'products.json');
+            if (!fs.existsSync(jsonPath)) {
+                console.error('products.json not found.');
+                return [];
+            }
+            rawProducts = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+        } else {
+            const res = await fetch('/products.json');
+            if (!res.ok) {
+                console.error('Failed to fetch products.json:', res.status);
+                return [];
+            }
+            rawProducts = await res.json();
+        }
 
         // SAFE Normalization: Preserve ALL original fields (like Category)
         return rawProducts.map((p: any) => {

@@ -64,11 +64,11 @@ function inferCategory(text) {
     if (!text) return 'Miscellaneous';
     const f = text.toLowerCase();
 
+    // Bed components (bases, headboards, pedestals) must go to Beds first
+    if (f.includes('bed') || f.includes('mattress') || f.includes('headboard') || f.includes('base') || f.includes('sleeper') || f.includes('blanket box') || f.includes('bunk') || f.includes('double') || f.includes('single') || f.includes('queen') || f.includes('lux') || f.includes('spine') || f.includes('sleep') || f.includes('bamboo') || f.includes('pedestal') || f.includes('nightstand') || f.includes('night stand')) return 'Beds';
+
     // Strict priority overrides based on common LS furniture keywords
     if (f.includes('sofa') || f.includes('couch') || f.includes('lounge') || f.includes('daybed') || f.includes('recliner') || f.includes('seater') || f.includes('bugatti')) return 'Sofas';
-
-    // Bed components (bases, headboards) must go to Beds, not Miscellaneous or Storage
-    if (f.includes('bed') || f.includes('mattress') || f.includes('headboard') || f.includes('base') || f.includes('sleeper') || f.includes('blanket box') || f.includes('bunk') || f.includes('double') || f.includes('single') || f.includes('queen') || f.includes('lux') || f.includes('spine') || f.includes('sleep') || f.includes('bamboo')) return 'Beds';
 
     // WARDROBES
     if (f.includes('wardrobe') || f.includes('robe')) return 'WARDROBES';
@@ -93,9 +93,6 @@ function inferCategory(text) {
 
     // Appliances / Electronics
     if (f.includes('fridge') || f.includes('freezer') || f.includes('washing') || f.includes('microwave') || f.includes('fryer') || f.includes('stove') || f.includes('oven') || f.includes('defy') || f.includes('hisense') || f.includes('totai') || f.includes('blaze')) return 'Electronics';
-
-    // If it has 'pedestal' but no other context, usually maps to Bedroom
-    if (f.includes('pedestal')) return 'Beds';
 
     return 'Miscellaneous';
 }
@@ -188,9 +185,10 @@ const MANUAL_OVERRIDES = {
     // Bar chair — mwbc72a file should map to MWBC72A/B not Squiggle Chair
     'mwbc72a_s_bar_chair_red_black_minimalist': 'MWBC72A/B',
     // Sofa — typo "SINGE" vs "SINGLE"
-    'sofa_singe_3div_square_arm_ma': '2999',
+    'sofa_single_3div_square_arm_ma': '2999',
     // Wardrobe
     'wardrobe_4_door_white_dark_g': 'MW762',
+    'robe_3door_metal_mirror_white': 'YG3',
     // Coffee Table Gold
     'coffee_table_gold_3_piece_abst': 'MWCTG273P',
     // Correcting these:
@@ -201,11 +199,18 @@ const MANUAL_OVERRIDES = {
     '309_better_lux_double_10_star_13': '0309',
     '215_budget_double_1_star_1370_my': '0215',
     '0225_good_sleep_double_2_star_137': '0225',
-    'mwoc16a_accent_chair_black_greyorange': 'MWOC16A/B',
+    'mwoc16a_accent_chair_black_greyorange': 'MWOC16A',
+    'mwoc14a_occasional_chair_orangetealgrey': 'MWOC14A',
+    'mwoc14abc_occasional_chair_teal_grey': 'MWOC14A/B/C',
     'mwoc10c_occasional_chair_darkturquoise_grey_vel': 'MWOC10C',
-    'mwch2b_shell_chair_beach_legs_whitered': 'MWCH2A/B',
-    'mw515j_cabinet_2door_3_shelf_with_doo': 'MW515',
-    'mw612f_study_desk_sonama_oak_white_and_grey': 'MW612F/G',
+    'mwch2b_shell_chair_beach_legs_whitered': 'MWCH2B',
+    'mw515j_cabinet_2door_3_shelf_with_doo': 'MW515J',
+    'mw612f_study_desk_sonama_oak_white_and_grey': 'MW612F',
+    '4_shelf_unit_sanremo': 'MW6805A/B',
+    'night_stand_sanremo_lig': 'MW349F',
+    'sofa_two_tone_l_shape': '11159',
+    'hanging_shelves_rope': 'MWBR3119',
+    'dn8830_plasma_rack_3_layers': 'DN8830',
 };
 
 // Category overrides: SKU → Category Name
