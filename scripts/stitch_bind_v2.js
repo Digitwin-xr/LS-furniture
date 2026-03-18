@@ -18,7 +18,7 @@ const CSV_PATH = path.join(process.cwd(), 'public', 'products.csv');
 const MODELS_DIR = path.join(process.cwd(), 'public', 'assets', 'models');
 const IMAGES_DIR = path.join(process.cwd(), 'public', 'assets', 'images');
 const OUTPUT_JSON = path.join(process.cwd(), 'public', 'products.json');
-const BLOB_BASE_URL = 'https://firebasestorage.googleapis.com/v0/b/ls-furniture-d53dd.firebasestorage.app/o/assets%2Fmodels';
+const BLOB_BASE_URL = 'https://pub-477e4d6eed404892b6ba5af87810cb5e.r2.dev';
 const MAX_MODEL_MB = 10;
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────
@@ -210,7 +210,7 @@ async function main() {
         if (csvIdx !== -1 && !pairedCSVRows.has(csvIdx)) {
             const p = rawProducts[csvIdx];
             const img = findImage(p.SKU, p['Product Name'], imageFiles);
-            const blob = `${BLOB_BASE_URL}%2F${encodeURIComponent(rawFile)}?alt=media`;
+            const blob = `${BLOB_BASE_URL}/${encodeURIComponent(rawFile)}`;
 
             finalProducts.push({
                 Category: p.Category,
@@ -234,7 +234,7 @@ async function main() {
             const inferredName = inferName(rawFile);
             const inferredSKU = path.basename(rawFile, '.glb').split('_')[0].toUpperCase();
             const img = findImage(inferredSKU, inferredName, imageFiles);
-            const blob = `${BLOB_BASE_URL}%2F${encodeURIComponent(rawFile)}?alt=media`;
+            const blob = `${BLOB_BASE_URL}/${encodeURIComponent(rawFile)}`;
 
             finalProducts.push({
                 Category: inferCategory(rawFile),

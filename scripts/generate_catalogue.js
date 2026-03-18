@@ -26,6 +26,7 @@ const OUT_CATALOGUE = path.join(ROOT, 'public', 'catalogue.json');
 const MAPPING_PATH = path.join(ROOT, 'scripts', 'model_mapping.json');
 
 const BLOB_BASE = 'https://o45t2gs3y3cfhz4u.public.blob.vercel-storage.com';
+const CLOUDFLARE_R2_URL = 'https://pub-477e4d6eed404892b6ba5af87810cb5e.r2.dev';
 
 // Category display order for catalogue
 const CATEGORY_ORDER = [
@@ -377,7 +378,7 @@ async function main() {
                 WAS: product['WAS Price'] || product.WAS || null,
                 NOW: product['NOW ONLY Price'] || product.NOW || 'Ask for Price',
                 SAVE: product.SAVE || null,
-                modelPath: `/assets/models/${glbFile}`,
+                modelPath: `${CLOUDFLARE_R2_URL}/${glbFile}`,
                 imagePath: null,
                 hasModel: true,
                 hasImage: false,
@@ -402,7 +403,7 @@ async function main() {
                 WAS: null,
                 NOW: 'Ask for Price',
                 SAVE: null,
-                modelPath: `/assets/models/${glbFile}`,
+                modelPath: `${CLOUDFLARE_R2_URL}/${glbFile}`,
                 imagePath: null,
                 hasModel: true,
                 hasImage: false,
